@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>defaultStocksTickers</key>
+	<array>
+		<string>AAPL</string>
+		<string>MSFT</string>
+		<string>AMZN</string>
+		<string>TSLA</string>
+		<string>BA</string>
+		<string>GE</string>
+		<string>NKE</string>
+		<string>SBUX</string>
+		<string>FB</string>
+	</array>
+</dict>
+</plist>
