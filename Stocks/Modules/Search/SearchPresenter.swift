@@ -45,5 +45,8 @@ private extension SearchPresenter {
         self.searchUI?.cellWillAppear = { [weak self] cell, indexPath in
             self?.stockCellPresenter.cellWillAppear(cell, at: indexPath)
         }
+        self.searchUI?.titleForHeader = { [weak self] in
+            return self?.stockCellPresenter.titleForHeader() ?? ""
+        }
     }
 }

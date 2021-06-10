@@ -27,6 +27,7 @@
 		F6A513F72670BB0D000DD886 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513F62670BB0D000DD886 /* NetworkManager.swift */; };
 		F6A513FB2670BC13000DD886 /* StockDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513FA2670BC13000DD886 /* StockDto.swift */; };
 		F6A513FE2670F3F8000DD886 /* ThreadSafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */; };
+		F6A81D43267212310045800E /* DeltaCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D42267212310045800E /* DeltaCounter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		F6A513F62670BB0D000DD886 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F6A513FA2670BC13000DD886 /* StockDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDto.swift; sourceTree = "<group>"; };
 		F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadSafeArray.swift; sourceTree = "<group>"; };
+		F6A81D42267212310045800E /* DeltaCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaCounter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */,
+				F6A81D41267212010045800E /* Use-cases */,
 				F6A51400267100A1000DD886 /* Configuration */,
 				F6A513F92670BBFA000DD886 /* Dto */,
 				F6A513F52670BAFF000DD886 /* Network */,
@@ -178,6 +181,14 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
+		F6A81D41267212010045800E /* Use-cases */ = {
+			isa = PBXGroup;
+			children = (
+				F6A81D42267212310045800E /* DeltaCounter.swift */,
+			);
+			path = "Use-cases";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -268,6 +279,7 @@
 				F6180F7D266F9FFE0070E308 /* SearchUI.swift in Sources */,
 				F6180F90266FA4010070E308 /* ModuleNavigationItem.swift in Sources */,
 				F6180F86266FA2860070E308 /* SearchAssembly.swift in Sources */,
+				F6A81D43267212310045800E /* DeltaCounter.swift in Sources */,
 				F6180F8A266FA2B60070E308 /* Navigator.swift in Sources */,
 				F68BA1AF266F71520021CEA1 /* AppDelegate.swift in Sources */,
 				F6A513FE2670F3F8000DD886 /* ThreadSafeArray.swift in Sources */,

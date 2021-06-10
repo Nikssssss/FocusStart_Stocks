@@ -11,6 +11,7 @@ protocol ISearchUI: class {
     var numberOfRowsHandler: (() -> Int)? { get set }
     var cellWillAppear: ((IStockTableCell, IndexPath) -> Void)? { get set }
     var heightForRowAt: ((_ indexPath: IndexPath) -> CGFloat)? { get set }
+    var titleForHeader: (() -> String)? { get set }
     
     func replaceScreenView()
     func configureUI()
@@ -62,6 +63,15 @@ extension SearchUI: ISearchUI {
         }
     }
     
+    var titleForHeader: (() -> String)? {
+        get {
+            return self.searchView.titleForHeader
+        }
+        set {
+            self.searchView.titleForHeader = newValue
+        }
+    }
+    
     func replaceScreenView() {
         self.view = self.searchView
     }
@@ -76,6 +86,21 @@ extension SearchUI: ISearchUI {
     }
 }
 
+extension SearchUI: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        print("searchBarCancelButtonClicked")
+    }
+
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        print("searchBarShouldBeginEditing")
+        return true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+    }
+}
+
 private extension SearchUI {
     func configureNavigationBar() {
         self.navigationController?.navigationBar.isTranslucent = false
@@ -84,6 +109,18 @@ private extension SearchUI {
         let navigationAppearance = UINavigationBarAppearance()
         navigationAppearance.backgroundColor = .white
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationAppearance
+        self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationItem.title = "Поиск"
+        self.configureSearchController()
+    }
+    
+    func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchBar.placeholder = "Введите тикер или название компании"
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+        self.navigationItem.searchController = searchController
+        self.definesPresentationContext = true
+        self.navigationItem.hidesSearchBarWhenScrolling = false
     }
 }

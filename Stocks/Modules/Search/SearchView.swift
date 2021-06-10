@@ -12,14 +12,13 @@ class SearchView: UIView {
     var numberOfRowsHandler: (() -> Int)?
     var cellWillAppear: ((IStockTableCell, IndexPath) -> Void)?
     var heightForRowAt: ((_ indexPath: IndexPath) -> CGFloat)?
+    var titleForHeader: (() -> String)?
     
-    private let stocksSearchBar = UISearchBar()
-    private let stocksTableView = UITableView()
+    private let stocksTableView = UITableView(frame: .zero, style: .grouped)
     
     func congigureView() {
         self.backgroundColor = .white
         self.addSubviews()
-        self.configureStocksSearchBar()
         self.configureStocksTableView()
     }
     
@@ -46,33 +45,31 @@ extension SearchView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.heightForRowAt?(indexPath) ?? 0
     }
-}
-
-extension SearchView: UISearchBarDelegate {
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.titleForHeader?()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let headerView = view as? UITableViewHeaderFooterView else { return }
+        headerView.tintColor = .white
+        headerView.backgroundConfiguration?.backgroundColor = .white
+        headerView.textLabel?.font = .systemFont(ofSize: 13, weight: .bold)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
 }
 
 private extension SearchView {
     func addSubviews() {
-        self.addSubview(self.stocksSearchBar)
         self.addSubview(self.stocksTableView)
-    }
-    
-    func configureStocksSearchBar() {
-        self.stocksSearchBar.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.width.equalToSuperview()
-        }
-        self.stocksSearchBar.autocapitalizationType = .none
-        self.stocksSearchBar.autocorrectionType = .no
-        self.stocksSearchBar.backgroundImage = UIImage()
-        self.stocksSearchBar.placeholder = "Введите тикер или название компании"
-        self.stocksSearchBar.delegate = self
     }
     
     func configureStocksTableView() {
         self.stocksTableView.snp.makeConstraints { make in
-            make.top.equalTo(self.stocksSearchBar.snp.bottom)
+            make.top.equalToSuperview()
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
@@ -82,5 +79,6 @@ private extension SearchView {
         self.stocksTableView.delegate = self
         self.stocksTableView.tableFooterView = UIView()
         self.stocksTableView.separatorStyle = .none
+        self.stocksTableView.backgroundColor = .white
     }
 }

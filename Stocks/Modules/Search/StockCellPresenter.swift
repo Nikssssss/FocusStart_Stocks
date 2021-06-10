@@ -15,6 +15,7 @@ protocol IStockCellPresenter: class {
     func getHeightForRow(at indexPath: IndexPath) -> CGFloat
     func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath)
     func loadStocks(completion: @escaping (() -> Void))
+    func titleForHeader() -> String
     
     func changeState(to state: IStockCellPresenterState)
 }
@@ -24,6 +25,7 @@ protocol IStockCellPresenterState: class {
     func getHeightForRow(at indexPath: IndexPath) -> CGFloat
     func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath)
     func loadStocks(completion: @escaping (() -> Void))
+    func titleForHeader() -> String
 }
 
 final class StockCellPresenter: IStockCellPresenter {
@@ -47,6 +49,10 @@ final class StockCellPresenter: IStockCellPresenter {
     
     func loadStocks(completion: @escaping (() -> Void)) {
         self.stockCellPresenterState.loadStocks(completion: completion)
+    }
+    
+    func titleForHeader() -> String {
+        return self.stockCellPresenterState.titleForHeader()
     }
     
     func changeState(to state: IStockCellPresenterState) {
@@ -86,6 +92,10 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
         self.networkManager.loadAllStocks(with: defaultStocksTickers, completion: completion)
     }
     
+    func titleForHeader() -> String {
+        return "Популярные запросы"
+    }
+    
     private func setCompanyProfileInfo(to cell: IStockTableCell, companyProfile: CompanyProfileDto) {
         cell.setTicker(companyProfile.ticker)
         cell.setCompanyName(companyProfile.name)
@@ -102,6 +112,13 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
     
     private func setQuoteInfo(to cell: IStockTableCell, quote: QuoteDto) {
         cell.setPrice("$" + String(quote.currentPrice))
+        let delta = DeltaCounter.countDelta(openPrice: quote.openPrice,
+                                            currentPrice: quote.currentPrice)
+        var stringDelta = String(format: "%.2f", delta)
+        if delta > 0 {
+            stringDelta.insert("+", at: stringDelta.startIndex)
+        }
+        cell.setDelta(stringDelta, increased: delta >= 0)
     }
     
     private func setFavouriteImage(to cell: IStockTableCell) {

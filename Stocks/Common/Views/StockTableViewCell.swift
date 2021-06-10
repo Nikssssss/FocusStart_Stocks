@@ -15,7 +15,7 @@ protocol IStockTableCell: class {
     func setTicker(_ ticker: String)
     func setCompanyName(_ companyName: String)
     func setPrice(_ price: String)
-    func setDelta(_ delta: String)
+    func setDelta(_ delta: String, increased: Bool)
     func setFavouriteButtonImage(_ image: UIImage)
     func setBackgroundColor(_ color: UIColor)
 }
@@ -43,7 +43,7 @@ class StockTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8))
+        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
         self.contentView.layer.cornerRadius = 10
     }
 }
@@ -65,8 +65,10 @@ extension StockTableViewCell: IStockTableCell {
         self.priceLabel.text = price
     }
     
-    func setDelta(_ delta: String) {
+    func setDelta(_ delta: String, increased: Bool) {
         self.deltaLabel.text = delta
+        let greenColor = UIColor(red: 35 / 255.0, green: 175 / 255.0, blue: 86 / 255.0, alpha: 1.0)
+        self.deltaLabel.textColor = increased ? greenColor : .red
     }
     
     func setFavouriteButtonImage(_ image: UIImage) {
@@ -80,6 +82,7 @@ extension StockTableViewCell: IStockTableCell {
 
 private extension StockTableViewCell {
     func configureView() {
+        self.selectionStyle = .none
         self.addSubviews()
         self.configureLogoImageView()
         self.configureTickerLabel()
@@ -141,7 +144,6 @@ private extension StockTableViewCell {
             make.right.equalToSuperview().offset(-15)
         }
         self.deltaLabel.font = .systemFont(ofSize: 13, weight: .semibold)
-        self.deltaLabel.textColor = .green
     }
     
     func configureFavouriteButton() {
