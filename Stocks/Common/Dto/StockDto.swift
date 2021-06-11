@@ -29,7 +29,15 @@ struct QuoteDto: Decodable {
     }
 }
 
-struct StockInfoDto {
+struct DownloadedStockDto {
     let companyProfile: CompanyProfileDto
     let quote: QuoteDto
+}
+
+struct PreviewStockDto {
+    let ticker: String
+    let companyName: String
+    let logoUrl: String
+    let price: Double
+    let delta: Double
 }

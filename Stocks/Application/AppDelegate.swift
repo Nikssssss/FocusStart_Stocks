@@ -40,6 +40,10 @@ private extension AppDelegate {
         self.container.register(IConfigurationReader.self) { _ in
             return ConfigurationReader()
         }
+        
+        self.container.register(IStorageManager.self) { _ in
+            return StorageManager()
+        }.inObjectScope(.container)
     }
 }
 

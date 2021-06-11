@@ -17,15 +17,15 @@ protocol WebsocketManager: class {
 }
 
 protocol INetworkManager: WebsocketManager & RestManager {
-    var downloadedStocks: [StockInfoDto] { get }
+    var downloadedStocks: [DownloadedStockDto] { get }
 }
 
 final class NetworkManager: INetworkManager {
-    var downloadedStocks: [StockInfoDto] {
+    var downloadedStocks: [DownloadedStockDto] {
         return stockInfos.toArray
     }
     
-    private var stockInfos = ThreadSafeArray<StockInfoDto>()
+    private var stockInfos = ThreadSafeArray<DownloadedStockDto>()
     
     func loadAllStocks(with tickers: [String], completion: @escaping (() -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
@@ -50,7 +50,7 @@ private extension NetworkManager {
             guard let companyProfile = companyProfile else { completion(); return }
             self.loadQuote(for: companyProfile) { quote in
                 guard let quote = quote else { completion(); return }
-                self.stockInfos.append(StockInfoDto(companyProfile: companyProfile, quote: quote))
+                self.stockInfos.append(DownloadedStockDto(companyProfile: companyProfile, quote: quote))
                 completion()
             }
         }

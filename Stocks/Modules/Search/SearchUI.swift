@@ -27,10 +27,14 @@ class SearchUI: UIViewController {
     }
     
     override func loadView() {
+        super.loadView()
+        
         self.presenter?.loadView()
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         self.presenter?.viewDidLoad()
     }
 }
