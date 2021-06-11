@@ -24,6 +24,12 @@
 		F6615D4C26734F92005D003D /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D4B26734F92005D003D /* RegisterView.swift */; };
 		F6615D4F26734FBA005D003D /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D4E26734FBA005D003D /* RegisterPresenter.swift */; };
 		F6615D5226734FF4005D003D /* RegisterAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D5126734FF4005D003D /* RegisterAssembly.swift */; };
+		F6615D55267383D7005D003D /* UserRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D54267383D7005D003D /* UserRegisterViewModel.swift */; };
+		F6615D5926738A67005D003D /* AuthUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D5826738A67005D003D /* AuthUI.swift */; };
+		F6615D5C26738A76005D003D /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D5B26738A76005D003D /* AuthView.swift */; };
+		F6615D5F26738A86005D003D /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D5E26738A86005D003D /* AuthPresenter.swift */; };
+		F6615D6226738AAB005D003D /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D6126738AAB005D003D /* AuthAssembly.swift */; };
+		F6615D6526738BDB005D003D /* UserAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D6426738BDB005D003D /* UserAuthViewModel.swift */; };
 		F68BA1AF266F71520021CEA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68BA1AE266F71520021CEA1 /* AppDelegate.swift */; };
 		F68BA1B1266F71520021CEA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68BA1B0266F71520021CEA1 /* SceneDelegate.swift */; };
 		F68BA1B8266F71540021CEA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F68BA1B7266F71540021CEA1 /* Assets.xcassets */; };
@@ -52,6 +58,12 @@
 		F6615D4B26734F92005D003D /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		F6615D4E26734FBA005D003D /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
 		F6615D5126734FF4005D003D /* RegisterAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssembly.swift; sourceTree = "<group>"; };
+		F6615D54267383D7005D003D /* UserRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterViewModel.swift; sourceTree = "<group>"; };
+		F6615D5826738A67005D003D /* AuthUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUI.swift; sourceTree = "<group>"; };
+		F6615D5B26738A76005D003D /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		F6615D5E26738A86005D003D /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
+		F6615D6126738AAB005D003D /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
+		F6615D6426738BDB005D003D /* UserAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewModel.swift; sourceTree = "<group>"; };
 		F68BA1AB266F71520021CEA1 /* Stocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68BA1AE266F71520021CEA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F68BA1B0266F71520021CEA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +111,7 @@
 		F6180F6C266F99060070E308 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F6615D5726738912005D003D /* Auth */,
 				F6615D4726734F36005D003D /* Register */,
 				F6180F7B266F9FC80070E308 /* Search */,
 			);
@@ -150,8 +163,21 @@
 				F6615D4B26734F92005D003D /* RegisterView.swift */,
 				F6615D4E26734FBA005D003D /* RegisterPresenter.swift */,
 				F6615D5126734FF4005D003D /* RegisterAssembly.swift */,
+				F6615D54267383D7005D003D /* UserRegisterViewModel.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		F6615D5726738912005D003D /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F6615D5826738A67005D003D /* AuthUI.swift */,
+				F6615D5B26738A76005D003D /* AuthView.swift */,
+				F6615D5E26738A86005D003D /* AuthPresenter.swift */,
+				F6615D6126738AAB005D003D /* AuthAssembly.swift */,
+				F6615D6426738BDB005D003D /* UserAuthViewModel.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		F68BA1A2266F71520021CEA1 = {
@@ -313,16 +339,22 @@
 				F6A81DA02672683E0045800E /* UserDto.swift in Sources */,
 				F6180F9B266FDF650070E308 /* ConfigurationReader.swift in Sources */,
 				F6A81D9926724D5E0045800E /* Stocks.xcdatamodeld in Sources */,
+				F6615D6526738BDB005D003D /* UserAuthViewModel.swift in Sources */,
+				F6615D55267383D7005D003D /* UserRegisterViewModel.swift in Sources */,
 				F6180F80266FA0630070E308 /* SearchView.swift in Sources */,
 				F6615D5226734FF4005D003D /* RegisterAssembly.swift in Sources */,
 				F6A513F72670BB0D000DD886 /* NetworkManager.swift in Sources */,
 				F6A513FB2670BC13000DD886 /* StockDto.swift in Sources */,
+				F6615D5F26738A86005D003D /* AuthPresenter.swift in Sources */,
 				F6180F9E266FE8C20070E308 /* StockCellPresenter.swift in Sources */,
 				F6180F83266FA0A40070E308 /* SearchPresenter.swift in Sources */,
 				F6180F7D266F9FFE0070E308 /* SearchUI.swift in Sources */,
+				F6615D5926738A67005D003D /* AuthUI.swift in Sources */,
+				F6615D5C26738A76005D003D /* AuthView.swift in Sources */,
 				F6180F90266FA4010070E308 /* ModuleNavigationItem.swift in Sources */,
 				F6180F86266FA2860070E308 /* SearchAssembly.swift in Sources */,
 				F6A81D43267212310045800E /* DeltaCounter.swift in Sources */,
+				F6615D6226738AAB005D003D /* AuthAssembly.swift in Sources */,
 				F6615D4F26734FBA005D003D /* RegisterPresenter.swift in Sources */,
 				F6180F8A266FA2B60070E308 /* Navigator.swift in Sources */,
 				F68BA1AF266F71520021CEA1 /* AppDelegate.swift in Sources */,

@@ -8,11 +8,7 @@
 import Foundation
 import class UIKit.UIViewController
 
-enum TabItemTag {
-    case search, favourites
-}
-
 struct ModuleNavigationItem {
     let viewController: UIViewController
-    let tabItemTag: TabItemTag?
+    let navigationItemTag: NavigationItemTag?
 }
