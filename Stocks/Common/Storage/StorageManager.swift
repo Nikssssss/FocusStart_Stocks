@@ -12,8 +12,8 @@ protocol IStorageManager: IUserStorage & IStockStorage {
 }
 
 protocol IUserStorage: class {
-    func loadUser(user: UserDto) -> Bool
-    func addUser(user: UserDto) -> Bool
+    func loadUser(user: UserStorageDto) -> Bool
+    func addUser(user: UserStorageDto) -> Bool
 }
 
 protocol IStockStorage: class {
@@ -45,21 +45,19 @@ final class StorageManager: IStorageManager {
         self.mainContext = self.persistentContainer.viewContext
         self.backgroundContext = self.persistentContainer.newBackgroundContext()
     }
-    
 }
 
 extension StorageManager: IUserStorage {
-    func loadUser(user: UserDto) -> Bool {
+    func loadUser(user: UserStorageDto) -> Bool {
         guard let user = self.getUserIfExists(user: user) else { return false }
         self.user = user
         return true
     }
     
-    func addUser(user: UserDto) -> Bool {
+    func addUser(user: UserStorageDto) -> Bool {
         guard self.getUserIfExists(user: user) == nil else { return false }
         let newUser = User(context: mainContext)
         newUser.login = user.login
-        newUser.password = user.password
         do {
             try self.mainContext.save()
             return true
@@ -142,13 +140,9 @@ extension StorageManager: IStockStorage {
 }
 
 private extension StorageManager {
-    func getUserIfExists(user: UserDto) -> User? {
+    func getUserIfExists(user: UserStorageDto) -> User? {
         let request: NSFetchRequest<User> = User.fetchRequest()
-        let loginPredicate = NSPredicate(format: "\(#keyPath(User.login)) = %@", user.login)
-        let passwordPredicate = NSPredicate(format: "\(#keyPath(User.password)) = %@", user.password)
-        let compoundPredicate = NSCompoundPredicate(type: .and,
-                                                    subpredicates: [loginPredicate, passwordPredicate])
-        request.predicate = compoundPredicate
+        request.predicate = NSPredicate(format: "\(#keyPath(User.login)) = %@", user.login)
         let user = try? self.mainContext.fetch(request).first
         return user
     }

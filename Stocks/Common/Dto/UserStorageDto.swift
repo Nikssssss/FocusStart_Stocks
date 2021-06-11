@@ -7,7 +7,6 @@
 
 import Foundation
 
-struct UserDto {
+struct UserStorageDto {
     let login: String
-    let password: String
 }

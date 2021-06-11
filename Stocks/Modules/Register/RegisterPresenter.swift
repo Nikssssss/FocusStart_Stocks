@@ -51,7 +51,6 @@ private extension RegisterPresenter {
             print("validation error")
             return
         }
-        print("signUpUser")
         //TODO: encrypt password
         //TODO: register user and add default stocks
     }

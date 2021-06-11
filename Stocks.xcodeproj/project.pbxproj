@@ -30,6 +30,9 @@
 		F6615D5F26738A86005D003D /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D5E26738A86005D003D /* AuthPresenter.swift */; };
 		F6615D6226738AAB005D003D /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D6126738AAB005D003D /* AuthAssembly.swift */; };
 		F6615D6526738BDB005D003D /* UserAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D6426738BDB005D003D /* UserAuthViewModel.swift */; };
+		F6615D6C2673C533005D003D /* AuthSecurityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D6B2673C533005D003D /* AuthSecurityService.swift */; };
+		F6615D6F2673C55D005D003D /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D6E2673C55D005D003D /* KeychainPasswordItem.swift */; };
+		F6615D732673C76E005D003D /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F6615D722673C76E005D003D /* CryptoSwift */; };
 		F68BA1AF266F71520021CEA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68BA1AE266F71520021CEA1 /* AppDelegate.swift */; };
 		F68BA1B1266F71520021CEA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68BA1B0266F71520021CEA1 /* SceneDelegate.swift */; };
 		F68BA1B8266F71540021CEA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F68BA1B7266F71540021CEA1 /* Assets.xcassets */; };
@@ -40,7 +43,7 @@
 		F6A81D43267212310045800E /* DeltaCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D42267212310045800E /* DeltaCounter.swift */; };
 		F6A81D9926724D5E0045800E /* Stocks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9726724D5E0045800E /* Stocks.xcdatamodeld */; };
 		F6A81D9D267257EC0045800E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9C267257EC0045800E /* StorageManager.swift */; };
-		F6A81DA02672683E0045800E /* UserDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9F2672683E0045800E /* UserDto.swift */; };
+		F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9F2672683E0045800E /* UserStorageDto.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +67,8 @@
 		F6615D5E26738A86005D003D /* AuthPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
 		F6615D6126738AAB005D003D /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		F6615D6426738BDB005D003D /* UserAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewModel.swift; sourceTree = "<group>"; };
+		F6615D6B2673C533005D003D /* AuthSecurityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSecurityService.swift; sourceTree = "<group>"; };
+		F6615D6E2673C55D005D003D /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		F68BA1AB266F71520021CEA1 /* Stocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68BA1AE266F71520021CEA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F68BA1B0266F71520021CEA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +81,7 @@
 		F6A81D42267212310045800E /* DeltaCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaCounter.swift; sourceTree = "<group>"; };
 		F6A81D9826724D5E0045800E /* Stocks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stocks.xcdatamodel; sourceTree = "<group>"; };
 		F6A81D9C267257EC0045800E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
-		F6A81D9F2672683E0045800E /* UserDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDto.swift; sourceTree = "<group>"; };
+		F6A81D9F2672683E0045800E /* UserStorageDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorageDto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +90,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6180F71266F9AAC0070E308 /* SnapKit in Frameworks */,
+				F6615D732673C76E005D003D /* CryptoSwift in Frameworks */,
 				F6180F75266F9B310070E308 /* Alamofire in Frameworks */,
 				F6180F79266F9B500070E308 /* Swinject in Frameworks */,
 			);
@@ -97,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */,
+				F6615D6A2673C4EC005D003D /* Security */,
 				F6A81D41267212010045800E /* Use-cases */,
 				F6A51400267100A1000DD886 /* Configuration */,
 				F6A513F92670BBFA000DD886 /* Dto */,
@@ -180,6 +187,15 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		F6615D6A2673C4EC005D003D /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				F6615D6B2673C533005D003D /* AuthSecurityService.swift */,
+				F6615D6E2673C55D005D003D /* KeychainPasswordItem.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
 		F68BA1A2266F71520021CEA1 = {
 			isa = PBXGroup;
 			children = (
@@ -223,7 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				F6A513FA2670BC13000DD886 /* StockDto.swift */,
-				F6A81D9F2672683E0045800E /* UserDto.swift */,
+				F6A81D9F2672683E0045800E /* UserStorageDto.swift */,
 			);
 			path = Dto;
 			sourceTree = "<group>";
@@ -272,6 +288,7 @@
 				F6180F70266F9AAC0070E308 /* SnapKit */,
 				F6180F74266F9B310070E308 /* Alamofire */,
 				F6180F78266F9B500070E308 /* Swinject */,
+				F6615D722673C76E005D003D /* CryptoSwift */,
 			);
 			productName = Stocks;
 			productReference = F68BA1AB266F71520021CEA1 /* Stocks.app */;
@@ -304,6 +321,7 @@
 				F6180F6F266F9AAC0070E308 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				F6180F73266F9B310070E308 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				F6180F77266F9B500070E308 /* XCRemoteSwiftPackageReference "Swinject" */,
+				F6615D712673C76E005D003D /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = F68BA1AC266F71520021CEA1 /* Products */;
 			projectDirPath = "";
@@ -336,9 +354,11 @@
 				F6615D4C26734F92005D003D /* RegisterView.swift in Sources */,
 				F6180F98266FAB360070E308 /* StockTableViewCell.swift in Sources */,
 				F6615D4926734F78005D003D /* RegisterUI.swift in Sources */,
-				F6A81DA02672683E0045800E /* UserDto.swift in Sources */,
+				F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */,
+				F6615D6F2673C55D005D003D /* KeychainPasswordItem.swift in Sources */,
 				F6180F9B266FDF650070E308 /* ConfigurationReader.swift in Sources */,
 				F6A81D9926724D5E0045800E /* Stocks.xcdatamodeld in Sources */,
+				F6615D6C2673C533005D003D /* AuthSecurityService.swift in Sources */,
 				F6615D6526738BDB005D003D /* UserAuthViewModel.swift in Sources */,
 				F6615D55267383D7005D003D /* UserRegisterViewModel.swift in Sources */,
 				F6180F80266FA0630070E308 /* SearchView.swift in Sources */,
@@ -579,6 +599,14 @@
 				minimumVersion = 2.7.1;
 			};
 		};
+		F6615D712673C76E005D003D /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -596,6 +624,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F6180F77266F9B500070E308 /* XCRemoteSwiftPackageReference "Swinject" */;
 			productName = Swinject;
+		};
+		F6615D722673C76E005D003D /* CryptoSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6615D712673C76E005D003D /* XCRemoteSwiftPackageReference "CryptoSwift" */;
+			productName = CryptoSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
