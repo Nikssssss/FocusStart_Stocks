@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol RestManager: class {
-    func loadAllStocks(with tickers: [String], completion: @escaping (() -> Void))
+    func loadAllStocks(with tickers: [String], completion: @escaping (([DownloadedStockDto]) -> Void))
 }
 
 protocol WebsocketManager: class {
@@ -27,7 +27,7 @@ final class NetworkManager: INetworkManager {
     
     private var stockInfos = ThreadSafeArray<DownloadedStockDto>()
     
-    func loadAllStocks(with tickers: [String], completion: @escaping (() -> Void)) {
+    func loadAllStocks(with tickers: [String], completion: @escaping (([DownloadedStockDto]) -> Void)) {
         DispatchQueue.global(qos: .userInitiated).async {
             let dispatchGroup = DispatchGroup()
             tickers.forEach { ticker in
@@ -37,8 +37,9 @@ final class NetworkManager: INetworkManager {
                 }
             }
             dispatchGroup.wait()
-            DispatchQueue.main.async {
-                completion()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                completion(self.downloadedStocks)
             }
         }
     }
@@ -46,8 +47,10 @@ final class NetworkManager: INetworkManager {
 
 private extension NetworkManager {
     func loadStockInfo(for ticker: String, completion: @escaping (() -> Void)) {
-        self.loadCompanyProfileInfo(for: ticker) { companyProfile in
-            guard let companyProfile = companyProfile else { completion(); return }
+        self.loadCompanyProfileInfo(for: ticker) { [weak self] companyProfile in
+            guard let self = self,
+                  let companyProfile = companyProfile
+            else { completion(); return }
             self.loadQuote(for: companyProfile) { quote in
                 guard let quote = quote else { completion(); return }
                 self.stockInfos.append(DownloadedStockDto(companyProfile: companyProfile, quote: quote))

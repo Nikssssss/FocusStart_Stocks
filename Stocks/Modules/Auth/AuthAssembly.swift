@@ -13,14 +13,16 @@ final class AuthAssembly {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let container = appDelegate?.container,
               let storageManager = container.resolve(IStorageManager.self),
-              let navigator = container.resolve(INavigator.self)
+              let navigator = container.resolve(INavigator.self),
+              let authSecurityService = container.resolve(IAuthSecurityService.self)
         else { return nil }
         
         let authUI = AuthUI()
         
         let presenter = AuthPresenter(authUI: authUI,
-                                          storageManager: storageManager,
-                                          navigator: navigator)
+                                      storageManager: storageManager,
+                                      navigator: navigator,
+                                      authSecurityService: authSecurityService)
         
         authUI.setPresenter(presenter)
         

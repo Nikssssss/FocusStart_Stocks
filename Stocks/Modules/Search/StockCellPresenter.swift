@@ -61,16 +61,14 @@ final class StockCellPresenter: IStockCellPresenter {
 }
 
 final class DefaultStockCellPresenterState: IStockCellPresenterState {
-    private let configurationReader: IConfigurationReader
-    private let networkManager: INetworkManager
+    private let storageManager: IStorageManager
     
-    init(configurationReader: IConfigurationReader, networkManager: INetworkManager) {
-        self.configurationReader = configurationReader
-        self.networkManager = networkManager
+    init(storageManager: IStorageManager) {
+        self.storageManager = storageManager
     }
     
     func getNumberOfRows() -> Int {
-        return self.networkManager.downloadedStocks.count
+        return self.storageManager.retrievedStocks.count
     }
     
     func getHeightForRow(at indexPath: IndexPath) -> CGFloat {
@@ -78,29 +76,36 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
     }
     
     func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath) {
-        let stock = self.networkManager.downloadedStocks[indexPath.row]
-        let companyProfile = stock.companyProfile
-        let quote = stock.quote
-        self.setCompanyProfileInfo(to: cell, companyProfile: companyProfile)
-        self.setQuoteInfo(to: cell, quote: quote)
-        self.setFavouriteImage(to: cell)
-        self.setBackgroundColor(to: cell, at: indexPath)
+        let stock = self.storageManager.retrievedStocks[indexPath.row]
+        self.configureCell(cell, using: stock, at: indexPath)
     }
     
     func loadStocks(completion: @escaping (() -> Void)) {
-        let defaultStocksTickers = configurationReader.getAllDefaultStocksTickers()
-        self.networkManager.loadAllStocks(with: defaultStocksTickers, completion: completion)
+        DispatchQueue.global(qos: .utility).async {
+            self.storageManager.loadDefaultStocks()
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
     }
     
     func titleForHeader() -> String {
         return "Популярные запросы"
     }
     
-    private func setCompanyProfileInfo(to cell: IStockTableCell, companyProfile: CompanyProfileDto) {
-        cell.setTicker(companyProfile.ticker)
-        cell.setCompanyName(companyProfile.name)
+    private func configureCell(_ cell: IStockTableCell,
+                               using stock: PreviewStockDto,
+                               at indexPath: IndexPath) {
+        self.setLogoImage(to: cell, logoUrl: stock.logoUrl)
+        self.setCompanyInfo(to: cell, ticker: stock.ticker, companyName: stock.companyName)
+        self.setQuoteInfo(to: cell, price: stock.price, delta: stock.delta)
+        self.setFavouriteImage(to: cell)
+        self.setBackgroundColor(to: cell, at: indexPath)
+    }
+    
+    private func setLogoImage(to cell: IStockTableCell, logoUrl: String) {
         DispatchQueue.global(qos: .utility).async {
-            guard let imageUrl = URL(string: companyProfile.logo) else { return }
+            guard let imageUrl = URL(string: logoUrl) else { return }
             if let imageData = try? Data(contentsOf: imageUrl),
                let image = UIImage(data: imageData) {
                 DispatchQueue.main.async {
@@ -110,10 +115,13 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
         }
     }
     
-    private func setQuoteInfo(to cell: IStockTableCell, quote: QuoteDto) {
-        cell.setPrice("$" + String(quote.currentPrice))
-        let delta = DeltaCounter.countDelta(openPrice: quote.openPrice,
-                                            currentPrice: quote.currentPrice)
+    private func setCompanyInfo(to cell: IStockTableCell, ticker: String, companyName: String) {
+        cell.setTicker(ticker)
+        cell.setCompanyName(companyName)
+    }
+    
+    private func setQuoteInfo(to cell: IStockTableCell, price: Double, delta: Double) {
+        cell.setPrice("$" + String(price))
         var stringDelta = String(format: "%.2f", delta)
         if delta > 0 {
             stringDelta.insert("+", at: stringDelta.startIndex)

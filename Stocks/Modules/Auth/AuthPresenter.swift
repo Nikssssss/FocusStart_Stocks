@@ -16,11 +16,16 @@ final class AuthPresenter: IAuthPresenter {
     private weak var authUI: IAuthUI?
     private let storageManager: IStorageManager
     private let navigator: INavigator
+    private let authSecurityService: IAuthSecurityService
     
-    init(authUI: IAuthUI, storageManager: IStorageManager, navigator: INavigator) {
+    init(authUI: IAuthUI,
+         storageManager: IStorageManager,
+         navigator: INavigator,
+         authSecurityService: IAuthSecurityService) {
         self.authUI = authUI
         self.storageManager = storageManager
         self.navigator = navigator
+        self.authSecurityService = authSecurityService
     }
     
     func loadView() {
@@ -39,18 +44,27 @@ private extension AuthPresenter {
             self?.signInUser(using: userViewModel)
         }
         self.authUI?.signUpButtonTapHandler = { [weak self] in
-            self?.navigator.registerButtonPressedAtAuth()
+            self?.navigator.signUpButtonPressedAtAuth()
         }
     }
     
     func signInUser(using userViewModel: UserAuthViewModel) {
-        guard self.validateEntry(of: userViewModel) == true else {
+        guard self.validateEntry(of: userViewModel) == true,
+              let userStorageDto = UserMapper.authViewModelToStorageDto(userViewModel),
+              let password = userViewModel.password else {
+            print("signInUser: validateEntry == false")
             //TODO: show error on view
-            print("validation error")
             return
         }
-        print("signInUser")
-        //TODO: load user at storageManager
+        let isUserLoaded = self.storageManager.loadUser(user: userStorageDto)
+        let isCorrectPassword = self.authSecurityService.checkPassword(password,
+                                                                       for: userStorageDto.login)
+        if isUserLoaded && isCorrectPassword {
+            self.navigator.signInButtonPressed()
+        } else {
+            print("signInUser: isUserLoaded == false || isCorrectPassword == false")
+            //TODO: show error on view
+        }
     }
     
     func validateEntry(of userViewModel: UserAuthViewModel) -> Bool {

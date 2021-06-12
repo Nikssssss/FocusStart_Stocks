@@ -44,6 +44,10 @@ private extension AppDelegate {
         self.container.register(IStorageManager.self) { _ in
             return StorageManager()
         }.inObjectScope(.container)
+        
+        self.container.register(IAuthSecurityService.self) { _ in
+            return AuthSecurityService()
+        }
     }
 }
 

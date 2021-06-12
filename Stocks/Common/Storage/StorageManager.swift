@@ -17,10 +17,12 @@ protocol IUserStorage: class {
 }
 
 protocol IStockStorage: class {
+    var retrievedStocks: [PreviewStockDto] { get }
+    
     func loadDefaultStocks()
     func loadRecentSearchedStocks()
     func loadFavouriteStocks()
-    func addDefaultStock(stockDto: PreviewStockDto)
+    func addDefaultStock(stockDto: PreviewStockDto, to user: UserStorageDto)
     func addRecentSearchedStock(stockDto: PreviewStockDto)
     func addFavouriteStock(stockDto: PreviewStockDto)
     func removeStockFromFavourites(stockDto: PreviewStockDto)
@@ -58,33 +60,33 @@ extension StorageManager: IUserStorage {
         guard self.getUserIfExists(user: user) == nil else { return false }
         let newUser = User(context: mainContext)
         newUser.login = user.login
-        do {
-            try self.mainContext.save()
-            return true
-        } catch {
-            return false
-        }
+        try? self.mainContext.save()
+        return true
     }
 }
 
 extension StorageManager: IStockStorage {
+    var retrievedStocks: [PreviewStockDto] {
+        return self.stocks.compactMap { stock in StockMapper.stockToPreview(stock) }
+    }
+    
     func loadDefaultStocks() {
-        let predicate = NSPredicate(format: "\(#keyPath(Stock.isDefault)) = %@", true)
+        let predicate = NSPredicate(format: "\(#keyPath(Stock.isDefault)) = %@", NSNumber(booleanLiteral: true))
         self.loadStocks(with: predicate)
     }
     
     func loadRecentSearchedStocks() {
-        let predicate = NSPredicate(format: "\(#keyPath(Stock.isRecent)) = %@", true)
+        let predicate = NSPredicate(format: "\(#keyPath(Stock.isRecent)) = %@", NSNumber(booleanLiteral: true))
         self.loadStocks(with: predicate)
     }
     
     func loadFavouriteStocks() {
-        let predicate = NSPredicate(format: "\(#keyPath(Stock.isFavourite)) = %@", true)
+        let predicate = NSPredicate(format: "\(#keyPath(Stock.isFavourite)) = %@", NSNumber(booleanLiteral: true))
         self.loadStocks(with: predicate)
     }
     
-    func addDefaultStock(stockDto: PreviewStockDto) {
-        guard let user = self.user else { return }
+    func addDefaultStock(stockDto: PreviewStockDto, to user: UserStorageDto) {
+        guard let user = self.getUserIfExists(user: user) else { return }
         if let existingStock = self.getStockIfExists(stockDto: stockDto) {
             existingStock.isDefault = true
         } else {

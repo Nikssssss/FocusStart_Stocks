@@ -69,7 +69,7 @@ private extension SearchView {
     
     func configureStocksTableView() {
         self.stocksTableView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }

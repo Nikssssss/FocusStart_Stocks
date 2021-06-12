@@ -28,8 +28,8 @@ final class SearchPresenter: ISearchPresenter {
     func viewDidLoad() {
         self.hookUI()
         self.searchUI?.configureUI()
-        self.stockCellPresenter.loadStocks {
-            self.searchUI?.reloadData()
+        self.stockCellPresenter.loadStocks { [weak self] in
+            self?.searchUI?.reloadData()
         }
     }
 }

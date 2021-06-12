@@ -33,6 +33,8 @@
 		F6615D6C2673C533005D003D /* AuthSecurityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D6B2673C533005D003D /* AuthSecurityService.swift */; };
 		F6615D6F2673C55D005D003D /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D6E2673C55D005D003D /* KeychainPasswordItem.swift */; };
 		F6615D732673C76E005D003D /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F6615D722673C76E005D003D /* CryptoSwift */; };
+		F6615D792673D4A3005D003D /* UserMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D782673D4A3005D003D /* UserMapper.swift */; };
+		F6615D7C2673DB07005D003D /* StockMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D7B2673DB07005D003D /* StockMapper.swift */; };
 		F68BA1AF266F71520021CEA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68BA1AE266F71520021CEA1 /* AppDelegate.swift */; };
 		F68BA1B1266F71520021CEA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68BA1B0266F71520021CEA1 /* SceneDelegate.swift */; };
 		F68BA1B8266F71540021CEA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F68BA1B7266F71540021CEA1 /* Assets.xcassets */; };
@@ -69,6 +71,8 @@
 		F6615D6426738BDB005D003D /* UserAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewModel.swift; sourceTree = "<group>"; };
 		F6615D6B2673C533005D003D /* AuthSecurityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSecurityService.swift; sourceTree = "<group>"; };
 		F6615D6E2673C55D005D003D /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
+		F6615D782673D4A3005D003D /* UserMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMapper.swift; sourceTree = "<group>"; };
+		F6615D7B2673DB07005D003D /* StockMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockMapper.swift; sourceTree = "<group>"; };
 		F68BA1AB266F71520021CEA1 /* Stocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68BA1AE266F71520021CEA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F68BA1B0266F71520021CEA1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */,
+				F6615D772673D495005D003D /* Mappers */,
 				F6615D6A2673C4EC005D003D /* Security */,
 				F6A81D41267212010045800E /* Use-cases */,
 				F6A51400267100A1000DD886 /* Configuration */,
@@ -194,6 +199,15 @@
 				F6615D6E2673C55D005D003D /* KeychainPasswordItem.swift */,
 			);
 			path = Security;
+			sourceTree = "<group>";
+		};
+		F6615D772673D495005D003D /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				F6615D782673D4A3005D003D /* UserMapper.swift */,
+				F6615D7B2673DB07005D003D /* StockMapper.swift */,
+			);
+			path = Mappers;
 			sourceTree = "<group>";
 		};
 		F68BA1A2266F71520021CEA1 = {
@@ -366,10 +380,12 @@
 				F6A513F72670BB0D000DD886 /* NetworkManager.swift in Sources */,
 				F6A513FB2670BC13000DD886 /* StockDto.swift in Sources */,
 				F6615D5F26738A86005D003D /* AuthPresenter.swift in Sources */,
+				F6615D792673D4A3005D003D /* UserMapper.swift in Sources */,
 				F6180F9E266FE8C20070E308 /* StockCellPresenter.swift in Sources */,
 				F6180F83266FA0A40070E308 /* SearchPresenter.swift in Sources */,
 				F6180F7D266F9FFE0070E308 /* SearchUI.swift in Sources */,
 				F6615D5926738A67005D003D /* AuthUI.swift in Sources */,
+				F6615D7C2673DB07005D003D /* StockMapper.swift in Sources */,
 				F6615D5C26738A76005D003D /* AuthView.swift in Sources */,
 				F6180F90266FA4010070E308 /* ModuleNavigationItem.swift in Sources */,
 				F6180F86266FA2860070E308 /* SearchAssembly.swift in Sources */,

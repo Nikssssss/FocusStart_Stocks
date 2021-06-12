@@ -14,7 +14,9 @@ final class RegisterAssembly {
         guard let container = appDelegate?.container,
               let storageManager = container.resolve(IStorageManager.self),
               let networkManager = container.resolve(INetworkManager.self),
-              let navigator = container.resolve(INavigator.self)
+              let navigator = container.resolve(INavigator.self),
+              let authSecurityService = container.resolve(IAuthSecurityService.self),
+              let configurationReader = container.resolve(IConfigurationReader.self)
         else { return nil }
         
         let registerUI = RegisterUI()
@@ -22,7 +24,9 @@ final class RegisterAssembly {
         let presenter = RegisterPresenter(registerUI: registerUI,
                                           storageManager: storageManager,
                                           networkManager: networkManager,
-                                          navigator: navigator)
+                                          navigator: navigator,
+                                          authSecurityService: authSecurityService,
+                                          configurationReader: configurationReader)
         
         registerUI.setPresenter(presenter)
         

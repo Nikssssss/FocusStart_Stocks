@@ -15,8 +15,9 @@ enum NavigationItemTag {
 protocol INavigator: class {
     func start()
     func getMainNavigationItem() -> ModuleNavigationItem
-    func loginButtonPressed()
-    func registerButtonPressedAtAuth()
+    func signInButtonPressed()
+    func signUpButtonPressedAtAuth()
+    func signUpButtonPressedAtRegister()
 }
 
 final class Navigator: INavigator {
@@ -31,14 +32,18 @@ final class Navigator: INavigator {
         return self.moduleNavigator.getMainController()
     }
     
-    func loginButtonPressed() {
-        let searchNavigationItem = SearchAssembly.makeModule()
+    func signInButtonPressed() {
+        guard let searchNavigationItem = SearchAssembly.makeModule() else { return }
         self.moduleNavigator.presentTabBarController(with: [searchNavigationItem])
     }
     
-    func registerButtonPressedAtAuth() {
+    func signUpButtonPressedAtAuth() {
         guard let registerNavigationItem = RegisterAssembly.makeModule() else { return }
         self.moduleNavigator.push(moduleNavigationItem: registerNavigationItem)
+    }
+    
+    func signUpButtonPressedAtRegister() {
+        self.moduleNavigator.pop(navigationItemTag: .main)
     }
 }
 
@@ -54,18 +59,21 @@ private final class ModuleNavigator {
     }
     
     func start(with moduleNavigationItem: ModuleNavigationItem) {
-        let mainViewController = moduleNavigationItem.viewController
-        self.mainNavigationController.setViewControllers([mainViewController], animated: true)
+        let startViewController = moduleNavigationItem.viewController
+        self.mainNavigationController.setViewControllers([startViewController], animated: true)
     }
     
     func getMainController() -> ModuleNavigationItem {
-        let navigationItem = ModuleNavigationItem(viewController: self.mainNavigationController, navigationItemTag: .main)
+        let navigationItem = ModuleNavigationItem(viewController: self.mainNavigationController,
+                                                  navigationItemTag: .main)
         return navigationItem
     }
     
     func presentTabBarController(with moduleNavigationItems: [ModuleNavigationItem]) {
         self.configureNavigationControllers(using: moduleNavigationItems)
         self.tabBarController.setViewControllers([self.searchNavigationController], animated: true)
+        self.tabBarController.modalPresentationStyle = .fullScreen
+        self.tabBarController.modalTransitionStyle = .crossDissolve
         self.mainNavigationController.present(self.tabBarController, animated: true)
     }
     
@@ -74,8 +82,13 @@ private final class ModuleNavigator {
         navigationController.pushViewController(moduleNavigationItem.viewController, animated: true)
     }
     
-    func dismiss(moduleNavigationItem: ModuleNavigationItem) {
-        let navigationController = self.getNavigationController(with: moduleNavigationItem.navigationItemTag)
+    func pop(navigationItemTag: NavigationItemTag) {
+        let navigationController = self.getNavigationController(with: navigationItemTag)
+        navigationController.popViewController(animated: true)
+    }
+    
+    func dismiss(navigationItemTag: NavigationItemTag) {
+        let navigationController = self.getNavigationController(with: navigationItemTag)
         navigationController.dismiss(animated: true)
     }
     
