@@ -12,13 +12,14 @@ final class SearchAssembly {
     static func makeModule() -> ModuleNavigationItem? {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let container = appDelegate?.container,
-              let storageManager = container.resolve(IStorageManager.self)
+              let storageManager = container.resolve(IStorageManager.self),
+              let networkManager = container.resolve(INetworkManager.self)
         else { return nil }
         
         let searchUI = SearchUI()
         
-        let stockCellPresenterState = DefaultStockCellPresenterState(storageManager: storageManager)
-        let stockCellPresenter = StockCellPresenter(stockCellPresenterState: stockCellPresenterState)
+        let stockCellPresenter = StockCellPresenter(storageManager: storageManager,
+                                                    networkManager: networkManager)
         let presenter = SearchPresenter(searchUI: searchUI, stockCellPresenter: stockCellPresenter)
         
         searchUI.setPresenter(presenter)

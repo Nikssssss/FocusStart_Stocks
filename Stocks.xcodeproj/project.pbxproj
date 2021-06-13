@@ -20,6 +20,8 @@
 		F6180F98266FAB360070E308 /* StockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6180F97266FAB360070E308 /* StockTableViewCell.swift */; };
 		F6180F9B266FDF650070E308 /* ConfigurationReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6180F9A266FDF650070E308 /* ConfigurationReader.swift */; };
 		F6180F9E266FE8C20070E308 /* StockCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6180F9D266FE8C20070E308 /* StockCellPresenter.swift */; };
+		F61C73B72674FDE700A4A7B6 /* SearchStockCellPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61C73B62674FDE700A4A7B6 /* SearchStockCellPresenterState.swift */; };
+		F61C73BA2674FF3300A4A7B6 /* TickerDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61C73B92674FF3300A4A7B6 /* TickerDto.swift */; };
 		F6615D4926734F78005D003D /* RegisterUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D4826734F78005D003D /* RegisterUI.swift */; };
 		F6615D4C26734F92005D003D /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D4B26734F92005D003D /* RegisterView.swift */; };
 		F6615D4F26734FBA005D003D /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D4E26734FBA005D003D /* RegisterPresenter.swift */; };
@@ -39,6 +41,8 @@
 		F68BA1B1266F71520021CEA1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68BA1B0266F71520021CEA1 /* SceneDelegate.swift */; };
 		F68BA1B8266F71540021CEA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F68BA1B7266F71540021CEA1 /* Assets.xcassets */; };
 		F68BA1BB266F71540021CEA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F68BA1B9266F71540021CEA1 /* LaunchScreen.storyboard */; };
+		F6A301DF2674D48000358CB7 /* DefaultStockCellPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A301DE2674D48000358CB7 /* DefaultStockCellPresenterState.swift */; };
+		F6A301E32674D52000358CB7 /* RecentStockCellPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A301E22674D52000358CB7 /* RecentStockCellPresenterState.swift */; };
 		F6A513F72670BB0D000DD886 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513F62670BB0D000DD886 /* NetworkManager.swift */; };
 		F6A513FB2670BC13000DD886 /* StockDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513FA2670BC13000DD886 /* StockDto.swift */; };
 		F6A513FE2670F3F8000DD886 /* ThreadSafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */; };
@@ -46,6 +50,7 @@
 		F6A81D9926724D5E0045800E /* Stocks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9726724D5E0045800E /* Stocks.xcdatamodeld */; };
 		F6A81D9D267257EC0045800E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9C267257EC0045800E /* StorageManager.swift */; };
 		F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9F2672683E0045800E /* UserStorageDto.swift */; };
+		F6B79ACB2675E98800B19590 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B79ACA2675E98800B19590 /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +64,8 @@
 		F6180F97266FAB360070E308 /* StockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockTableViewCell.swift; sourceTree = "<group>"; };
 		F6180F9A266FDF650070E308 /* ConfigurationReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationReader.swift; sourceTree = "<group>"; };
 		F6180F9D266FE8C20070E308 /* StockCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCellPresenter.swift; sourceTree = "<group>"; };
+		F61C73B62674FDE700A4A7B6 /* SearchStockCellPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockCellPresenterState.swift; sourceTree = "<group>"; };
+		F61C73B92674FF3300A4A7B6 /* TickerDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerDto.swift; sourceTree = "<group>"; };
 		F6615D4826734F78005D003D /* RegisterUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUI.swift; sourceTree = "<group>"; };
 		F6615D4B26734F92005D003D /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		F6615D4E26734FBA005D003D /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
@@ -79,6 +86,8 @@
 		F68BA1B7266F71540021CEA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F68BA1BA266F71540021CEA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F68BA1BC266F71540021CEA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6A301DE2674D48000358CB7 /* DefaultStockCellPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStockCellPresenterState.swift; sourceTree = "<group>"; };
+		F6A301E22674D52000358CB7 /* RecentStockCellPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentStockCellPresenterState.swift; sourceTree = "<group>"; };
 		F6A513F62670BB0D000DD886 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F6A513FA2670BC13000DD886 /* StockDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDto.swift; sourceTree = "<group>"; };
 		F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadSafeArray.swift; sourceTree = "<group>"; };
@@ -86,6 +95,7 @@
 		F6A81D9826724D5E0045800E /* Stocks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stocks.xcdatamodel; sourceTree = "<group>"; };
 		F6A81D9C267257EC0045800E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		F6A81D9F2672683E0045800E /* UserStorageDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorageDto.swift; sourceTree = "<group>"; };
+		F6B79ACA2675E98800B19590 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,11 +152,13 @@
 		F6180F7B266F9FC80070E308 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				F6A301DD2674D45D00358CB7 /* StockPresenterStates */,
 				F6180F7C266F9FFE0070E308 /* SearchUI.swift */,
 				F6180F7F266FA0630070E308 /* SearchView.swift */,
 				F6180F82266FA0A40070E308 /* SearchPresenter.swift */,
 				F6180F85266FA2860070E308 /* SearchAssembly.swift */,
 				F6180F9D266FE8C20070E308 /* StockCellPresenter.swift */,
+				F61C73B92674FF3300A4A7B6 /* TickerDto.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -241,10 +253,21 @@
 			path = Stocks;
 			sourceTree = "<group>";
 		};
+		F6A301DD2674D45D00358CB7 /* StockPresenterStates */ = {
+			isa = PBXGroup;
+			children = (
+				F6A301DE2674D48000358CB7 /* DefaultStockCellPresenterState.swift */,
+				F6A301E22674D52000358CB7 /* RecentStockCellPresenterState.swift */,
+				F61C73B62674FDE700A4A7B6 /* SearchStockCellPresenterState.swift */,
+			);
+			path = StockPresenterStates;
+			sourceTree = "<group>";
+		};
 		F6A513F52670BAFF000DD886 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				F6A513F62670BB0D000DD886 /* NetworkManager.swift */,
+				F6B79ACA2675E98800B19590 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -367,6 +390,7 @@
 				F6A81D9D267257EC0045800E /* StorageManager.swift in Sources */,
 				F6615D4C26734F92005D003D /* RegisterView.swift in Sources */,
 				F6180F98266FAB360070E308 /* StockTableViewCell.swift in Sources */,
+				F6A301DF2674D48000358CB7 /* DefaultStockCellPresenterState.swift in Sources */,
 				F6615D4926734F78005D003D /* RegisterUI.swift in Sources */,
 				F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */,
 				F6615D6F2673C55D005D003D /* KeychainPasswordItem.swift in Sources */,
@@ -379,19 +403,23 @@
 				F6615D5226734FF4005D003D /* RegisterAssembly.swift in Sources */,
 				F6A513F72670BB0D000DD886 /* NetworkManager.swift in Sources */,
 				F6A513FB2670BC13000DD886 /* StockDto.swift in Sources */,
+				F6B79ACB2675E98800B19590 /* NetworkError.swift in Sources */,
 				F6615D5F26738A86005D003D /* AuthPresenter.swift in Sources */,
 				F6615D792673D4A3005D003D /* UserMapper.swift in Sources */,
 				F6180F9E266FE8C20070E308 /* StockCellPresenter.swift in Sources */,
 				F6180F83266FA0A40070E308 /* SearchPresenter.swift in Sources */,
 				F6180F7D266F9FFE0070E308 /* SearchUI.swift in Sources */,
 				F6615D5926738A67005D003D /* AuthUI.swift in Sources */,
+				F6A301E32674D52000358CB7 /* RecentStockCellPresenterState.swift in Sources */,
 				F6615D7C2673DB07005D003D /* StockMapper.swift in Sources */,
+				F61C73B72674FDE700A4A7B6 /* SearchStockCellPresenterState.swift in Sources */,
 				F6615D5C26738A76005D003D /* AuthView.swift in Sources */,
 				F6180F90266FA4010070E308 /* ModuleNavigationItem.swift in Sources */,
 				F6180F86266FA2860070E308 /* SearchAssembly.swift in Sources */,
 				F6A81D43267212310045800E /* DeltaCounter.swift in Sources */,
 				F6615D6226738AAB005D003D /* AuthAssembly.swift in Sources */,
 				F6615D4F26734FBA005D003D /* RegisterPresenter.swift in Sources */,
+				F61C73BA2674FF3300A4A7B6 /* TickerDto.swift in Sources */,
 				F6180F8A266FA2B60070E308 /* Navigator.swift in Sources */,
 				F68BA1AF266F71520021CEA1 /* AppDelegate.swift in Sources */,
 				F6A513FE2670F3F8000DD886 /* ThreadSafeArray.swift in Sources */,

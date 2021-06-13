@@ -40,4 +40,5 @@ struct PreviewStockDto {
     let logoUrl: String
     let price: Double
     let delta: Double
+    let isFavourite: Bool
 }

@@ -27,6 +27,7 @@ protocol IStockStorage: class {
     func addFavouriteStock(stockDto: PreviewStockDto)
     func removeStockFromFavourites(stockDto: PreviewStockDto)
     func updateStockQuote(using stockDto: PreviewStockDto)
+    func checkIfStockFavourite(ticker: String) -> Bool
 }
 
 final class StorageManager: IStorageManager {
@@ -71,23 +72,26 @@ extension StorageManager: IStockStorage {
     }
     
     func loadDefaultStocks() {
-        let predicate = NSPredicate(format: "\(#keyPath(Stock.isDefault)) = %@", NSNumber(booleanLiteral: true))
+        let predicate = NSPredicate(format: "\(#keyPath(Stock.isDefault)) = %@",
+                                    NSNumber(booleanLiteral: true))
         self.loadStocks(with: predicate)
     }
     
     func loadRecentSearchedStocks() {
-        let predicate = NSPredicate(format: "\(#keyPath(Stock.isRecent)) = %@", NSNumber(booleanLiteral: true))
+        let predicate = NSPredicate(format: "\(#keyPath(Stock.isRecent)) = %@",
+                                    NSNumber(booleanLiteral: true))
         self.loadStocks(with: predicate)
     }
     
     func loadFavouriteStocks() {
-        let predicate = NSPredicate(format: "\(#keyPath(Stock.isFavourite)) = %@", NSNumber(booleanLiteral: true))
+        let predicate = NSPredicate(format: "\(#keyPath(Stock.isFavourite)) = %@",
+                                    NSNumber(booleanLiteral: true))
         self.loadStocks(with: predicate)
     }
     
     func addDefaultStock(stockDto: PreviewStockDto, to user: UserStorageDto) {
         guard let user = self.getUserIfExists(user: user) else { return }
-        if let existingStock = self.getStockIfExists(stockDto: stockDto) {
+        if let existingStock = self.getStockIfExists(ticker: stockDto.ticker) {
             existingStock.isDefault = true
         } else {
             let newStock = self.createStock(using: stockDto)
@@ -99,7 +103,7 @@ extension StorageManager: IStockStorage {
     
     func addRecentSearchedStock(stockDto: PreviewStockDto) {
         guard let user = self.user else { return }
-        if let existingStock = self.getStockIfExists(stockDto: stockDto) {
+        if let existingStock = self.getStockIfExists(ticker: stockDto.ticker) {
             existingStock.isRecent = true
         } else {
             let newStock = self.createStock(using: stockDto)
@@ -111,7 +115,7 @@ extension StorageManager: IStockStorage {
     
     func addFavouriteStock(stockDto: PreviewStockDto) {
         guard let user = self.user else { return }
-        if let existingStock = self.getStockIfExists(stockDto: stockDto) {
+        if let existingStock = self.getStockIfExists(ticker: stockDto.ticker) {
             existingStock.isFavourite = true
         } else {
             let newStock = self.createStock(using: stockDto)
@@ -123,7 +127,7 @@ extension StorageManager: IStockStorage {
     
     func removeStockFromFavourites(stockDto: PreviewStockDto) {
         guard let user = self.user else { return }
-        if let existingStock = self.getStockIfExists(stockDto: stockDto) {
+        if let existingStock = self.getStockIfExists(ticker: stockDto.ticker) {
             existingStock.isFavourite = false
             if existingStock.isDefault == false
                 && existingStock.isDefault == false {
@@ -134,10 +138,15 @@ extension StorageManager: IStockStorage {
     }
     
     func updateStockQuote(using stockDto: PreviewStockDto) {
-        guard let stock = self.getStockIfExists(stockDto: stockDto) else { return }
+        guard let stock = self.getStockIfExists(ticker: stockDto.ticker) else { return }
         stock.price = stockDto.price
         stock.delta = stockDto.delta
         try? self.mainContext.save()
+    }
+    
+    func checkIfStockFavourite(ticker: String) -> Bool {
+        guard let stock = self.getStockIfExists(ticker: ticker) else { return false }
+        return stock.isFavourite
     }
 }
 
@@ -158,10 +167,10 @@ private extension StorageManager {
         self.stocks = Array(stocksSet)
     }
     
-    func getStockIfExists(stockDto: PreviewStockDto) -> Stock? {
+    func getStockIfExists(ticker: String) -> Stock? {
         guard let user = self.user else { return nil }
         let stocks = user.stocks
-        let tickerPredicate = NSPredicate(format: "\(#keyPath(Stock.ticker)) = %@", stockDto.ticker)
+        let tickerPredicate = NSPredicate(format: "\(#keyPath(Stock.ticker)) = %@", ticker)
         let stock = stocks?.filtered(using: tickerPredicate).first as? Stock
         return stock
     }

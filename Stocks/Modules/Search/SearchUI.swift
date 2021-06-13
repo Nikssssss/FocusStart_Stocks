@@ -92,16 +92,16 @@ extension SearchUI: ISearchUI {
 
 extension SearchUI: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        print("searchBarCancelButtonClicked")
+        self.presenter?.searchBarCancelButtonClicked()
     }
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        print("searchBarShouldBeginEditing")
+        self.presenter?.searchBarShouldBeginEditing()
         return true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        self.presenter?.searchBarTextDidChange(to: searchText)
     }
 }
 
@@ -123,6 +123,7 @@ private extension SearchUI {
         searchController.searchBar.placeholder = "Введите тикер или название компании"
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
+        searchController.searchBar.autocapitalizationType = .none
         self.navigationItem.searchController = searchController
         self.definesPresentationContext = true
         self.navigationItem.hidesSearchBarWhenScrolling = false

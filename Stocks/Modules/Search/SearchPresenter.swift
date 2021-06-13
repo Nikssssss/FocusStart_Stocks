@@ -10,6 +10,9 @@ import Foundation
 protocol ISearchPresenter: class {
     func loadView()
     func viewDidLoad()
+    func searchBarShouldBeginEditing()
+    func searchBarTextDidChange(to searchText: String)
+    func searchBarCancelButtonClicked()
 }
 
 final class SearchPresenter: ISearchPresenter {
@@ -26,11 +29,29 @@ final class SearchPresenter: ISearchPresenter {
     }
     
     func viewDidLoad() {
-        self.hookUI()
         self.searchUI?.configureUI()
-        self.stockCellPresenter.loadStocks { [weak self] in
-            self?.searchUI?.reloadData()
+        self.hookUI()
+        self.handleStocksLoading(using: nil)
+    }
+    
+    func searchBarShouldBeginEditing() {
+        self.stockCellPresenter.changeState(to: .recentStocks)
+        self.handleStocksLoading(using: nil)
+    }
+    
+    func searchBarTextDidChange(to searchText: String) {
+        guard searchText.trimmingCharacters(in: .whitespaces).isEmpty == false else {
+            self.stockCellPresenter.changeState(to: .recentStocks)
+            self.handleStocksLoading(using: nil)
+            return
         }
+        self.stockCellPresenter.changeState(to: .searchedStocks)
+        self.handleStocksLoading(using: searchText)
+    }
+    
+    func searchBarCancelButtonClicked() {
+        self.stockCellPresenter.changeState(to: .defaultStocks)
+        self.handleStocksLoading(using: nil)
     }
 }
 
@@ -47,6 +68,23 @@ private extension SearchPresenter {
         }
         self.searchUI?.titleForHeader = { [weak self] in
             return self?.stockCellPresenter.titleForHeader() ?? ""
+        }
+    }
+    
+    func handleStocksLoading(using searchText: String?) {
+        let completion: (Error?) -> Void = { [weak self] error in
+            if let error = error as? NetworkError, error == NetworkError.limitExceeded {
+                //TODO: show limit error on view
+                print("limit exceeded")
+            }
+            DispatchQueue.main.async {
+                self?.searchUI?.reloadData()
+            }
+        }
+        if let searchText = searchText {
+            self.stockCellPresenter.loadStocks(using: searchText, completion: completion)
+        } else {
+            self.stockCellPresenter.loadStocks(completion: completion)
         }
     }
 }

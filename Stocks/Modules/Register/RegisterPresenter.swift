@@ -83,14 +83,29 @@ private extension RegisterPresenter {
     
     func addDefaultStocks(to user: UserStorageDto) {
         let defaultStocksTickers = self.configurationReader.getAllDefaultStocksTickers()
-        self.networkManager.loadAllStocks(with: defaultStocksTickers) { downloadedStocks in
-            downloadedStocks.forEach { downloadedStock in
-                let quote = downloadedStock.quote
-                let delta = DeltaCounter.countDelta(openPrice: quote.openPrice,
-                                                    currentPrice: quote.currentPrice)
-                let previewStock = StockMapper.downloadedToPreview(downloadedStock, delta: delta)
-                self.storageManager.addDefaultStock(stockDto: previewStock, to: user)
+        self.networkManager.loadAllStocks(with: defaultStocksTickers) { downloadedStocksResult in
+            switch downloadedStocksResult {
+            case .failure(let error):
+                if error == NetworkError.limitExceeded {
+                    //TODO: show limit error on view
+                    print("limit exceeded")
+                    return
+                }
+            case .success(let downloadedStocks):
+                self.saveAllDownloadedDefaultStocks(downloadedStocks: downloadedStocks, to: user)
             }
+        }
+    }
+    
+    func saveAllDownloadedDefaultStocks(downloadedStocks: [DownloadedStockDto], to user: UserStorageDto) {
+        downloadedStocks.forEach { downloadedStock in
+            let quote = downloadedStock.quote
+            let delta = DeltaCounter.countDelta(openPrice: quote.openPrice,
+                                                currentPrice: quote.currentPrice)
+            let previewStock = StockMapper.downloadedToPreview(downloadedStock,
+                                                               delta: delta,
+                                                               isFavourite: false)
+            self.storageManager.addDefaultStock(stockDto: previewStock, to: user)
         }
     }
 }

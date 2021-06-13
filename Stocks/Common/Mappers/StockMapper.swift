@@ -8,14 +8,17 @@
 import Foundation
 
 final class StockMapper {
-    static func downloadedToPreview(_ downloadedStock: DownloadedStockDto, delta: Double) -> PreviewStockDto {
+    static func downloadedToPreview(_ downloadedStock: DownloadedStockDto,
+                                    delta: Double,
+                                    isFavourite: Bool) -> PreviewStockDto {
         let companyProfile = downloadedStock.companyProfile
         let quote = downloadedStock.quote
         let previewStockDto = PreviewStockDto(ticker: companyProfile.ticker,
                                               companyName: companyProfile.name,
                                               logoUrl: companyProfile.logo,
                                               price: quote.currentPrice,
-                                              delta: delta)
+                                              delta: delta,
+                                              isFavourite: isFavourite)
         return previewStockDto
     }
     
@@ -28,7 +31,8 @@ final class StockMapper {
                                               companyName: companyName,
                                               logoUrl: logoUrl,
                                               price: stock.price,
-                                              delta: stock.delta)
+                                              delta: stock.delta,
+                                              isFavourite: stock.isFavourite)
         return previewStockDto
     }
 }

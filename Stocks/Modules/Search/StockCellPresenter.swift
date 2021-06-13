@@ -10,29 +10,49 @@ import struct CoreGraphics.CGFloat
 import class UIKit.UIImage
 import class UIKit.UIColor
 
+enum StockCellPresenterState {
+    case defaultStocks, recentStocks, searchedStocks
+}
+
 protocol IStockCellPresenter: class {
     func getNumberOfRows() -> Int
     func getHeightForRow(at indexPath: IndexPath) -> CGFloat
     func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath)
-    func loadStocks(completion: @escaping (() -> Void))
+    func loadStocks(completion: @escaping ((Error?) -> Void))
+    func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void))
     func titleForHeader() -> String
     
-    func changeState(to state: IStockCellPresenterState)
+    func changeState(to state: StockCellPresenterState)
 }
 
 protocol IStockCellPresenterState: class {
     func getNumberOfRows() -> Int
-    func getHeightForRow(at indexPath: IndexPath) -> CGFloat
-    func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath)
-    func loadStocks(completion: @escaping (() -> Void))
+    func loadStocks(completion: @escaping ((Error?) -> Void))
+    func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void))
     func titleForHeader() -> String
+    func getStock(at row: Int) -> PreviewStockDto?
+}
+
+extension IStockCellPresenterState {
+    func loadStocks(completion: @escaping ((Error?) -> Void)) {
+        completion(nil)
+    }
+    
+    func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void)) {
+        completion(nil)
+    }
 }
 
 final class StockCellPresenter: IStockCellPresenter {
     private var stockCellPresenterState: IStockCellPresenterState
+    private let storageManager: IStorageManager
+    private let networkManager: INetworkManager
     
-    init(stockCellPresenterState: IStockCellPresenterState) {
-        self.stockCellPresenterState = stockCellPresenterState
+    init(storageManager: IStorageManager,
+         networkManager: INetworkManager) {
+        self.stockCellPresenterState = DefaultStockCellPresenterState(storageManager: storageManager)
+        self.storageManager = storageManager
+        self.networkManager = networkManager
     }
     
     func getNumberOfRows() -> Int {
@@ -40,57 +60,37 @@ final class StockCellPresenter: IStockCellPresenter {
     }
     
     func getHeightForRow(at indexPath: IndexPath) -> CGFloat {
-        self.stockCellPresenterState.getHeightForRow(at: indexPath)
+        return 70
     }
     
     func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath) {
-        self.stockCellPresenterState.cellWillAppear(cell, at: indexPath)
+        guard let stock = self.stockCellPresenterState.getStock(at: indexPath.row)
+        else { return }
+        self.configureCell(cell, using: stock, at: indexPath)
     }
     
-    func loadStocks(completion: @escaping (() -> Void)) {
+    func loadStocks(completion: @escaping ((Error?) -> Void)) {
         self.stockCellPresenterState.loadStocks(completion: completion)
+    }
+    
+    func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void)) {
+        self.stockCellPresenterState.loadStocks(using: searchText, completion: completion)
     }
     
     func titleForHeader() -> String {
         return self.stockCellPresenterState.titleForHeader()
     }
     
-    func changeState(to state: IStockCellPresenterState) {
-        self.stockCellPresenterState = state
-    }
-}
-
-final class DefaultStockCellPresenterState: IStockCellPresenterState {
-    private let storageManager: IStorageManager
-    
-    init(storageManager: IStorageManager) {
-        self.storageManager = storageManager
-    }
-    
-    func getNumberOfRows() -> Int {
-        return self.storageManager.retrievedStocks.count
-    }
-    
-    func getHeightForRow(at indexPath: IndexPath) -> CGFloat {
-        return 70
-    }
-    
-    func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath) {
-        let stock = self.storageManager.retrievedStocks[indexPath.row]
-        self.configureCell(cell, using: stock, at: indexPath)
-    }
-    
-    func loadStocks(completion: @escaping (() -> Void)) {
-        DispatchQueue.global(qos: .utility).async {
-            self.storageManager.loadDefaultStocks()
-            DispatchQueue.main.async {
-                completion()
-            }
+    func changeState(to state: StockCellPresenterState) {
+        switch state {
+        case .defaultStocks:
+            self.stockCellPresenterState = DefaultStockCellPresenterState(storageManager: storageManager)
+        case .recentStocks:
+            self.stockCellPresenterState = RecentStockCellPresenterState(storageManager: storageManager)
+        case .searchedStocks:
+            self.stockCellPresenterState = SearchStockCellPresenterState(storageManager: storageManager,
+                                                                         networkManager: networkManager)
         }
-    }
-    
-    func titleForHeader() -> String {
-        return "Популярные запросы"
     }
     
     private func configureCell(_ cell: IStockTableCell,
@@ -99,21 +99,27 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
         self.setLogoImage(to: cell, logoUrl: stock.logoUrl)
         self.setCompanyInfo(to: cell, ticker: stock.ticker, companyName: stock.companyName)
         self.setQuoteInfo(to: cell, price: stock.price, delta: stock.delta)
-        self.setFavouriteImage(to: cell)
+        self.setFavouriteImage(to: cell, isFavourite: stock.isFavourite)
         self.setBackgroundColor(to: cell, at: indexPath)
     }
     
     private func setLogoImage(to cell: IStockTableCell, logoUrl: String) {
         DispatchQueue.global(qos: .utility).async {
-            guard let imageUrl = URL(string: logoUrl) else { return }
-            if let imageData = try? Data(contentsOf: imageUrl),
-               let image = UIImage(data: imageData) {
+            guard let imageUrl = URL(string: logoUrl),
+                  let imageData = try? Data(contentsOf: imageUrl),
+                  let image = UIImage(data: imageData)
+            else {
                 DispatchQueue.main.async {
-                    cell.setLogoImage(image)
+                    cell.setLogoImage(UIImage())
                 }
+                return
+            }
+            DispatchQueue.main.async {
+                cell.setLogoImage(image)
             }
         }
     }
+    
     
     private func setCompanyInfo(to cell: IStockTableCell, ticker: String, companyName: String) {
         cell.setTicker(ticker)
@@ -129,8 +135,9 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
         cell.setDelta(stringDelta, increased: delta >= 0)
     }
     
-    private func setFavouriteImage(to cell: IStockTableCell) {
-        guard let image = UIImage(systemName: "star") else { return }
+    private func setFavouriteImage(to cell: IStockTableCell, isFavourite: Bool) {
+        let imageName = isFavourite ? "star.fill" : "star"
+        guard let image = UIImage(systemName: imageName) else { return }
         let coloredImage = image.withTintColor(.orange, renderingMode: .alwaysOriginal)
         cell.setFavouriteButtonImage(coloredImage)
     }

@@ -41,6 +41,12 @@ class ThreadSafeArray<T> {
         }
     }
     
+    func removeAll() {
+        self.queue.async(flags: .barrier) { [weak self] in
+            self?.array.removeAll()
+        }
+    }
+    
     subscript(index: Int) -> T? {
         self.queue.sync {
             guard index >= 0, index < self.array.count else { return nil }
