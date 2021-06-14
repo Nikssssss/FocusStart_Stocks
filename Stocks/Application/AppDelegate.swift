@@ -29,8 +29,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 private extension AppDelegate {
     func registerDependencies() {
+        self.container.register(IAlertController.self) { _ in
+            return AlertController()
+        }
+        
         self.container.register(INavigator.self) { _ in
-            return Navigator()
+            let navigator = Navigator()
+            if let alertController = self.container.resolve(IAlertController.self) {
+                navigator.setAlertController(alertController)
+            }
+            return navigator
         }.inObjectScope(.container)
         
         self.container.register(INetworkManager.self) { _ in

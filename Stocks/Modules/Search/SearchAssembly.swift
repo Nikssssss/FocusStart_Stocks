@@ -13,14 +13,17 @@ final class SearchAssembly {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let container = appDelegate?.container,
               let storageManager = container.resolve(IStorageManager.self),
-              let networkManager = container.resolve(INetworkManager.self)
+              let networkManager = container.resolve(INetworkManager.self),
+              let navigator = container.resolve(INavigator.self)
         else { return nil }
         
         let searchUI = SearchUI()
         
         let stockCellPresenter = StockCellPresenter(storageManager: storageManager,
                                                     networkManager: networkManager)
-        let presenter = SearchPresenter(searchUI: searchUI, stockCellPresenter: stockCellPresenter)
+        let presenter = SearchPresenter(searchUI: searchUI,
+                                        stockCellPresenter: stockCellPresenter,
+                                        navigator: navigator)
         
         searchUI.setPresenter(presenter)
         

@@ -6,16 +6,22 @@
 //
 
 import UIKit
+import SwiftSpinner
+import SwiftMessages
 
 protocol ISearchUI: class {
     var numberOfRowsHandler: (() -> Int)? { get set }
     var cellWillAppear: ((IStockTableCell, IndexPath) -> Void)? { get set }
     var heightForRowAt: ((_ indexPath: IndexPath) -> CGFloat)? { get set }
     var titleForHeader: (() -> String)? { get set }
+    var didSelectRowAt: ((_ indexPath: IndexPath) -> Void)? { get set }
     
     func replaceScreenView()
     func configureUI()
     func reloadData()
+    func reloadDataWithoutAnimation()
+    func showLoadingAnimation(with message: String)
+    func hideLoadingAnimation()
 }
 
 class SearchUI: UIViewController {
@@ -76,6 +82,15 @@ extension SearchUI: ISearchUI {
         }
     }
     
+    var didSelectRowAt: ((IndexPath) -> Void)? {
+        get {
+            return self.searchView.didSelectRowAt
+        }
+        set {
+            self.searchView.didSelectRowAt = newValue
+        }
+    }
+    
     func replaceScreenView() {
         self.view = self.searchView
     }
@@ -88,6 +103,18 @@ extension SearchUI: ISearchUI {
     func reloadData() {
         self.searchView.reloadData()
     }
+    
+    func reloadDataWithoutAnimation() {
+        self.searchView.reloadDataWithoutAnimation()
+    }
+    
+    func showLoadingAnimation(with message: String) {
+        SwiftSpinner.show(message, animated: true)
+    }
+    
+    func hideLoadingAnimation() {
+        SwiftSpinner.hide()
+    }
 }
 
 extension SearchUI: UISearchBarDelegate {
@@ -96,8 +123,12 @@ extension SearchUI: UISearchBarDelegate {
     }
 
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        self.presenter?.searchBarShouldBeginEditing()
+        self.presenter?.searchBarShouldBeginEditing(with: searchBar.text)
         return true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.presenter?.searchBarSearchButtonClicked(with: searchBar.text)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

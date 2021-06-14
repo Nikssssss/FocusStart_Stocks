@@ -51,6 +51,7 @@ final class SearchStockCellPresenterState: IStockCellPresenterState {
                                     completion: @escaping ((Error?) -> Void)) {
         switch result {
         case .failure(let error):
+            self.networkManager.removeAllDownloadedStocks()
             completion(error)
         case .success(let tickersDto):
             self.networkManager.loadAllStocks(with: tickersDto.map { $0.symbol }) { downloadedStocksResult in
@@ -63,6 +64,7 @@ final class SearchStockCellPresenterState: IStockCellPresenterState {
                                               completion: @escaping ((Error?) -> Void)) {
         switch result {
         case .failure(let error):
+            self.networkManager.removeAllDownloadedStocks()
             completion(error)
         case .success(_):
             completion(nil)

@@ -51,6 +51,9 @@
 		F6A81D9D267257EC0045800E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9C267257EC0045800E /* StorageManager.swift */; };
 		F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9F2672683E0045800E /* UserStorageDto.swift */; };
 		F6B79ACB2675E98800B19590 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B79ACA2675E98800B19590 /* NetworkError.swift */; };
+		F6B79ACF26769C8800B19590 /* SwiftSpinner in Frameworks */ = {isa = PBXBuildFile; productRef = F6B79ACE26769C8800B19590 /* SwiftSpinner */; };
+		F6D30BD52677639A0076CFC3 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = F6D30BD42677639A0076CFC3 /* SwiftMessages */; };
+		F6D30BD82677702E0076CFC3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D30BD72677702E0076CFC3 /* AlertController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +99,7 @@
 		F6A81D9C267257EC0045800E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		F6A81D9F2672683E0045800E /* UserStorageDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorageDto.swift; sourceTree = "<group>"; };
 		F6B79ACA2675E98800B19590 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		F6D30BD72677702E0076CFC3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,8 +108,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6180F71266F9AAC0070E308 /* SnapKit in Frameworks */,
+				F6B79ACF26769C8800B19590 /* SwiftSpinner in Frameworks */,
 				F6615D732673C76E005D003D /* CryptoSwift in Frameworks */,
 				F6180F75266F9B310070E308 /* Alamofire in Frameworks */,
+				F6D30BD52677639A0076CFC3 /* SwiftMessages in Frameworks */,
 				F6180F79266F9B500070E308 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +132,7 @@
 				F6A81D9B267257AB0045800E /* Storage */,
 				F6180F96266FAB160070E308 /* Views */,
 				F6180F88266FA2A90070E308 /* Navigation */,
+				F6D30BD72677702E0076CFC3 /* AlertController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -326,6 +333,8 @@
 				F6180F74266F9B310070E308 /* Alamofire */,
 				F6180F78266F9B500070E308 /* Swinject */,
 				F6615D722673C76E005D003D /* CryptoSwift */,
+				F6B79ACE26769C8800B19590 /* SwiftSpinner */,
+				F6D30BD42677639A0076CFC3 /* SwiftMessages */,
 			);
 			productName = Stocks;
 			productReference = F68BA1AB266F71520021CEA1 /* Stocks.app */;
@@ -359,6 +368,8 @@
 				F6180F73266F9B310070E308 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				F6180F77266F9B500070E308 /* XCRemoteSwiftPackageReference "Swinject" */,
 				F6615D712673C76E005D003D /* XCRemoteSwiftPackageReference "CryptoSwift" */,
+				F6B79ACD26769C8700B19590 /* XCRemoteSwiftPackageReference "SwiftSpinner" */,
+				F6D30BD32677639A0076CFC3 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 			);
 			productRefGroup = F68BA1AC266F71520021CEA1 /* Products */;
 			projectDirPath = "";
@@ -415,6 +426,7 @@
 				F61C73B72674FDE700A4A7B6 /* SearchStockCellPresenterState.swift in Sources */,
 				F6615D5C26738A76005D003D /* AuthView.swift in Sources */,
 				F6180F90266FA4010070E308 /* ModuleNavigationItem.swift in Sources */,
+				F6D30BD82677702E0076CFC3 /* AlertController.swift in Sources */,
 				F6180F86266FA2860070E308 /* SearchAssembly.swift in Sources */,
 				F6A81D43267212310045800E /* DeltaCounter.swift in Sources */,
 				F6615D6226738AAB005D003D /* AuthAssembly.swift in Sources */,
@@ -651,6 +663,22 @@
 				minimumVersion = 1.4.0;
 			};
 		};
+		F6B79ACD26769C8700B19590 /* XCRemoteSwiftPackageReference "SwiftSpinner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/icanzilb/SwiftSpinner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.0;
+			};
+		};
+		F6D30BD32677639A0076CFC3 /* XCRemoteSwiftPackageReference "SwiftMessages" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftKickMobile/SwiftMessages";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -673,6 +701,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F6615D712673C76E005D003D /* XCRemoteSwiftPackageReference "CryptoSwift" */;
 			productName = CryptoSwift;
+		};
+		F6B79ACE26769C8800B19590 /* SwiftSpinner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6B79ACD26769C8700B19590 /* XCRemoteSwiftPackageReference "SwiftSpinner" */;
+			productName = SwiftSpinner;
+		};
+		F6D30BD42677639A0076CFC3 /* SwiftMessages */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6D30BD32677639A0076CFC3 /* XCRemoteSwiftPackageReference "SwiftMessages" */;
+			productName = SwiftMessages;
 		};
 /* End XCSwiftPackageProductDependency section */
 

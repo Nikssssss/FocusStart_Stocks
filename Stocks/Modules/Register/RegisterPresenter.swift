@@ -89,7 +89,6 @@ private extension RegisterPresenter {
                 if error == NetworkError.limitExceeded {
                     //TODO: show limit error on view
                     print("limit exceeded")
-                    return
                 }
             case .success(let downloadedStocks):
                 self.saveAllDownloadedDefaultStocks(downloadedStocks: downloadedStocks, to: user)

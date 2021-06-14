@@ -15,9 +15,10 @@ protocol IStockTableCell: class {
     func setTicker(_ ticker: String)
     func setCompanyName(_ companyName: String)
     func setPrice(_ price: String)
-    func setDelta(_ delta: String, increased: Bool)
+    func setDelta(_ delta: String)
     func setFavouriteButtonImage(_ image: UIImage)
     func setBackgroundColor(_ color: UIColor)
+    func setDeltaColor(_ color: UIColor)
 }
 
 class StockTableViewCell: UITableViewCell {
@@ -65,10 +66,8 @@ extension StockTableViewCell: IStockTableCell {
         self.priceLabel.text = price
     }
     
-    func setDelta(_ delta: String, increased: Bool) {
+    func setDelta(_ delta: String) {
         self.deltaLabel.text = delta
-        let greenColor = UIColor(red: 35 / 255.0, green: 175 / 255.0, blue: 86 / 255.0, alpha: 1.0)
-        self.deltaLabel.textColor = increased ? greenColor : .red
     }
     
     func setFavouriteButtonImage(_ image: UIImage) {
@@ -77,6 +76,10 @@ extension StockTableViewCell: IStockTableCell {
     
     func setBackgroundColor(_ color: UIColor) {
         self.contentView.backgroundColor = color
+    }
+    
+    func setDeltaColor(_ color: UIColor) {
+        self.deltaLabel.textColor = color
     }
 }
 
@@ -124,6 +127,7 @@ private extension StockTableViewCell {
         self.companyNameLabel.snp.makeConstraints { make in
             make.top.equalTo(self.tickerLabel.snp.bottom).offset(7)
             make.left.equalTo(self.logoImageView.snp.right).offset(10)
+            make.right.equalTo(self.deltaLabel.snp.left).offset(-5)
         }
         self.companyNameLabel.font = .systemFont(ofSize: 13, weight: .semibold)
         self.companyNameLabel.textColor = .black
@@ -142,8 +146,10 @@ private extension StockTableViewCell {
         self.deltaLabel.snp.makeConstraints { make in
             make.top.equalTo(self.priceLabel.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-15)
+            make.width.equalTo(50)
         }
         self.deltaLabel.font = .systemFont(ofSize: 13, weight: .semibold)
+        self.deltaLabel.textAlignment = .right
     }
     
     func configureFavouriteButton() {

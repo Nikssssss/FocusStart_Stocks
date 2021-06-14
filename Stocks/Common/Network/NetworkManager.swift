@@ -24,6 +24,7 @@ protocol INetworkManager: WebsocketManager & RestManager {
     var downloadedStocks: [DownloadedStockDto] { get }
     
     func removeAllDownloadedStocks()
+    func downloadData(from url: URL, completion: @escaping ((Data?) -> Void))
 }
 
 final class NetworkManager: INetworkManager {
@@ -69,6 +70,13 @@ final class NetworkManager: INetworkManager {
     func removeAllDownloadedStocks() {
         self.stockInfos.removeAll()
     }
+    
+    func downloadData(from url: URL, completion: @escaping ((Data?) -> Void)) {
+        AF.request(url).responseData { dataResponse in
+            guard let data = dataResponse.data else { completion(nil); return }
+            completion(data)
+        }.cacheResponse(using: ResponseCacher.cache)
+    }
 }
 
 private extension NetworkManager {
@@ -82,16 +90,13 @@ private extension NetworkManager {
                     DispatchQueue.global().async(flags: .barrier) {
                         limitExceeded = true
                         dispatchGroup.leave()
-                        print("loadAllStocksDto limit exceeded")
                     }
                 } else {
                     dispatchGroup.leave()
-                    print("loadAllStocksDto")
                 }
             }
         }
         dispatchGroup.wait()
-        print("loadAllStocksDto dispatchGroup.wait has ended")
         limitExceeded ? completion(.limitExceeded) : completion(nil)
     }
     

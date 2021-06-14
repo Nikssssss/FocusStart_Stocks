@@ -17,10 +17,12 @@ enum StockCellPresenterState {
 protocol IStockCellPresenter: class {
     func getNumberOfRows() -> Int
     func getHeightForRow(at indexPath: IndexPath) -> CGFloat
-    func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath)
+    func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath,
+                        favouriteButtonHandler: @escaping (() -> Void))
     func loadStocks(completion: @escaping ((Error?) -> Void))
     func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void))
     func titleForHeader() -> String
+    func didSelectRow(at indexPath: IndexPath, completion: ((PreviewStockDto?) -> Void))
     
     func changeState(to state: StockCellPresenterState)
 }
@@ -63,10 +65,12 @@ final class StockCellPresenter: IStockCellPresenter {
         return 70
     }
     
-    func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath) {
+    func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath,
+                        favouriteButtonHandler: @escaping (() -> Void)) {
         guard let stock = self.stockCellPresenterState.getStock(at: indexPath.row)
         else { return }
-        self.configureCell(cell, using: stock, at: indexPath)
+        self.configureCell(cell, using: stock, at: indexPath,
+                           favouriteButtonHandler: favouriteButtonHandler)
     }
     
     func loadStocks(completion: @escaping ((Error?) -> Void)) {
@@ -79,6 +83,11 @@ final class StockCellPresenter: IStockCellPresenter {
     
     func titleForHeader() -> String {
         return self.stockCellPresenterState.titleForHeader()
+    }
+    
+    func didSelectRow(at indexPath: IndexPath, completion: ((PreviewStockDto?) -> Void)) {
+        let previewStock = self.stockCellPresenterState.getStock(at: indexPath.row)
+        completion(previewStock)
     }
     
     func changeState(to state: StockCellPresenterState) {
@@ -95,28 +104,36 @@ final class StockCellPresenter: IStockCellPresenter {
     
     private func configureCell(_ cell: IStockTableCell,
                                using stock: PreviewStockDto,
-                               at indexPath: IndexPath) {
+                               at indexPath: IndexPath,
+                               favouriteButtonHandler: @escaping (() -> Void)) {
         self.setLogoImage(to: cell, logoUrl: stock.logoUrl)
         self.setCompanyInfo(to: cell, ticker: stock.ticker, companyName: stock.companyName)
         self.setQuoteInfo(to: cell, price: stock.price, delta: stock.delta)
         self.setFavouriteImage(to: cell, isFavourite: stock.isFavourite)
         self.setBackgroundColor(to: cell, at: indexPath)
+        self.setFavouriteButtonTapHandler(to: cell, at: indexPath,
+                                          favouriteButtonHandler: favouriteButtonHandler)
     }
     
     private func setLogoImage(to cell: IStockTableCell, logoUrl: String) {
-        DispatchQueue.global(qos: .utility).async {
-            guard let imageUrl = URL(string: logoUrl),
-                  let imageData = try? Data(contentsOf: imageUrl),
-                  let image = UIImage(data: imageData)
-            else {
-                DispatchQueue.main.async {
-                    cell.setLogoImage(UIImage())
-                }
-                return
+        guard let imageUrl = URL(string: logoUrl) else {
+            self.setDefaultImage(to: cell)
+            return
+        }
+        self.networkManager.downloadData(from: imageUrl) { imageData in
+            guard let imageData = imageData,
+                  let image = UIImage(data: imageData) else {
+                self.setDefaultImage(to: cell); return
             }
             DispatchQueue.main.async {
                 cell.setLogoImage(image)
             }
+        }
+    }
+    
+    func setDefaultImage(to cell: IStockTableCell) {
+        DispatchQueue.main.async {
+            cell.setLogoImage(UIImage())
         }
     }
     
@@ -132,13 +149,18 @@ final class StockCellPresenter: IStockCellPresenter {
         if delta > 0 {
             stringDelta.insert("+", at: stringDelta.startIndex)
         }
-        cell.setDelta(stringDelta, increased: delta >= 0)
+        cell.setDelta(stringDelta)
+        let greenDeltaColor = UIColor(red: 35 / 255.0, green: 175 / 255.0, blue: 86 / 255.0, alpha: 1.0)
+        let deltaColor = delta >= 0 ? greenDeltaColor : UIColor.red
+        cell.setDeltaColor(deltaColor)
     }
     
     private func setFavouriteImage(to cell: IStockTableCell, isFavourite: Bool) {
-        let imageName = isFavourite ? "star.fill" : "star"
+        let imageName = "star.fill"
         guard let image = UIImage(systemName: imageName) else { return }
-        let coloredImage = image.withTintColor(.orange, renderingMode: .alwaysOriginal)
+        let yellowColor = UIColor(red: 255 / 255.0, green: 202 / 255.0, blue: 28 / 255.0, alpha: 1.0)
+        let imageColor = isFavourite ? yellowColor : UIColor.lightGray
+        let coloredImage = image.withTintColor(imageColor, renderingMode: .alwaysOriginal)
         cell.setFavouriteButtonImage(coloredImage)
     }
     
@@ -150,6 +172,22 @@ final class StockCellPresenter: IStockCellPresenter {
                                             alpha: 1.0))
         } else {
             cell.setBackgroundColor(.white)
+        }
+    }
+    
+    private func setFavouriteButtonTapHandler(to cell: IStockTableCell,
+                                              at indexPath: IndexPath,
+                                              favouriteButtonHandler: @escaping (() -> Void)) {
+        cell.favouriteButtonTapHandler = { [weak self] in
+            guard let self = self,
+                  let previewStock = self.stockCellPresenterState.getStock(at: indexPath.row)
+            else { return }
+            if self.storageManager.isFavouriteStock(stockDto: previewStock) {
+                self.storageManager.removeStockFromFavourites(stockDto: previewStock)
+            } else {
+                self.storageManager.addFavouriteStock(stockDto: previewStock)
+            }
+            favouriteButtonHandler()
         }
     }
 }

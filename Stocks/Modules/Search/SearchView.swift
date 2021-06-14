@@ -13,6 +13,7 @@ class SearchView: UIView {
     var cellWillAppear: ((IStockTableCell, IndexPath) -> Void)?
     var heightForRowAt: ((_ indexPath: IndexPath) -> CGFloat)?
     var titleForHeader: (() -> String)?
+    var didSelectRowAt: ((_ indexPath: IndexPath) -> Void)?
     
     private let stocksTableView = UITableView(frame: .zero, style: .grouped)
     
@@ -23,7 +24,11 @@ class SearchView: UIView {
     }
     
     func reloadData() {
-        self.stocksTableView.reloadData()
+        self.stocksTableView.reloadSections(IndexSet(integer: 0), with: .middle)
+    }
+    
+    func reloadDataWithoutAnimation() {
+        self.stocksTableView.reloadSections(IndexSet(integer: 0), with: .none)
     }
 }
 
@@ -59,6 +64,10 @@ extension SearchView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.didSelectRowAt?(indexPath)
     }
 }
 

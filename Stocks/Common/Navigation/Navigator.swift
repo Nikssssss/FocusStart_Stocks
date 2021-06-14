@@ -18,10 +18,16 @@ protocol INavigator: class {
     func signInButtonPressed()
     func signUpButtonPressedAtAuth()
     func signUpButtonPressedAtRegister()
+    func errorOccured(with message: String)
 }
 
 final class Navigator: INavigator {
     private let moduleNavigator = ModuleNavigator()
+    private var alertController: IAlertController?
+    
+    func setAlertController(_ alertController: IAlertController) {
+        self.alertController = alertController
+    }
     
     func start() {
         guard let authNavigationItem = AuthAssembly.makeModule() else { return }
@@ -44,6 +50,10 @@ final class Navigator: INavigator {
     
     func signUpButtonPressedAtRegister() {
         self.moduleNavigator.pop(navigationItemTag: .main)
+    }
+    
+    func errorOccured(with message: String) {
+        self.alertController?.showErrorAlert(message: message)
     }
 }
 
