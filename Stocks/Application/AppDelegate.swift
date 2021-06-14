@@ -41,6 +41,10 @@ private extension AppDelegate {
             return navigator
         }.inObjectScope(.container)
         
+        self.container.register(IDataCacheManager.self) { _ in
+            return DataFileManager()
+        }
+        
         self.container.register(INetworkManager.self) { _ in
             return NetworkManager()
         }

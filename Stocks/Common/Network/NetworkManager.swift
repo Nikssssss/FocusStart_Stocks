@@ -31,7 +31,7 @@ final class NetworkManager: INetworkManager {
     var downloadedStocks: [DownloadedStockDto] {
         return stockInfos.toArray
     }
-    
+
     private var stockInfos = ThreadSafeArray<DownloadedStockDto>()
     
     func loadAllStocks(with tickers: [String],
@@ -75,7 +75,7 @@ final class NetworkManager: INetworkManager {
         AF.request(url).responseData { dataResponse in
             guard let data = dataResponse.data else { completion(nil); return }
             completion(data)
-        }.cacheResponse(using: ResponseCacher.cache)
+        }
     }
 }
 

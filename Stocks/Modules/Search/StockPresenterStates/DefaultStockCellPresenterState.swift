@@ -12,9 +12,13 @@ import class UIKit.UIColor
 
 final class DefaultStockCellPresenterState: IStockCellPresenterState {
     private let storageManager: IStorageManager
+    private let networkManager: INetworkManager
+    private let dataCacheManager: IDataCacheManager
     
-    init(storageManager: IStorageManager) {
+    init(storageManager: IStorageManager, networkManager: INetworkManager, dataCacheManager: IDataCacheManager) {
         self.storageManager = storageManager
+        self.networkManager = networkManager
+        self.dataCacheManager = dataCacheManager
     }
     
     func getNumberOfRows() -> Int {
@@ -38,5 +42,20 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
     
     func titleForHeader() -> String {
         return "Популярные запросы"
+    }
+    
+    func loadLogoImageData(using stock: PreviewStockDto, completion: @escaping ((Data?) -> Void)) {
+        let key = stock.ticker
+        if let data = self.dataCacheManager.getData(from: key) {
+            completion(data)
+            return
+        }
+        guard let url = URL(string: stock.logoUrl) else { completion(nil); return }
+        self.networkManager.downloadData(from: url) { data in
+            completion(data)
+            if let data = data {
+                self.dataCacheManager.saveData(data, for: key)
+            }
+        }
     }
 }

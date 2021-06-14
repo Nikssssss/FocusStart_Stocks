@@ -54,6 +54,7 @@
 		F6B79ACF26769C8800B19590 /* SwiftSpinner in Frameworks */ = {isa = PBXBuildFile; productRef = F6B79ACE26769C8800B19590 /* SwiftSpinner */; };
 		F6D30BD52677639A0076CFC3 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = F6D30BD42677639A0076CFC3 /* SwiftMessages */; };
 		F6D30BD82677702E0076CFC3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D30BD72677702E0076CFC3 /* AlertController.swift */; };
+		F6D30BDB2677D3230076CFC3 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D30BDA2677D3230076CFC3 /* DataCacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		F6A81D9F2672683E0045800E /* UserStorageDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorageDto.swift; sourceTree = "<group>"; };
 		F6B79ACA2675E98800B19590 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		F6D30BD72677702E0076CFC3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		F6D30BDA2677D3230076CFC3 /* DataCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */,
+				F6D30BD72677702E0076CFC3 /* AlertController.swift */,
+				F6D30BDA2677D3230076CFC3 /* DataCacheManager.swift */,
 				F6615D772673D495005D003D /* Mappers */,
 				F6615D6A2673C4EC005D003D /* Security */,
 				F6A81D41267212010045800E /* Use-cases */,
@@ -132,7 +136,6 @@
 				F6A81D9B267257AB0045800E /* Storage */,
 				F6180F96266FAB160070E308 /* Views */,
 				F6180F88266FA2A90070E308 /* Navigation */,
-				F6D30BD72677702E0076CFC3 /* AlertController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				F6615D792673D4A3005D003D /* UserMapper.swift in Sources */,
 				F6180F9E266FE8C20070E308 /* StockCellPresenter.swift in Sources */,
 				F6180F83266FA0A40070E308 /* SearchPresenter.swift in Sources */,
+				F6D30BDB2677D3230076CFC3 /* DataCacheManager.swift in Sources */,
 				F6180F7D266F9FFE0070E308 /* SearchUI.swift in Sources */,
 				F6615D5926738A67005D003D /* AuthUI.swift in Sources */,
 				F6A301E32674D52000358CB7 /* RecentStockCellPresenterState.swift in Sources */,

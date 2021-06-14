@@ -33,6 +33,7 @@ protocol IStockCellPresenterState: class {
     func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void))
     func titleForHeader() -> String
     func getStock(at row: Int) -> PreviewStockDto?
+    func loadLogoImageData(using stock: PreviewStockDto, completion: @escaping ((Data?) -> Void))
 }
 
 extension IStockCellPresenterState {
@@ -49,12 +50,17 @@ final class StockCellPresenter: IStockCellPresenter {
     private var stockCellPresenterState: IStockCellPresenterState
     private let storageManager: IStorageManager
     private let networkManager: INetworkManager
+    private let dataCacheManager: IDataCacheManager
     
     init(storageManager: IStorageManager,
-         networkManager: INetworkManager) {
-        self.stockCellPresenterState = DefaultStockCellPresenterState(storageManager: storageManager)
+         networkManager: INetworkManager,
+         dataCacheManager: IDataCacheManager) {
+        self.stockCellPresenterState = DefaultStockCellPresenterState(storageManager: storageManager,
+                                                                      networkManager: networkManager,
+                                                                      dataCacheManager: dataCacheManager)
         self.storageManager = storageManager
         self.networkManager = networkManager
+        self.dataCacheManager = dataCacheManager
     }
     
     func getNumberOfRows() -> Int {
@@ -93,9 +99,13 @@ final class StockCellPresenter: IStockCellPresenter {
     func changeState(to state: StockCellPresenterState) {
         switch state {
         case .defaultStocks:
-            self.stockCellPresenterState = DefaultStockCellPresenterState(storageManager: storageManager)
+            self.stockCellPresenterState = DefaultStockCellPresenterState(storageManager: storageManager,
+                                                                          networkManager: networkManager,
+                                                                          dataCacheManager: dataCacheManager)
         case .recentStocks:
-            self.stockCellPresenterState = RecentStockCellPresenterState(storageManager: storageManager)
+            self.stockCellPresenterState = RecentStockCellPresenterState(storageManager: storageManager,
+                                                                         networkManager: networkManager,
+                                                                         dataCacheManager: dataCacheManager)
         case .searchedStocks:
             self.stockCellPresenterState = SearchStockCellPresenterState(storageManager: storageManager,
                                                                          networkManager: networkManager)
@@ -106,7 +116,7 @@ final class StockCellPresenter: IStockCellPresenter {
                                using stock: PreviewStockDto,
                                at indexPath: IndexPath,
                                favouriteButtonHandler: @escaping (() -> Void)) {
-        self.setLogoImage(to: cell, logoUrl: stock.logoUrl)
+        self.setLogoImage(to: cell, stock: stock)
         self.setCompanyInfo(to: cell, ticker: stock.ticker, companyName: stock.companyName)
         self.setQuoteInfo(to: cell, price: stock.price, delta: stock.delta)
         self.setFavouriteImage(to: cell, isFavourite: stock.isFavourite)
@@ -115,16 +125,11 @@ final class StockCellPresenter: IStockCellPresenter {
                                           favouriteButtonHandler: favouriteButtonHandler)
     }
     
-    private func setLogoImage(to cell: IStockTableCell, logoUrl: String) {
-        guard let imageUrl = URL(string: logoUrl) else {
-            self.setDefaultImage(to: cell)
-            return
-        }
-        self.networkManager.downloadData(from: imageUrl) { imageData in
+    private func setLogoImage(to cell: IStockTableCell, stock: PreviewStockDto) {
+        self.stockCellPresenterState.loadLogoImageData(using: stock) { imageData in
             guard let imageData = imageData,
-                  let image = UIImage(data: imageData) else {
-                self.setDefaultImage(to: cell); return
-            }
+                  let image = UIImage(data: imageData)
+            else { self.setDefaultImage(to: cell); return }
             DispatchQueue.main.async {
                 cell.setLogoImage(image)
             }

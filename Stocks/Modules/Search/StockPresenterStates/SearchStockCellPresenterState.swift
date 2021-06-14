@@ -47,6 +47,11 @@ final class SearchStockCellPresenterState: IStockCellPresenterState {
         }
     }
     
+    func loadLogoImageData(using stock: PreviewStockDto, completion: @escaping ((Data?) -> Void)) {
+        guard let url = URL(string: stock.logoUrl) else { completion(nil); return }
+        self.networkManager.downloadData(from: url, completion: completion)
+    }
+    
     private func handleFoundedTickersResult(_ result: Result<[TickerDto], NetworkError>,
                                     completion: @escaping ((Error?) -> Void)) {
         switch result {
