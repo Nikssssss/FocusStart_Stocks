@@ -39,10 +39,10 @@ class FavouritesUI: UIViewController {
         self.presenter?.viewDidLoad()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        self.presenter?.viewWillAppear()
+        self.presenter?.viewDidAppear()
     }
 }
 

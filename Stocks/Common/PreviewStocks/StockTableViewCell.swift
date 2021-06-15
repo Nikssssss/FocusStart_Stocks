@@ -105,6 +105,7 @@ private extension StockTableViewCell {
     }
     
     func configureLogoImageView() {
+        self.logoImageView.translatesAutoresizingMaskIntoConstraints = false
         self.logoImageView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(10)
             make.centerY.equalToSuperview()
@@ -115,6 +116,7 @@ private extension StockTableViewCell {
     }
     
     func configureTickerLabel() {
+        self.tickerLabel.translatesAutoresizingMaskIntoConstraints = false
         self.tickerLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.left.equalTo(self.logoImageView.snp.right).offset(10)
@@ -124,6 +126,7 @@ private extension StockTableViewCell {
     }
     
     func configureCompanyNameLabel() {
+        self.companyNameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.companyNameLabel.snp.makeConstraints { make in
             make.top.equalTo(self.tickerLabel.snp.bottom).offset(7)
             make.left.equalTo(self.logoImageView.snp.right).offset(10)
@@ -134,6 +137,7 @@ private extension StockTableViewCell {
     }
     
     func configurePriceLabel() {
+        self.priceLabel.translatesAutoresizingMaskIntoConstraints = false
         self.priceLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-15)
@@ -143,6 +147,7 @@ private extension StockTableViewCell {
     }
     
     func configureDeltaLabel() {
+        self.deltaLabel.translatesAutoresizingMaskIntoConstraints = false
         self.deltaLabel.snp.makeConstraints { make in
             make.top.equalTo(self.priceLabel.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-15)
@@ -153,6 +158,7 @@ private extension StockTableViewCell {
     }
     
     func configureFavouriteButton() {
+        self.favouriteButton.translatesAutoresizingMaskIntoConstraints = false
         self.favouriteButton.snp.makeConstraints { make in
             make.top.equalTo(self.tickerLabel)
             make.bottom.equalTo(self.tickerLabel)

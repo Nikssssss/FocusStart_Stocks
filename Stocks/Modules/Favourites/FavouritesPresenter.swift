@@ -10,7 +10,7 @@ import Foundation
 protocol IFavouritesPresenter: class {
     func loadView()
     func viewDidLoad()
-    func viewWillAppear()
+    func viewDidAppear()
 }
 
 final class FavouritesPresenter: IFavouritesPresenter {
@@ -34,7 +34,7 @@ final class FavouritesPresenter: IFavouritesPresenter {
         self.stockCellPresenter.changeState(to: .favouriteStocks)
     }
     
-    func viewWillAppear() {
+    func viewDidAppear() {
         self.handleStocksLoading()
     }
 }

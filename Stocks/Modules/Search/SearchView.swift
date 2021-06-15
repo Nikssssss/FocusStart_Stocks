@@ -57,5 +57,6 @@ private extension SearchView {
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        self.stocksTableView.configureView()
     }
 }

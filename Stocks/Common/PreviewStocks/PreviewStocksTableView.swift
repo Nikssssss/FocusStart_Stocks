@@ -16,11 +16,20 @@ class PreviewStocksTableView: UITableView {
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: .zero, style: .grouped)
-        self.configureView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureView() {
+        self.register(StockTableViewCell.self,
+                      forCellReuseIdentifier: StockTableViewCell.identifier)
+        self.delegate = self
+        self.dataSource = self
+        self.tableFooterView = UIView()
+        self.separatorStyle = .none
+        self.backgroundColor = .white
     }
 }
 
@@ -60,17 +69,5 @@ extension PreviewStocksTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.didSelectRowAt?(indexPath)
-    }
-}
-
-private extension PreviewStocksTableView {
-    func configureView() {
-        self.register(StockTableViewCell.self,
-                      forCellReuseIdentifier: StockTableViewCell.identifier)
-        self.delegate = self
-        self.dataSource = self
-        self.tableFooterView = UIView()
-        self.separatorStyle = .none
-        self.backgroundColor = .white
     }
 }

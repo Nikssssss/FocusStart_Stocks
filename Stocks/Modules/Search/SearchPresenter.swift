@@ -10,7 +10,7 @@ import Foundation
 protocol ISearchPresenter: class {
     func loadView()
     func viewDidLoad()
-    func viewWillAppear()
+    func viewDidAppear()
     func searchBarShouldBeginEditing(with searchText: String?)
     func searchBarSearchButtonClicked(with searchText: String?)
     func searchBarCancelButtonClicked()
@@ -37,7 +37,7 @@ final class SearchPresenter: ISearchPresenter {
         self.hookUI()
     }
     
-    func viewWillAppear() {
+    func viewDidAppear() {
         self.handleStocksLoading(using: nil, animated: false)
     }
     

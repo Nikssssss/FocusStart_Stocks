@@ -57,5 +57,6 @@ private extension FavouritesView {
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        self.stocksTableView.configureView()
     }
 }
