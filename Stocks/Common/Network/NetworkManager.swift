@@ -14,6 +14,8 @@ protocol RestManager: class {
     func loadStocksTickers(by searchText: String,
                            completion: @escaping ((Result<[TickerDto], NetworkError>) -> Void))
     func cancelAllLoadingTasks()
+    func loadQuotes(for tickers: [String],
+                    completion: @escaping ((Result<[RefreshQuoteInfo], NetworkError>) -> Void))
 }
 
 protocol WebsocketManager: class {
@@ -67,6 +69,41 @@ final class NetworkManager: INetworkManager {
         }
     }
     
+    func loadQuotes(for tickers: [String],
+                    completion: @escaping ((Result<[RefreshQuoteInfo], NetworkError>) -> Void)) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let refreshQuoteInfos = ThreadSafeArray<RefreshQuoteInfo>()
+            let dispatchGroup = DispatchGroup()
+            var limitExceedeed = false
+            tickers.forEach { ticker in
+                dispatchGroup.enter()
+                self.loadQuote(for: ticker) { quoteResult in
+                    switch quoteResult {
+                    case .failure(let error):
+                        if error == NetworkError.limitExceeded {
+                            DispatchQueue.global().async(flags: .barrier) {
+                                limitExceedeed = true
+                                dispatchGroup.leave()
+                            }
+                            return
+                        }
+                        dispatchGroup.leave()
+                    case .success(let quote):
+                        let refreshQuoteInfo = RefreshQuoteInfo(ticker: ticker, quote: quote)
+                        refreshQuoteInfos.append(refreshQuoteInfo)
+                        dispatchGroup.leave()
+                    }
+                }
+            }
+            dispatchGroup.wait()
+            if limitExceedeed {
+                completion(.failure(.limitExceeded))
+            } else {
+                completion(.success(refreshQuoteInfos.toArray))
+            }
+        }
+    }
+    
     func removeAllDownloadedStocks() {
         self.stockInfos.removeAll()
     }
@@ -117,10 +154,10 @@ private extension NetworkManager {
         self.handleCompanyProfileRequest(requestUrl: companyProfileUrl, completion: completion)
     }
     
-    func loadQuote(for companyProfile: CompanyProfileDto,
+    func loadQuote(for ticker: String,
                    completion: @escaping ((Result<QuoteDto, NetworkError>) -> Void)) {
         let urlString = String(format: "https://finnhub.io/api/v1/quote?symbol=%@&token=c0qeg5f48v6tskkorckg",
-                               companyProfile.ticker)
+                               ticker)
         guard let quoteUrl = URL(string: urlString) else {
             completion(.failure(.invalidUrl)); return
         }
@@ -186,7 +223,7 @@ private extension NetworkManager {
     func handleQuoteRequest(requestUrl: URL,
                             completion: @escaping ((Result<QuoteDto, NetworkError>) -> Void)) {
         let request = AF.request(requestUrl) { urlRequest in
-            urlRequest.timeoutInterval = 3
+            urlRequest.timeoutInterval = 5
         }
         request.responseJSON { dataResponse in
             guard self.limitExceeded(in: dataResponse) == false else {
@@ -214,7 +251,7 @@ private extension NetworkManager {
         case .failure(let companyProfileError):
             completion(companyProfileError)
         case .success(let companyProfile):
-            self.loadQuote(for: companyProfile) { quoteResult in
+            self.loadQuote(for: companyProfile.ticker) { quoteResult in
                 self.handleQuoteResult(quoteResult,
                                        companyProfile: companyProfile,
                                        completion: completion)

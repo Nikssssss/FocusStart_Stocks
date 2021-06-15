@@ -27,7 +27,7 @@ protocol IStockStorage: class {
     func addFavouriteStock(stockDto: PreviewStockDto)
     func removeStockFromFavourites(stockDto: PreviewStockDto)
     func isFavouriteStock(stockDto: PreviewStockDto) -> Bool
-    func updateStockQuote(using stockDto: PreviewStockDto)
+    func updateStockQuote(of ticker: String, price: Double, delta: Double)
     func checkIfStockFavourite(ticker: String) -> Bool
 }
 
@@ -146,10 +146,10 @@ extension StorageManager: IStockStorage {
         return false
     }
     
-    func updateStockQuote(using stockDto: PreviewStockDto) {
-        guard let stock = self.getStockIfExists(ticker: stockDto.ticker) else { return }
-        stock.price = stockDto.price
-        stock.delta = stockDto.delta
+    func updateStockQuote(of ticker: String, price: Double, delta: Double) {
+        guard let stock = self.getStockIfExists(ticker: ticker) else { return }
+        stock.price = price
+        stock.delta = delta
         try? self.mainContext.save()
     }
     

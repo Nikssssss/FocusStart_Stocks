@@ -60,6 +60,20 @@ private extension FavouritesPresenter {
                 print(previewStock?.ticker)
             }
         })
+        self.favouritesUI?.setRefreshDataHandler({ [weak self] in
+            self?.stockCellPresenter.refreshStocks { error in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.favouritesUI?.stopRefreshingAnimation()
+                    if let error = error as? NetworkError, error == NetworkError.limitExceeded {
+                        let errorMessage = "Лимит запросов превышен. Пожалуйста, повторите ваше действие через минуту"
+                        self.navigator.errorOccured(with: errorMessage)
+                        return
+                    }
+                    self.favouritesUI?.reloadData()
+                }
+            }
+        })
     }
     
     func handleStocksLoading() {

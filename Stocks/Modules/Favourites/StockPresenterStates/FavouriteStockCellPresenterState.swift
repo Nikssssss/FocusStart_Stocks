@@ -51,4 +51,25 @@ final class FavouriteStockCellPresenterState: IStockCellPresenterState {
         self.storageManager.loadFavouriteStocks()
         completion(nil)
     }
+    
+    func refreshStocks(completion: @escaping ((Error?) -> Void)) {
+        let tickers = self.storageManager.retrievedStocks.map({ $0.ticker })
+        self.networkManager.loadQuotes(for: tickers) { quoteInfosResult in
+            switch quoteInfosResult {
+            case .failure(let error):
+                completion(error)
+            case .success(let refreshQuoteInfos):
+                refreshQuoteInfos.forEach { quoteInfo in
+                    let quote = quoteInfo.quote
+                    let delta = DeltaCounter.countDelta(openPrice: quote.openPrice,
+                                                        currentPrice: quote.currentPrice)
+                    self.storageManager.updateStockQuote(of: quoteInfo.ticker,
+                                                         price: quote.currentPrice,
+                                                         delta: delta)
+                }
+                self.storageManager.loadFavouriteStocks()
+                completion(nil)
+            }
+        }
+    }
 }

@@ -13,6 +13,7 @@ class PreviewStocksTableView: UITableView {
     var heightForRowAt: ((_ indexPath: IndexPath) -> CGFloat)?
     var titleForHeader: (() -> String)?
     var didSelectRowAt: ((_ indexPath: IndexPath) -> Void)?
+    var refreshDataHandler: (() -> Void)?
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: .zero, style: .grouped)
@@ -30,6 +31,7 @@ class PreviewStocksTableView: UITableView {
         self.tableFooterView = UIView()
         self.separatorStyle = .none
         self.backgroundColor = .white
+        self.addRefreshControl()
     }
 }
 
@@ -69,5 +71,19 @@ extension PreviewStocksTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.didSelectRowAt?(indexPath)
+    }
+}
+
+private extension PreviewStocksTableView {
+    func addRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        self.refreshControl = refreshControl
+        refreshControl.addTarget(self,
+                                 action: #selector(self.refreshControlProvoked),
+                                 for: .valueChanged)
+    }
+    
+    @objc func refreshControlProvoked() {
+        self.refreshDataHandler?()
     }
 }

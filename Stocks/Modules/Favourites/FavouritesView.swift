@@ -44,6 +44,14 @@ class FavouritesView: UIView {
     func setDidSelectRowHandler(_ didSelectRowAt: ((_ indexPath: IndexPath) -> Void)?) {
         self.stocksTableView.didSelectRowAt = didSelectRowAt
     }
+    
+    func setRefreshDataHandler(_ refreshDataHandler: (() -> Void)?) {
+        self.stocksTableView.refreshDataHandler = refreshDataHandler
+    }
+    
+    func stopRefreshingAnimation() {
+        self.stocksTableView.refreshControl?.endRefreshing()
+    }
 }
 
 private extension FavouritesView {

@@ -15,12 +15,14 @@ protocol ISearchUI: class {
     func setHeightForRowHandler(_ heightForRowAt: ((_ indexPath: IndexPath) -> CGFloat)?)
     func setTitleForHeaderHandler(_ titleForHeader: (() -> String)?)
     func setDidSelectRowHandler(_ didSelectRowAt: ((_ indexPath: IndexPath) -> Void)?)
+    func setRefreshDataHandler(_ refreshDataHandler: (() -> Void)?)
     func replaceScreenView()
     func configureUI()
     func reloadData()
     func reloadDataWithoutAnimation()
     func showLoadingAnimation(with message: String)
     func hideLoadingAnimation()
+    func stopRefreshingAnimation()
 }
 
 class SearchUI: UIViewController {
@@ -71,6 +73,10 @@ extension SearchUI: ISearchUI {
         self.searchView.setDidSelectRowHandler(didSelectRowAt)
     }
     
+    func setRefreshDataHandler(_ refreshDataHandler: (() -> Void)?) {
+        self.searchView.setRefreshDataHandler(refreshDataHandler)
+    }
+    
     func replaceScreenView() {
         self.view = self.searchView
     }
@@ -94,6 +100,10 @@ extension SearchUI: ISearchUI {
     
     func hideLoadingAnimation() {
         SwiftSpinner.hide()
+    }
+    
+    func stopRefreshingAnimation() {
+        self.searchView.stopRefreshingAnimation()
     }
 }
 

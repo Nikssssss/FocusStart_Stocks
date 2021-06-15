@@ -42,3 +42,8 @@ struct PreviewStockDto {
     let delta: Double
     let isFavourite: Bool
 }
+
+struct RefreshQuoteInfo {
+    let ticker: String
+    let quote: QuoteDto
+}

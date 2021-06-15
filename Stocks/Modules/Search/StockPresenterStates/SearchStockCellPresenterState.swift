@@ -51,6 +51,18 @@ final class SearchStockCellPresenterState: IStockCellPresenterState {
         guard let url = URL(string: stock.logoUrl) else { completion(nil); return }
         self.networkManager.downloadData(from: url, completion: completion)
     }
+
+    func refreshStocks(completion: @escaping ((Error?) -> Void)) {
+        let tickers = self.networkManager.downloadedStocks.map({ $0.companyProfile.ticker })
+        self.networkManager.loadAllStocks(with: tickers) { downloadedStocksResult in
+            switch downloadedStocksResult {
+            case .failure(let error):
+                completion(error)
+            case .success(_):
+                completion(nil)
+            }
+        }
+    }
     
     private func handleFoundedTickersResult(_ result: Result<[TickerDto], NetworkError>,
                                     completion: @escaping ((Error?) -> Void)) {

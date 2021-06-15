@@ -23,6 +23,7 @@ protocol IStockCellPresenter: class {
     func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void))
     func titleForHeader() -> String
     func didSelectRow(at indexPath: IndexPath, completion: ((PreviewStockDto?) -> Void))
+    func refreshStocks(completion: @escaping ((Error?) -> Void))
     
     func changeState(to state: StockCellPresenterState)
 }
@@ -34,6 +35,7 @@ protocol IStockCellPresenterState: class {
     func titleForHeader() -> String
     func getStock(at row: Int) -> PreviewStockDto?
     func loadLogoImageData(using stock: PreviewStockDto, completion: @escaping ((Data?) -> Void))
+    func refreshStocks(completion: @escaping ((Error?) -> Void))
 }
 
 extension IStockCellPresenterState {
@@ -94,6 +96,10 @@ final class StockCellPresenter: IStockCellPresenter {
     func didSelectRow(at indexPath: IndexPath, completion: ((PreviewStockDto?) -> Void)) {
         let previewStock = self.stockCellPresenterState.getStock(at: indexPath.row)
         completion(previewStock)
+    }
+    
+    func refreshStocks(completion: @escaping ((Error?) -> Void)) {
+        self.stockCellPresenterState.refreshStocks(completion: completion)
     }
     
     func changeState(to state: StockCellPresenterState) {

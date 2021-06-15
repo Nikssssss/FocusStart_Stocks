@@ -13,10 +13,12 @@ protocol IFavouritesUI: class {
     func setHeightForRowHandler(_ heightForRowAt: ((_ indexPath: IndexPath) -> CGFloat)?)
     func setTitleForHeaderHandler(_ titleForHeader: (() -> String)?)
     func setDidSelectRowHandler(_ didSelectRowAt: ((_ indexPath: IndexPath) -> Void)?)
+    func setRefreshDataHandler(_ refreshDataHandler: (() -> Void)?)
     func replaceScreenView()
     func configureUI()
     func reloadData()
     func reloadDataWithoutAnimation()
+    func stopRefreshingAnimation()
 }
 
 class FavouritesUI: UIViewController {
@@ -67,6 +69,10 @@ extension FavouritesUI: IFavouritesUI {
         self.favouritesView.setDidSelectRowHandler(didSelectRowAt)
     }
     
+    func setRefreshDataHandler(_ refreshDataHandler: (() -> Void)?) {
+        self.favouritesView.setRefreshDataHandler(refreshDataHandler)
+    }
+    
     func replaceScreenView() {
         self.view = self.favouritesView
     }
@@ -82,6 +88,10 @@ extension FavouritesUI: IFavouritesUI {
     
     func reloadDataWithoutAnimation() {
         self.favouritesView.reloadDataWithoutAnimation()
+    }
+    
+    func stopRefreshingAnimation() {
+        self.favouritesView.stopRefreshingAnimation()
     }
 }
 
