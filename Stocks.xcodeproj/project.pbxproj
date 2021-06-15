@@ -46,6 +46,12 @@
 		F6A513F72670BB0D000DD886 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513F62670BB0D000DD886 /* NetworkManager.swift */; };
 		F6A513FB2670BC13000DD886 /* StockDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513FA2670BC13000DD886 /* StockDto.swift */; };
 		F6A513FE2670F3F8000DD886 /* ThreadSafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */; };
+		F6A5689726789715003A3430 /* FavouritesUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5689626789715003A3430 /* FavouritesUI.swift */; };
+		F6A5689A2678974B003A3430 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A568992678974B003A3430 /* FavouritesView.swift */; };
+		F6A5689D26789776003A3430 /* FavouritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5689C26789776003A3430 /* FavouritesPresenter.swift */; };
+		F6A568A026789789003A3430 /* FavouritesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5689F26789789003A3430 /* FavouritesAssembly.swift */; };
+		F6A568A32678992E003A3430 /* PreviewStocksTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A568A22678992E003A3430 /* PreviewStocksTableView.swift */; };
+		F6A568A82678A29A003A3430 /* FavouriteStockCellPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A568A72678A29A003A3430 /* FavouriteStockCellPresenterState.swift */; };
 		F6A81D43267212310045800E /* DeltaCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D42267212310045800E /* DeltaCounter.swift */; };
 		F6A81D9926724D5E0045800E /* Stocks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9726724D5E0045800E /* Stocks.xcdatamodeld */; };
 		F6A81D9D267257EC0045800E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9C267257EC0045800E /* StorageManager.swift */; };
@@ -95,6 +101,12 @@
 		F6A513F62670BB0D000DD886 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F6A513FA2670BC13000DD886 /* StockDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDto.swift; sourceTree = "<group>"; };
 		F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadSafeArray.swift; sourceTree = "<group>"; };
+		F6A5689626789715003A3430 /* FavouritesUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesUI.swift; sourceTree = "<group>"; };
+		F6A568992678974B003A3430 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
+		F6A5689C26789776003A3430 /* FavouritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesPresenter.swift; sourceTree = "<group>"; };
+		F6A5689F26789789003A3430 /* FavouritesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesAssembly.swift; sourceTree = "<group>"; };
+		F6A568A22678992E003A3430 /* PreviewStocksTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStocksTableView.swift; sourceTree = "<group>"; };
+		F6A568A72678A29A003A3430 /* FavouriteStockCellPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteStockCellPresenterState.swift; sourceTree = "<group>"; };
 		F6A81D42267212310045800E /* DeltaCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaCounter.swift; sourceTree = "<group>"; };
 		F6A81D9826724D5E0045800E /* Stocks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stocks.xcdatamodel; sourceTree = "<group>"; };
 		F6A81D9C267257EC0045800E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
@@ -134,7 +146,7 @@
 				F6A513F92670BBFA000DD886 /* Dto */,
 				F6A513F52670BAFF000DD886 /* Network */,
 				F6A81D9B267257AB0045800E /* Storage */,
-				F6180F96266FAB160070E308 /* Views */,
+				F6180F96266FAB160070E308 /* PreviewStocks */,
 				F6180F88266FA2A90070E308 /* Navigation */,
 			);
 			path = Common;
@@ -146,6 +158,7 @@
 				F6615D5726738912005D003D /* Auth */,
 				F6615D4726734F36005D003D /* Register */,
 				F6180F7B266F9FC80070E308 /* Search */,
+				F6A5689526789651003A3430 /* Favourites */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -167,7 +180,6 @@
 				F6180F7F266FA0630070E308 /* SearchView.swift */,
 				F6180F82266FA0A40070E308 /* SearchPresenter.swift */,
 				F6180F85266FA2860070E308 /* SearchAssembly.swift */,
-				F6180F9D266FE8C20070E308 /* StockCellPresenter.swift */,
 				F61C73B92674FF3300A4A7B6 /* TickerDto.swift */,
 			);
 			path = Search;
@@ -182,12 +194,14 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		F6180F96266FAB160070E308 /* Views */ = {
+		F6180F96266FAB160070E308 /* PreviewStocks */ = {
 			isa = PBXGroup;
 			children = (
 				F6180F97266FAB360070E308 /* StockTableViewCell.swift */,
+				F6A568A22678992E003A3430 /* PreviewStocksTableView.swift */,
+				F6180F9D266FE8C20070E308 /* StockCellPresenter.swift */,
 			);
-			path = Views;
+			path = PreviewStocks;
 			sourceTree = "<group>";
 		};
 		F6615D4726734F36005D003D /* Register */ = {
@@ -267,8 +281,8 @@
 			isa = PBXGroup;
 			children = (
 				F6A301DE2674D48000358CB7 /* DefaultStockCellPresenterState.swift */,
-				F6A301E22674D52000358CB7 /* RecentStockCellPresenterState.swift */,
 				F61C73B62674FDE700A4A7B6 /* SearchStockCellPresenterState.swift */,
+				F6A301E22674D52000358CB7 /* RecentStockCellPresenterState.swift */,
 			);
 			path = StockPresenterStates;
 			sourceTree = "<group>";
@@ -297,6 +311,26 @@
 				F6180F9A266FDF650070E308 /* ConfigurationReader.swift */,
 			);
 			path = Configuration;
+			sourceTree = "<group>";
+		};
+		F6A5689526789651003A3430 /* Favourites */ = {
+			isa = PBXGroup;
+			children = (
+				F6A568A62678A276003A3430 /* StockPresenterStates */,
+				F6A5689626789715003A3430 /* FavouritesUI.swift */,
+				F6A568992678974B003A3430 /* FavouritesView.swift */,
+				F6A5689C26789776003A3430 /* FavouritesPresenter.swift */,
+				F6A5689F26789789003A3430 /* FavouritesAssembly.swift */,
+			);
+			path = Favourites;
+			sourceTree = "<group>";
+		};
+		F6A568A62678A276003A3430 /* StockPresenterStates */ = {
+			isa = PBXGroup;
+			children = (
+				F6A568A72678A29A003A3430 /* FavouriteStockCellPresenterState.swift */,
+			);
+			path = StockPresenterStates;
 			sourceTree = "<group>";
 		};
 		F6A81D41267212010045800E /* Use-cases */ = {
@@ -406,8 +440,10 @@
 				F6180F98266FAB360070E308 /* StockTableViewCell.swift in Sources */,
 				F6A301DF2674D48000358CB7 /* DefaultStockCellPresenterState.swift in Sources */,
 				F6615D4926734F78005D003D /* RegisterUI.swift in Sources */,
+				F6A5689A2678974B003A3430 /* FavouritesView.swift in Sources */,
 				F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */,
 				F6615D6F2673C55D005D003D /* KeychainPasswordItem.swift in Sources */,
+				F6A568A82678A29A003A3430 /* FavouriteStockCellPresenterState.swift in Sources */,
 				F6180F9B266FDF650070E308 /* ConfigurationReader.swift in Sources */,
 				F6A81D9926724D5E0045800E /* Stocks.xcdatamodeld in Sources */,
 				F6615D6C2673C533005D003D /* AuthSecurityService.swift in Sources */,
@@ -426,13 +462,17 @@
 				F6180F7D266F9FFE0070E308 /* SearchUI.swift in Sources */,
 				F6615D5926738A67005D003D /* AuthUI.swift in Sources */,
 				F6A301E32674D52000358CB7 /* RecentStockCellPresenterState.swift in Sources */,
+				F6A5689D26789776003A3430 /* FavouritesPresenter.swift in Sources */,
 				F6615D7C2673DB07005D003D /* StockMapper.swift in Sources */,
 				F61C73B72674FDE700A4A7B6 /* SearchStockCellPresenterState.swift in Sources */,
+				F6A5689726789715003A3430 /* FavouritesUI.swift in Sources */,
 				F6615D5C26738A76005D003D /* AuthView.swift in Sources */,
 				F6180F90266FA4010070E308 /* ModuleNavigationItem.swift in Sources */,
 				F6D30BD82677702E0076CFC3 /* AlertController.swift in Sources */,
 				F6180F86266FA2860070E308 /* SearchAssembly.swift in Sources */,
 				F6A81D43267212310045800E /* DeltaCounter.swift in Sources */,
+				F6A568A32678992E003A3430 /* PreviewStocksTableView.swift in Sources */,
+				F6A568A026789789003A3430 /* FavouritesAssembly.swift in Sources */,
 				F6615D6226738AAB005D003D /* AuthAssembly.swift in Sources */,
 				F6615D4F26734FBA005D003D /* RegisterPresenter.swift in Sources */,
 				F61C73BA2674FF3300A4A7B6 /* TickerDto.swift in Sources */,

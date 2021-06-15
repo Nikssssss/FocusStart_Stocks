@@ -11,7 +11,7 @@ import class UIKit.UIImage
 import class UIKit.UIColor
 
 enum StockCellPresenterState {
-    case defaultStocks, recentStocks, searchedStocks
+    case defaultStocks, recentStocks, searchedStocks, favouriteStocks
 }
 
 protocol IStockCellPresenter: class {
@@ -109,6 +109,10 @@ final class StockCellPresenter: IStockCellPresenter {
         case .searchedStocks:
             self.stockCellPresenterState = SearchStockCellPresenterState(storageManager: storageManager,
                                                                          networkManager: networkManager)
+        case .favouriteStocks:
+            self.stockCellPresenterState = FavouriteStockCellPresenterState(storageManager: storageManager,
+                                                                            networkManager: networkManager,
+                                                                            dataCacheManager: dataCacheManager)
         }
     }
     

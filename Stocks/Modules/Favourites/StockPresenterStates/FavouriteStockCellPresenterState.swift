@@ -1,14 +1,13 @@
 //
-//  RecentStockCellPresenterState.swift
+//  FavouriteStockCellPresenterState.swift
 //  Stocks
 //
-//  Created by Никита Гусев on 12.06.2021.
+//  Created by Никита Гусев on 15.06.2021.
 //
 
 import Foundation
-import struct CoreGraphics.CGFloat
 
-final class RecentStockCellPresenterState: IStockCellPresenterState {
+final class FavouriteStockCellPresenterState: IStockCellPresenterState {
     private let storageManager: IStorageManager
     private let networkManager: INetworkManager
     private let dataCacheManager: IDataCacheManager
@@ -20,16 +19,11 @@ final class RecentStockCellPresenterState: IStockCellPresenterState {
     }
     
     func getNumberOfRows() -> Int {
-        return self.storageManager.retrievedStocks.count
-    }
-    
-    func loadStocks(completion: @escaping ((Error?) -> Void)) {
-        self.storageManager.loadRecentSearchedStocks()
-        completion(nil)
+        self.storageManager.retrievedStocks.count
     }
     
     func titleForHeader() -> String {
-        return "Недавние поиски"
+        return String()
     }
     
     func getStock(at row: Int) -> PreviewStockDto? {
@@ -51,5 +45,10 @@ final class RecentStockCellPresenterState: IStockCellPresenterState {
                 self.dataCacheManager.saveData(data, for: key)
             }
         }
+    }
+    
+    func loadStocks(completion: @escaping ((Error?) -> Void)) {
+        self.storageManager.loadFavouriteStocks()
+        completion(nil)
     }
 }

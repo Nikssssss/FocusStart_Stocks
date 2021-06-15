@@ -54,8 +54,8 @@ private extension RegisterPresenter {
     func signUpUser(using userViewModel: UserRegisterViewModel) {
         guard self.validateEntry(of: userViewModel) == true,
               let userStorageDto = UserMapper.registerViewModelToStorageDto(userViewModel) else {
-            //TODO: show error on view
-            print("signUpUser validateEntry == false")
+            let message = "Пожалуйста, заполните все поля или проверьте совпадение введенных паролей"
+            self.navigator.errorOccured(with: message)
             return
         }
         let isAdded = self.storageManager.addUser(user: userStorageDto)
@@ -64,8 +64,8 @@ private extension RegisterPresenter {
             self.addDefaultStocks(to: userStorageDto)
             self.navigator.signUpButtonPressedAtRegister()
         } else {
-            print("signUpUser isAdded == false")
-            //TODO: show error on view
+            let message = "Пользователь с таким логином уже существует"
+            self.navigator.errorOccured(with: message)
         }
     }
     
@@ -87,8 +87,8 @@ private extension RegisterPresenter {
             switch downloadedStocksResult {
             case .failure(let error):
                 if error == NetworkError.limitExceeded {
-                    //TODO: show limit error on view
-                    print("limit exceeded")
+                    let errorMessage = "Лимит запросов превышен. Пожалуйста, повторите ваше действие через минуту"
+                    self.navigator.errorOccured(with: errorMessage)
                 }
             case .success(let downloadedStocks):
                 self.saveAllDownloadedDefaultStocks(downloadedStocks: downloadedStocks, to: user)

@@ -52,8 +52,8 @@ private extension AuthPresenter {
         guard self.validateEntry(of: userViewModel) == true,
               let userStorageDto = UserMapper.authViewModelToStorageDto(userViewModel),
               let password = userViewModel.password else {
-            print("signInUser: validateEntry == false")
-            //TODO: show error on view
+            let message = "Пожалуйста, заполните все поля"
+            self.navigator.errorOccured(with: message)
             return
         }
         let isUserLoaded = self.storageManager.loadUser(user: userStorageDto)
@@ -62,8 +62,8 @@ private extension AuthPresenter {
         if isUserLoaded && isCorrectPassword {
             self.navigator.signInButtonPressed()
         } else {
-            print("signInUser: isUserLoaded == false || isCorrectPassword == false")
-            //TODO: show error on view
+            let message = "Пожалуйста, проверьте правильность введенных данных"
+            self.navigator.errorOccured(with: message)
         }
     }
     

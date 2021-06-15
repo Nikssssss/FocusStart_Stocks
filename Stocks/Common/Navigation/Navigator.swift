@@ -39,8 +39,13 @@ final class Navigator: INavigator {
     }
     
     func signInButtonPressed() {
-        guard let searchNavigationItem = SearchAssembly.makeModule() else { return }
-        self.moduleNavigator.presentTabBarController(with: [searchNavigationItem])
+        guard let searchNavigationItem = SearchAssembly.makeModule(),
+              let favouritesNavigationItem = FavouritesAssembly.makeModule()
+        else { return }
+        self.moduleNavigator.presentTabBarController(with: [
+            searchNavigationItem,
+            favouritesNavigationItem
+        ])
     }
     
     func signUpButtonPressedAtAuth() {
@@ -61,11 +66,13 @@ private final class ModuleNavigator {
     private let mainNavigationController: UINavigationController
     private let tabBarController: UITabBarController
     private let searchNavigationController: UINavigationController
+    private let favouritesNavigationController: UINavigationController
     
     init() {
         self.mainNavigationController = UINavigationController()
         self.tabBarController = UITabBarController()
         self.searchNavigationController = UINavigationController()
+        self.favouritesNavigationController = UINavigationController()
     }
     
     func start(with moduleNavigationItem: ModuleNavigationItem) {
@@ -81,7 +88,10 @@ private final class ModuleNavigator {
     
     func presentTabBarController(with moduleNavigationItems: [ModuleNavigationItem]) {
         self.configureNavigationControllers(using: moduleNavigationItems)
-        self.tabBarController.setViewControllers([self.searchNavigationController], animated: true)
+        self.tabBarController.setViewControllers([
+            self.searchNavigationController,
+            self.favouritesNavigationController
+        ], animated: true)
         self.tabBarController.modalPresentationStyle = .fullScreen
         self.tabBarController.modalTransitionStyle = .crossDissolve
         self.mainNavigationController.present(self.tabBarController, animated: true)
@@ -119,6 +129,11 @@ private final class ModuleNavigator {
                                                    rootViewController: viewController,
                                                    tabTitle: "Поиск",
                                                    tabImageTitle: "magnifyingglass.circle")
+            case .favourites:
+                self.configureNavigationController(self.favouritesNavigationController,
+                                                   rootViewController: viewController,
+                                                   tabTitle: "Избранное",
+                                                   tabImageTitle: "star")
             default:
                 break
             }

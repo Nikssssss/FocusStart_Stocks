@@ -26,12 +26,8 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
     }
     
     func loadStocks(completion: @escaping ((Error?) -> Void)) {
-        DispatchQueue.global(qos: .utility).async {
-            self.storageManager.loadDefaultStocks()
-            DispatchQueue.main.async {
-                completion(nil)
-            }
-        }
+        self.storageManager.loadDefaultStocks()
+        completion(nil)
     }
     
     func getStock(at row: Int) -> PreviewStockDto? {

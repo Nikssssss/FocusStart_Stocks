@@ -10,12 +10,11 @@ import SwiftSpinner
 import SwiftMessages
 
 protocol ISearchUI: class {
-    var numberOfRowsHandler: (() -> Int)? { get set }
-    var cellWillAppear: ((IStockTableCell, IndexPath) -> Void)? { get set }
-    var heightForRowAt: ((_ indexPath: IndexPath) -> CGFloat)? { get set }
-    var titleForHeader: (() -> String)? { get set }
-    var didSelectRowAt: ((_ indexPath: IndexPath) -> Void)? { get set }
-    
+    func setNumberOfRowsHandler(_ numberOfRowsHandler: (() -> Int)?)
+    func setCellWillAppearHandler(_ cellWillAppear: ((IStockTableCell, IndexPath) -> Void)?)
+    func setHeightForRowHandler(_ heightForRowAt: ((_ indexPath: IndexPath) -> CGFloat)?)
+    func setTitleForHeaderHandler(_ titleForHeader: (() -> String)?)
+    func setDidSelectRowHandler(_ didSelectRowAt: ((_ indexPath: IndexPath) -> Void)?)
     func replaceScreenView()
     func configureUI()
     func reloadData()
@@ -43,52 +42,33 @@ class SearchUI: UIViewController {
         
         self.presenter?.viewDidLoad()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.presenter?.viewWillAppear()
+    }
 }
 
 extension SearchUI: ISearchUI {
-    var numberOfRowsHandler: (() -> Int)? {
-        get {
-            return self.searchView.numberOfRowsHandler
-        }
-        set {
-            self.searchView.numberOfRowsHandler = newValue
-        }
+    func setNumberOfRowsHandler(_ numberOfRowsHandler: (() -> Int)?) {
+        self.searchView.setNumberOfRowsHandler(numberOfRowsHandler)
     }
     
-    var cellWillAppear: ((IStockTableCell, IndexPath) -> Void)? {
-        get {
-            return self.searchView.cellWillAppear
-        }
-        set {
-            self.searchView.cellWillAppear = newValue
-        }
+    func setCellWillAppearHandler(_ cellWillAppear: ((IStockTableCell, IndexPath) -> Void)?) {
+        self.searchView.setCellWillAppearHandler(cellWillAppear)
     }
     
-    var heightForRowAt: ((IndexPath) -> CGFloat)? {
-        get {
-            return self.searchView.heightForRowAt
-        }
-        set {
-            self.searchView.heightForRowAt = newValue
-        }
+    func setHeightForRowHandler(_ heightForRowAt: ((IndexPath) -> CGFloat)?) {
+        self.searchView.setHeightForRowHandler(heightForRowAt)
     }
     
-    var titleForHeader: (() -> String)? {
-        get {
-            return self.searchView.titleForHeader
-        }
-        set {
-            self.searchView.titleForHeader = newValue
-        }
+    func setTitleForHeaderHandler(_ titleForHeader: (() -> String)?) {
+        self.searchView.setTitleForHeaderHandler(titleForHeader)
     }
     
-    var didSelectRowAt: ((IndexPath) -> Void)? {
-        get {
-            return self.searchView.didSelectRowAt
-        }
-        set {
-            self.searchView.didSelectRowAt = newValue
-        }
+    func setDidSelectRowHandler(_ didSelectRowAt: ((IndexPath) -> Void)?) {
+        self.searchView.setDidSelectRowHandler(didSelectRowAt)
     }
     
     func replaceScreenView() {

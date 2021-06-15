@@ -1,14 +1,14 @@
 //
-//  SearchView.swift
+//  FavouritesView.swift
 //  Stocks
 //
-//  Created by Никита Гусев on 08.06.2021.
+//  Created by Никита Гусев on 15.06.2021.
 //
 
+import Foundation
 import UIKit
-import SnapKit
 
-class SearchView: UIView {
+class FavouritesView: UIView {
     private let stocksTableView = PreviewStocksTableView()
     
     func congigureView() {
@@ -22,7 +22,7 @@ class SearchView: UIView {
     }
     
     func reloadDataWithoutAnimation() {
-        self.stocksTableView.reloadSections(IndexSet(integer: 0), with: .none)
+        self.stocksTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
     
     func setNumberOfRowsHandler(_ numberOfRowsHandler: (() -> Int)?) {
@@ -46,14 +46,14 @@ class SearchView: UIView {
     }
 }
 
-private extension SearchView {
+private extension FavouritesView {
     func addSubviews() {
         self.addSubview(self.stocksTableView)
     }
     
     func configureStocksTableView() {
         self.stocksTableView.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(10)
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
