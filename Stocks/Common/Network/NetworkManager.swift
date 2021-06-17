@@ -16,6 +16,12 @@ protocol RestManager: class {
     func cancelAllLoadingTasks()
     func loadQuotes(for tickers: [String],
                     completion: @escaping ((Result<[RefreshQuoteInfo], NetworkError>) -> Void))
+    func loadYearChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
+                       completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void))
+    func loadMonthChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
+                            completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void))
+    func loadDayChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
+                          completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void))
 }
 
 protocol WebsocketManager: class {
@@ -113,6 +119,33 @@ final class NetworkManager: INetworkManager {
             guard let data = dataResponse.data else { completion(nil); return }
             completion(data)
         }
+    }
+    
+    func loadYearChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
+                       completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void)) {
+        let endpoint = "https://finnhub.io/api/v1/stock/candle"
+        let parameters = "?symbol=\(ticker)&resolution=W&from=\(beginTime)&to=\(endTime)&token=c0qeg5f48v6tskkorckg"
+        let urlString = endpoint + parameters
+        guard let url = URL(string: urlString) else { completion(.failure(.invalidUrl)); return }
+        self.loadChartData(url: url, completion: completion)
+    }
+    
+    func loadMonthChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
+                            completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void)) {
+        let endpoint = "https://finnhub.io/api/v1/stock/candle"
+        let parameters = "?symbol=\(ticker)&resolution=D&from=\(beginTime)&to=\(endTime)&token=c0qeg5f48v6tskkorckg"
+        let urlString = endpoint + parameters
+        guard let url = URL(string: urlString) else { completion(.failure(.invalidUrl)); return }
+        self.loadChartData(url: url, completion: completion)
+    }
+    
+    func loadDayChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
+                          completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void)) {
+        let endpoint = "https://finnhub.io/api/v1/stock/candle"
+        let parameters = "?symbol=\(ticker)&resolution=60&from=\(beginTime)&to=\(endTime)&token=c0qeg5f48v6tskkorckg"
+        let urlString = endpoint + parameters
+        guard let url = URL(string: urlString) else { completion(.failure(.invalidUrl)); return }
+        self.loadChartData(url: url, completion: completion)
     }
 }
 
@@ -268,6 +301,19 @@ private extension NetworkManager {
         case .success(let quote):
             self.saveDownloadedStock(with: companyProfile, and: quote)
             completion(nil)
+        }
+    }
+    
+    func loadChartData(url: URL, completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void)) {
+        AF.request(url).responseJSON { dataResponse in
+            guard self.limitExceeded(in: dataResponse) == false
+            else { completion(.failure(.limitExceeded)); return }
+            
+            guard let data = dataResponse.data,
+                  let chartDto = try? JSONDecoder().decode(ChartDto.self, from: data)
+            else { completion(.failure(.noData)); return }
+            
+            completion(.success(chartDto))
         }
     }
 }

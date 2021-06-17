@@ -61,7 +61,30 @@
 		F6D30BD52677639A0076CFC3 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = F6D30BD42677639A0076CFC3 /* SwiftMessages */; };
 		F6D30BD82677702E0076CFC3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D30BD72677702E0076CFC3 /* AlertController.swift */; };
 		F6D30BDB2677D3230076CFC3 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D30BDA2677D3230076CFC3 /* DataCacheManager.swift */; };
+		F6D35A37267BB3C80033AA6B /* DetailsUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D35A36267BB3C80033AA6B /* DetailsUI.swift */; };
+		F6D35A3B267BB3D80033AA6B /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D35A3A267BB3D80033AA6B /* DetailsView.swift */; };
+		F6D35A3E267BB3F00033AA6B /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D35A3D267BB3F00033AA6B /* DetailsPresenter.swift */; };
+		F6D35A41267BB3FF0033AA6B /* DetailsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D35A40267BB3FF0033AA6B /* DetailsAssembly.swift */; };
+		F6D35A45267BB5060033AA6B /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D35A44267BB5060033AA6B /* ChartView.swift */; };
+		F6D35A50267BB8310033AA6B /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = F6D35A4F267BB8310033AA6B /* Charts */; };
+		F6D35A52267BE8B50033AA6B /* ChartsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D35A51267BE8B50033AA6B /* ChartsPresenter.swift */; };
+		F6D35A55267BEA5B0033AA6B /* YearChartsPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D35A54267BEA5B0033AA6B /* YearChartsPresenterState.swift */; };
+		F6D35A57267BEF960033AA6B /* MonthChartsPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D35A56267BEF960033AA6B /* MonthChartsPresenterState.swift */; };
+		F6D35A59267BF2F30033AA6B /* DayChartsPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D35A58267BF2F30033AA6B /* DayChartsPresenterState.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F6D35A4D267BB76A0033AA6B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F6180F7C266F9FFE0070E308 /* SearchUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUI.swift; sourceTree = "<group>"; };
@@ -114,6 +137,15 @@
 		F6B79ACA2675E98800B19590 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		F6D30BD72677702E0076CFC3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		F6D30BDA2677D3230076CFC3 /* DataCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheManager.swift; sourceTree = "<group>"; };
+		F6D35A36267BB3C80033AA6B /* DetailsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsUI.swift; sourceTree = "<group>"; };
+		F6D35A3A267BB3D80033AA6B /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		F6D35A3D267BB3F00033AA6B /* DetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
+		F6D35A40267BB3FF0033AA6B /* DetailsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsAssembly.swift; sourceTree = "<group>"; };
+		F6D35A44267BB5060033AA6B /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		F6D35A51267BE8B50033AA6B /* ChartsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsPresenter.swift; sourceTree = "<group>"; };
+		F6D35A54267BEA5B0033AA6B /* YearChartsPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearChartsPresenterState.swift; sourceTree = "<group>"; };
+		F6D35A56267BEF960033AA6B /* MonthChartsPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthChartsPresenterState.swift; sourceTree = "<group>"; };
+		F6D35A58267BF2F30033AA6B /* DayChartsPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayChartsPresenterState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +155,7 @@
 			files = (
 				F6180F71266F9AAC0070E308 /* SnapKit in Frameworks */,
 				F6B79ACF26769C8800B19590 /* SwiftSpinner in Frameworks */,
+				F6D35A50267BB8310033AA6B /* Charts in Frameworks */,
 				F6615D732673C76E005D003D /* CryptoSwift in Frameworks */,
 				F6180F75266F9B310070E308 /* Alamofire in Frameworks */,
 				F6D30BD52677639A0076CFC3 /* SwiftMessages in Frameworks */,
@@ -159,6 +192,7 @@
 				F6615D4726734F36005D003D /* Register */,
 				F6180F7B266F9FC80070E308 /* Search */,
 				F6A5689526789651003A3430 /* Favourites */,
+				F6D35A35267BB3920033AA6B /* Details */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -349,6 +383,38 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		F6D35A35267BB3920033AA6B /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				F6D35A53267BEA350033AA6B /* ChartsPresenterStates */,
+				F6D35A43267BB4FA0033AA6B /* Views */,
+				F6D35A36267BB3C80033AA6B /* DetailsUI.swift */,
+				F6D35A3D267BB3F00033AA6B /* DetailsPresenter.swift */,
+				F6D35A40267BB3FF0033AA6B /* DetailsAssembly.swift */,
+				F6D35A51267BE8B50033AA6B /* ChartsPresenter.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		F6D35A43267BB4FA0033AA6B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F6D35A44267BB5060033AA6B /* ChartView.swift */,
+				F6D35A3A267BB3D80033AA6B /* DetailsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F6D35A53267BEA350033AA6B /* ChartsPresenterStates */ = {
+			isa = PBXGroup;
+			children = (
+				F6D35A54267BEA5B0033AA6B /* YearChartsPresenterState.swift */,
+				F6D35A56267BEF960033AA6B /* MonthChartsPresenterState.swift */,
+				F6D35A58267BF2F30033AA6B /* DayChartsPresenterState.swift */,
+			);
+			path = ChartsPresenterStates;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -359,6 +425,7 @@
 				F68BA1A7266F71520021CEA1 /* Sources */,
 				F68BA1A8266F71520021CEA1 /* Frameworks */,
 				F68BA1A9266F71520021CEA1 /* Resources */,
+				F6D35A4D267BB76A0033AA6B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -372,6 +439,7 @@
 				F6615D722673C76E005D003D /* CryptoSwift */,
 				F6B79ACE26769C8800B19590 /* SwiftSpinner */,
 				F6D30BD42677639A0076CFC3 /* SwiftMessages */,
+				F6D35A4F267BB8310033AA6B /* Charts */,
 			);
 			productName = Stocks;
 			productReference = F68BA1AB266F71520021CEA1 /* Stocks.app */;
@@ -407,6 +475,7 @@
 				F6615D712673C76E005D003D /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 				F6B79ACD26769C8700B19590 /* XCRemoteSwiftPackageReference "SwiftSpinner" */,
 				F6D30BD32677639A0076CFC3 /* XCRemoteSwiftPackageReference "SwiftMessages" */,
+				F6D35A4E267BB8310033AA6B /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = F68BA1AC266F71520021CEA1 /* Products */;
 			projectDirPath = "";
@@ -436,12 +505,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6A81D9D267257EC0045800E /* StorageManager.swift in Sources */,
+				F6D35A41267BB3FF0033AA6B /* DetailsAssembly.swift in Sources */,
 				F6615D4C26734F92005D003D /* RegisterView.swift in Sources */,
 				F6180F98266FAB360070E308 /* StockTableViewCell.swift in Sources */,
+				F6D35A59267BF2F30033AA6B /* DayChartsPresenterState.swift in Sources */,
 				F6A301DF2674D48000358CB7 /* DefaultStockCellPresenterState.swift in Sources */,
 				F6615D4926734F78005D003D /* RegisterUI.swift in Sources */,
 				F6A5689A2678974B003A3430 /* FavouritesView.swift in Sources */,
 				F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */,
+				F6D35A55267BEA5B0033AA6B /* YearChartsPresenterState.swift in Sources */,
 				F6615D6F2673C55D005D003D /* KeychainPasswordItem.swift in Sources */,
 				F6A568A82678A29A003A3430 /* FavouriteStockCellPresenterState.swift in Sources */,
 				F6180F9B266FDF650070E308 /* ConfigurationReader.swift in Sources */,
@@ -457,16 +529,21 @@
 				F6615D5F26738A86005D003D /* AuthPresenter.swift in Sources */,
 				F6615D792673D4A3005D003D /* UserMapper.swift in Sources */,
 				F6180F9E266FE8C20070E308 /* StockCellPresenter.swift in Sources */,
+				F6D35A45267BB5060033AA6B /* ChartView.swift in Sources */,
 				F6180F83266FA0A40070E308 /* SearchPresenter.swift in Sources */,
 				F6D30BDB2677D3230076CFC3 /* DataCacheManager.swift in Sources */,
 				F6180F7D266F9FFE0070E308 /* SearchUI.swift in Sources */,
 				F6615D5926738A67005D003D /* AuthUI.swift in Sources */,
+				F6D35A37267BB3C80033AA6B /* DetailsUI.swift in Sources */,
 				F6A301E32674D52000358CB7 /* RecentStockCellPresenterState.swift in Sources */,
 				F6A5689D26789776003A3430 /* FavouritesPresenter.swift in Sources */,
 				F6615D7C2673DB07005D003D /* StockMapper.swift in Sources */,
 				F61C73B72674FDE700A4A7B6 /* SearchStockCellPresenterState.swift in Sources */,
 				F6A5689726789715003A3430 /* FavouritesUI.swift in Sources */,
+				F6D35A57267BEF960033AA6B /* MonthChartsPresenterState.swift in Sources */,
+				F6D35A52267BE8B50033AA6B /* ChartsPresenter.swift in Sources */,
 				F6615D5C26738A76005D003D /* AuthView.swift in Sources */,
+				F6D35A3B267BB3D80033AA6B /* DetailsView.swift in Sources */,
 				F6180F90266FA4010070E308 /* ModuleNavigationItem.swift in Sources */,
 				F6D30BD82677702E0076CFC3 /* AlertController.swift in Sources */,
 				F6180F86266FA2860070E308 /* SearchAssembly.swift in Sources */,
@@ -480,6 +557,7 @@
 				F68BA1AF266F71520021CEA1 /* AppDelegate.swift in Sources */,
 				F6A513FE2670F3F8000DD886 /* ThreadSafeArray.swift in Sources */,
 				F68BA1B1266F71520021CEA1 /* SceneDelegate.swift in Sources */,
+				F6D35A3E267BB3F00033AA6B /* DetailsPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,6 +801,14 @@
 				minimumVersion = 9.0.2;
 			};
 		};
+		F6D35A4E267BB8310033AA6B /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -755,6 +841,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F6D30BD32677639A0076CFC3 /* XCRemoteSwiftPackageReference "SwiftMessages" */;
 			productName = SwiftMessages;
+		};
+		F6D35A4F267BB8310033AA6B /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6D35A4E267BB8310033AA6B /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
 		};
 /* End XCSwiftPackageProductDependency section */
 

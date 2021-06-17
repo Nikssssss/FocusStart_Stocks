@@ -95,8 +95,10 @@ private extension SearchPresenter {
             return self?.stockCellPresenter.titleForHeader() ?? ""
         })
         self.searchUI?.setDidSelectRowHandler( { [weak self] indexPath in
-            self?.stockCellPresenter.didSelectRow(at: indexPath) { previewStock in
-                print(previewStock?.ticker)
+            guard let self = self else { return }
+            self.stockCellPresenter.didSelectRow(at: indexPath) { previewStock in
+                guard let previewStock = previewStock else { return }
+                self.navigator.previewStockPressed(previewStock: previewStock)
             }
         })
         self.searchUI?.setRefreshDataHandler({ [weak self] in

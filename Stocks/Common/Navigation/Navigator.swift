@@ -19,6 +19,7 @@ protocol INavigator: class {
     func signUpButtonPressedAtAuth()
     func signUpButtonPressedAtRegister()
     func errorOccured(with message: String)
+    func previewStockPressed(previewStock: PreviewStockDto)
 }
 
 final class Navigator: INavigator {
@@ -60,6 +61,11 @@ final class Navigator: INavigator {
     func errorOccured(with message: String) {
         self.alertController?.showErrorAlert(message: message)
     }
+    
+    func previewStockPressed(previewStock: PreviewStockDto) {
+        guard let detailsNavigationItem = DetailsAssembly.makeModule(with: previewStock) else { return }
+        self.moduleNavigator.pushOnTabBar(moduleNavigationItem: detailsNavigationItem)
+    }
 }
 
 private final class ModuleNavigator {
@@ -100,6 +106,11 @@ private final class ModuleNavigator {
     func push(moduleNavigationItem: ModuleNavigationItem) {
         let navigationController = self.getNavigationController(with: moduleNavigationItem.navigationItemTag)
         navigationController.pushViewController(moduleNavigationItem.viewController, animated: true)
+    }
+    
+    func pushOnTabBar(moduleNavigationItem: ModuleNavigationItem) {
+        let navigationController = self.tabBarController.selectedViewController as? UINavigationController
+        navigationController?.pushViewController(moduleNavigationItem.viewController, animated: true)
     }
     
     func pop(navigationItemTag: NavigationItemTag) {

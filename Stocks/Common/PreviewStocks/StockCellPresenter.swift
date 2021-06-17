@@ -152,14 +152,13 @@ final class StockCellPresenter: IStockCellPresenter {
         }
     }
     
-    
     private func setCompanyInfo(to cell: IStockTableCell, ticker: String, companyName: String) {
         cell.setTicker(ticker)
         cell.setCompanyName(companyName)
     }
     
     private func setQuoteInfo(to cell: IStockTableCell, price: Double, delta: Double) {
-        cell.setPrice("$" + String(price))
+        cell.setPrice("$" + String(format: "%.2f", price))
         var stringDelta = String(format: "%.2f", delta)
         if delta > 0 {
             stringDelta.insert("+", at: stringDelta.startIndex)
