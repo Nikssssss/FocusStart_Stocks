@@ -30,7 +30,7 @@ final class RegisterAssembly {
         
         registerUI.setPresenter(presenter)
         
-        let moduleNavigationItem = ModuleNavigationItem(viewController: registerUI, navigationItemTag: .main)
+        let moduleNavigationItem = ModuleNavigationItem(viewController: registerUI)
         return moduleNavigationItem
     }
 }

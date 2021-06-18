@@ -26,7 +26,7 @@ final class AuthAssembly {
         
         authUI.setPresenter(presenter)
         
-        let moduleNavigationItem = ModuleNavigationItem(viewController: authUI, navigationItemTag: .main)
+        let moduleNavigationItem = ModuleNavigationItem(viewController: authUI)
         return moduleNavigationItem
     }
 }

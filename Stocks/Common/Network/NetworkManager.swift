@@ -8,7 +8,12 @@
 import Foundation
 import Alamofire
 
-protocol RestManager: class {
+protocol INetworkManager {
+    var downloadedStocks: [DownloadedStockDto] { get }
+    
+    func removeAllDownloadedStocks()
+    func downloadData(from url: URL, completion: @escaping ((Data?) -> Void))
+    
     func loadAllStocks(with tickers: [String],
                        completion:  @escaping ((Result<[DownloadedStockDto], NetworkError>) -> Void))
     func loadStocksTickers(by searchText: String,
@@ -22,17 +27,6 @@ protocol RestManager: class {
                             completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void))
     func loadDayChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
                           completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void))
-}
-
-protocol WebsocketManager: class {
-    
-}
-
-protocol INetworkManager: WebsocketManager & RestManager {
-    var downloadedStocks: [DownloadedStockDto] { get }
-    
-    func removeAllDownloadedStocks()
-    func downloadData(from url: URL, completion: @escaping ((Data?) -> Void))
 }
 
 final class NetworkManager: INetworkManager {

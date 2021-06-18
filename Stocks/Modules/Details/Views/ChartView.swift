@@ -68,8 +68,10 @@ private extension ChartView {
         dataset.mode = .linear
         dataset.drawCirclesEnabled = false
         dataset.lineWidth = 2
-        dataset.setColor(UIColor(red: 34 / 255.0, green: 128 / 255.0, blue: 59 / 255.0, alpha: 1.0))
-        dataset.fill = ColorFill(color: UIColor(red: 34 / 255.0, green: 128 / 255.0, blue: 59 / 255.0, alpha: 1.0))
+        dataset.setColor(UIColor(red: 34 / 255.0, green: 128 / 255.0,
+                                 blue: 59 / 255.0, alpha: 1.0))
+        dataset.fill = ColorFill(color: UIColor(red: 34 / 255.0, green: 128 / 255.0,
+                                                blue: 59 / 255.0, alpha: 1.0))
         dataset.fillAlpha = 0.2
         dataset.drawFilledEnabled = true
     }

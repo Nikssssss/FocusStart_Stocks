@@ -44,7 +44,8 @@ class StockTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
+        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16,
+                                                                          bottom: 0, right: 16))
         self.contentView.layer.cornerRadius = 10
     }
 }

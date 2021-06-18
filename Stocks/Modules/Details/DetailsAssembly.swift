@@ -25,8 +25,7 @@ final class DetailsAssembly {
                                          chartsPresenter: chartsPresenter)
         detailsUI.setPresenter(presenter)
         
-        let moduleNavigationItem = ModuleNavigationItem(viewController: detailsUI,
-                                                        navigationItemTag: .none)
+        let moduleNavigationItem = ModuleNavigationItem(viewController: detailsUI)
         return moduleNavigationItem
     }
 }

@@ -29,7 +29,7 @@ final class SearchAssembly {
         
         searchUI.setPresenter(presenter)
         
-        let moduleNavigationItem = ModuleNavigationItem(viewController: searchUI, navigationItemTag: .search)
+        let moduleNavigationItem = ModuleNavigationItem(viewController: searchUI)
         return moduleNavigationItem
     }
 }

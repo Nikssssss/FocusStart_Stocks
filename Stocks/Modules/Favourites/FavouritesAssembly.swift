@@ -29,8 +29,7 @@ final class FavouritesAssembly {
         
         favouritesUI.setPresenter(presenter)
         
-        let moduleNavigationItem = ModuleNavigationItem(viewController: favouritesUI,
-                                                        navigationItemTag: .favourites)
+        let moduleNavigationItem = ModuleNavigationItem(viewController: favouritesUI)
         return moduleNavigationItem
     }
 }
