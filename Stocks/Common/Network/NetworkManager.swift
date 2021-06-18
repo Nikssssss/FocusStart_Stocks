@@ -232,7 +232,6 @@ private extension NetworkManager {
                 completion(.failure(.noData)); return
             }
             let tickersDto = lookupDto.result
-            print(tickersDto.count)
             completion(.success(tickersDto))
         }
     }

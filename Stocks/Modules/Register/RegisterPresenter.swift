@@ -97,7 +97,7 @@ private extension RegisterPresenter {
     }
     
     func saveAllDownloadedDefaultStocks(downloadedStocks: [DownloadedStockDto], to user: UserStorageDto) {
-        downloadedStocks.forEach { downloadedStock in
+        for downloadedStock in downloadedStocks {
             let quote = downloadedStock.quote
             let delta = DeltaCounter.countDelta(openPrice: quote.openPrice,
                                                 currentPrice: quote.currentPrice)

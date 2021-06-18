@@ -29,24 +29,7 @@ final class MonthChartsPresenterState: IChartsPresenterState {
         self.networkManager.loadMonthChartData(for: ticker,
                                                from: monthAgoTime,
                                                to: currentDateTime) { [weak self] chartResult in
-            guard let self = self else { return }
-            switch chartResult {
-            case .failure(let error):
-                completion(.failure(error))
-            case .success(let chartDto):
-                guard let chartDto = chartDto,
-                      chartDto.prices.count == chartDto.datestamps.count
-                else { return }
-                var chartEntries = [ChartDataEntry]()
-                var day: Double = 1
-                for index in 0..<chartDto.prices.count {
-                    chartEntries.append(ChartDataEntry(x: day,
-                                                       y: chartDto.prices[index]))
-                    day += 2
-                }
-                let chartDataset = LineChartDataSet(entries: chartEntries)
-                completion(.success(chartDataset))
-            }
+            self?.handleChartResult(chartResult, completion: completion)
         }
     }
     
@@ -68,6 +51,27 @@ final class MonthChartsPresenterState: IChartsPresenterState {
     
     func getRightLabelText() -> String {
         return String(Calendar.current.component(.day, from: Date()))
+    }
+    
+    private func handleChartResult(_ result: Result<ChartDto?, NetworkError>,
+                                   completion: @escaping ((Result<LineChartDataSet, NetworkError>) -> Void)) {
+        switch result {
+        case .failure(let error):
+            completion(.failure(error))
+        case .success(let chartDto):
+            guard let chartDto = chartDto,
+                  chartDto.prices.count == chartDto.datestamps.count
+            else { return }
+            var chartEntries = [ChartDataEntry]()
+            var day: Double = 1
+            for index in 0..<chartDto.prices.count {
+                chartEntries.append(ChartDataEntry(x: day,
+                                                   y: chartDto.prices[index]))
+                day += 2
+            }
+            let chartDataset = LineChartDataSet(entries: chartEntries)
+            completion(.success(chartDataset))
+        }
     }
 }
 

@@ -131,7 +131,7 @@ extension StorageManager: IStockStorage {
         if let existingStock = self.getStockIfExists(ticker: stockDto.ticker) {
             existingStock.isFavourite = false
             if existingStock.isDefault == false
-                && existingStock.isDefault == false {
+                && existingStock.isRecent == false {
                 user.removeFromStocks(existingStock)
             }
         }

@@ -14,9 +14,12 @@ protocol IAlertController: class {
 
 final class AlertController: IAlertController {
     func showErrorAlert(message: String) {
-        let config = self.createErrorConfig()
-        let view = self.createErrorView(message: message)
-        SwiftMessages.show(config: config, view: view)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let config = self.createErrorConfig()
+            let view = self.createErrorView(message: message)
+            SwiftMessages.show(config: config, view: view)
+        }
     }
 }
 

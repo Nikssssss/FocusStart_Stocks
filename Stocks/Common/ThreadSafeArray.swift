@@ -28,7 +28,7 @@ class ThreadSafeArray<T> {
     }
     
     func append(_ item: T) {
-        self.queue.async(flags: .barrier) { [weak self] in
+        self.queue.sync { [weak self] in
             guard let self = self else { return }
             self.array.append(item)
         }

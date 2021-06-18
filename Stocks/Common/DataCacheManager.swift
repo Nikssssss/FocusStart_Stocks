@@ -20,7 +20,7 @@ final class DataFileManager: IDataCacheManager {
         guard let fileUrl = self.makeURL(forFileNamed: key)
         else { return }
         if self.fileManager.fileExists(atPath: fileUrl.path) == false {
-            print(self.fileManager.createFile(atPath: fileUrl.path, contents: data))
+            self.fileManager.createFile(atPath: fileUrl.path, contents: data)
         } else {
             try? "".write(to: fileUrl, atomically: true, encoding: .utf8)
             try? data.write(to: fileUrl)

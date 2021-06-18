@@ -99,6 +99,7 @@ private extension SearchPresenter {
             self.stockCellPresenter.didSelectRow(at: indexPath) { previewStock in
                 guard let previewStock = previewStock else { return }
                 self.navigator.previewStockPressed(previewStock: previewStock)
+                self.stockCellPresenter.stockPressed(stock: previewStock)
             }
         })
         self.searchUI?.setRefreshDataHandler({ [weak self] in

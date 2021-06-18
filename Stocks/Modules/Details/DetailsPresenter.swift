@@ -35,17 +35,7 @@ final class DetailsPresenter: IDetailsPresenter {
     func viewDidLoad() {
         self.detailsUI?.configureUI(with: previewStock.ticker)
         self.hookUI()
-        self.chartsPresenter.loadChartData { [weak self] chartResult in
-            guard let self = self else { return }
-            switch chartResult {
-            case .failure(_):
-                let message = "Не удалось загрузить данные для графика"
-                self.navigator.errorOccured(with: message)
-            case .success(let dataset):
-                self.detailsUI?.setChartDataSet(dataset)
-                self.detailsUI?.reloadChartLabelsText()
-            }
-        }
+        self.handleLoadingChartData()
     }
 }
 
@@ -59,6 +49,35 @@ private extension DetailsPresenter {
         }
         self.detailsUI?.setChartRightLabelHandler { [weak self] in
             return self?.chartsPresenter.getRightLabelText() ?? ""
+        }
+        self.detailsUI?.setDayChartTapHandler { [weak self] in
+            guard let self = self else { return }
+            self.chartsPresenter.changeState(to: .day)
+            self.handleLoadingChartData()
+        }
+        self.detailsUI?.setMonthChartTapHandler { [weak self] in
+            guard let self = self else { return }
+            self.chartsPresenter.changeState(to: .month)
+            self.handleLoadingChartData()
+        }
+        self.detailsUI?.setYearChartTapHandler { [weak self] in
+            guard let self = self else { return }
+            self.chartsPresenter.changeState(to: .year)
+            self.handleLoadingChartData()
+        }
+    }
+    
+    func handleLoadingChartData() {
+        self.chartsPresenter.loadChartData { [weak self] chartResult in
+            guard let self = self else { return }
+            switch chartResult {
+            case .failure(_):
+                let message = "Не удалось загрузить данные для графика"
+                self.navigator.errorOccured(with: message)
+            case .success(let dataset):
+                self.detailsUI?.setChartDataSet(dataset)
+                self.detailsUI?.reloadChartLabelsText()
+            }
         }
     }
 }

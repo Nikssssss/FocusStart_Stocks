@@ -75,4 +75,7 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
             }
         }
     }
+    
+    func stockPressed(stock: PreviewStockDto) {
+    }
 }

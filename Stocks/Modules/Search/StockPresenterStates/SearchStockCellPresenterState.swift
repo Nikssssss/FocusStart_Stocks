@@ -64,6 +64,10 @@ final class SearchStockCellPresenterState: IStockCellPresenterState {
         }
     }
     
+    func stockPressed(stock: PreviewStockDto) {
+        self.storageManager.addRecentSearchedStock(stockDto: stock)
+    }
+    
     private func handleFoundedTickersResult(_ result: Result<[TickerDto], NetworkError>,
                                     completion: @escaping ((Error?) -> Void)) {
         switch result {

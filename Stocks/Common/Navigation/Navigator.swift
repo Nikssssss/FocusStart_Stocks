@@ -139,7 +139,7 @@ private final class ModuleNavigator {
                 self.configureNavigationController(self.searchNavigationController,
                                                    rootViewController: viewController,
                                                    tabTitle: "Поиск",
-                                                   tabImageTitle: "magnifyingglass.circle")
+                                                   tabImageTitle: "magnifyingglass")
             case .favourites:
                 self.configureNavigationController(self.favouritesNavigationController,
                                                    rootViewController: viewController,

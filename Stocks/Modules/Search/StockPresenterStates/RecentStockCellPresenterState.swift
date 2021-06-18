@@ -73,4 +73,7 @@ final class RecentStockCellPresenterState: IStockCellPresenterState {
             }
         }
     }
+    
+    func stockPressed(stock: PreviewStockDto) {
+    }
 }

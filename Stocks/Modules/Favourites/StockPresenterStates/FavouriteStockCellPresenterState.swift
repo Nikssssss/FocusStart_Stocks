@@ -72,4 +72,7 @@ final class FavouriteStockCellPresenterState: IStockCellPresenterState {
             }
         }
     }
+    
+    func stockPressed(stock: PreviewStockDto) {
+    }
 }

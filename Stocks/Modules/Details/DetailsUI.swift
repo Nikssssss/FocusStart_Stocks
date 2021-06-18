@@ -15,6 +15,9 @@ protocol IDetailsUI: class {
     func setChartLeftLabelHandler(_ handler: @escaping (() -> String))
     func setChartMiddleLabelHandler(_ handler: @escaping (() -> String))
     func setChartRightLabelHandler(_ handler: @escaping (() -> String))
+    func setDayChartTapHandler(_ handler: @escaping (() -> Void))
+    func setMonthChartTapHandler(_ handler: @escaping (() -> Void))
+    func setYearChartTapHandler(_ handler: @escaping (() -> Void))
     func reloadChartLabelsText()
 }
 
@@ -63,6 +66,18 @@ extension DetailsUI: IDetailsUI {
     
     func setChartRightLabelHandler(_ handler: @escaping (() -> String)) {
         self.detailsView.setChartRightLabelHandler(handler)
+    }
+    
+    func setDayChartTapHandler(_ handler: @escaping (() -> Void)) {
+        self.detailsView.dayChartTapHandler = handler
+    }
+    
+    func setMonthChartTapHandler(_ handler: @escaping (() -> Void)) {
+        self.detailsView.monthChartTapHandler = handler
+    }
+    
+    func setYearChartTapHandler(_ handler: @escaping (() -> Void)) {
+        self.detailsView.yearChartTapHandler = handler
     }
     
     func reloadChartLabelsText() {
