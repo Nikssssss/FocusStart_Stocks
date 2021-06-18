@@ -58,6 +58,7 @@
 		F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9F2672683E0045800E /* UserStorageDto.swift */; };
 		F6B79ACB2675E98800B19590 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B79ACA2675E98800B19590 /* NetworkError.swift */; };
 		F6B79ACF26769C8800B19590 /* SwiftSpinner in Frameworks */ = {isa = PBXBuildFile; productRef = F6B79ACE26769C8800B19590 /* SwiftSpinner */; };
+		F6C2DA1C267D1EC700CD3309 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C2DA1B267D1EC700CD3309 /* DependencyContainer.swift */; };
 		F6D30BD52677639A0076CFC3 /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = F6D30BD42677639A0076CFC3 /* SwiftMessages */; };
 		F6D30BD82677702E0076CFC3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D30BD72677702E0076CFC3 /* AlertController.swift */; };
 		F6D30BDB2677D3230076CFC3 /* DataCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D30BDA2677D3230076CFC3 /* DataCacheManager.swift */; };
@@ -135,6 +136,7 @@
 		F6A81D9C267257EC0045800E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		F6A81D9F2672683E0045800E /* UserStorageDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorageDto.swift; sourceTree = "<group>"; };
 		F6B79ACA2675E98800B19590 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		F6C2DA1B267D1EC700CD3309 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		F6D30BD72677702E0076CFC3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		F6D30BDA2677D3230076CFC3 /* DataCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCacheManager.swift; sourceTree = "<group>"; };
 		F6D35A36267BB3C80033AA6B /* DetailsUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsUI.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */,
 				F6D30BD72677702E0076CFC3 /* AlertController.swift */,
 				F6D30BDA2677D3230076CFC3 /* DataCacheManager.swift */,
+				F6C2DA1B267D1EC700CD3309 /* DependencyContainer.swift */,
 				F6615D772673D495005D003D /* Mappers */,
 				F6615D6A2673C4EC005D003D /* Security */,
 				F6A81D41267212010045800E /* Use-cases */,
@@ -520,6 +523,7 @@
 				F6A81D9926724D5E0045800E /* Stocks.xcdatamodeld in Sources */,
 				F6615D6C2673C533005D003D /* AuthSecurityService.swift in Sources */,
 				F6615D6526738BDB005D003D /* UserAuthViewModel.swift in Sources */,
+				F6C2DA1C267D1EC700CD3309 /* DependencyContainer.swift in Sources */,
 				F6615D55267383D7005D003D /* UserRegisterViewModel.swift in Sources */,
 				F6180F80266FA0630070E308 /* SearchView.swift in Sources */,
 				F6615D5226734FF4005D003D /* RegisterAssembly.swift in Sources */,

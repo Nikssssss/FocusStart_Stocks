@@ -6,13 +6,11 @@
 //
 
 import Foundation
-import class UIKit.UIApplication
 
 final class DetailsAssembly {
     static func makeModule(with previewStock: PreviewStockDto) -> ModuleNavigationItem? {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        guard let container = appDelegate?.container,
-              let networkManager = container.resolve(INetworkManager.self),
+        let container = DependencyContainer.shared.container
+        guard let networkManager = container.resolve(INetworkManager.self),
               let navigator = container.resolve(INavigator.self)
         else { return nil }
         let detailsUI = DetailsUI()

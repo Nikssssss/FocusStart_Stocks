@@ -92,10 +92,8 @@ private final class ModuleNavigator {
     }
     
     func presentTabs(representingBy moduleNavigationItems: [ModuleNavigationItem]) {
-        self.tabBarController.setViewControllers([
-            self.searchNavigationController,
-            self.favouritesNavigationController
-        ], animated: true)
+        self.tabBarController.setViewControllers([self.searchNavigationController,
+                                                  self.favouritesNavigationController], animated: true)
         self.tabBarController.modalPresentationStyle = .fullScreen
         self.tabBarController.modalTransitionStyle = .crossDissolve
         self.presentOnMain(moduleNavigationItem: ModuleNavigationItem(viewController: self.tabBarController))

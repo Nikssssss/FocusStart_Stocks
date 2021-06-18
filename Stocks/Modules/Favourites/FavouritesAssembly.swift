@@ -6,13 +6,11 @@
 //
 
 import Foundation
-import class UIKit.UIApplication
 
 final class FavouritesAssembly {
     static func makeModule() -> ModuleNavigationItem? {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        guard let container = appDelegate?.container,
-              let storageManager = container.resolve(IStorageManager.self),
+        let container = DependencyContainer.shared.container
+        guard let storageManager = container.resolve(IStorageManager.self),
               let networkManager = container.resolve(INetworkManager.self),
               let navigator = container.resolve(INavigator.self),
               let dataCacheManager = container.resolve(IDataCacheManager.self)
