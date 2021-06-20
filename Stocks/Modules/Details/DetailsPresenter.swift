@@ -41,25 +41,49 @@ final class DetailsPresenter: IDetailsPresenter {
 
 private extension DetailsPresenter {
     func hookUI() {
+        self.hookChartLeftLabelHandler()
+        self.hookChartMiddleLabelHandler()
+        self.hookChartRightLabelHandler()
+        self.hookDayChartTapHandler()
+        self.hookMonthChartTapHandler()
+        self.hookYearChartTapHandler()
+    }
+    
+    func hookChartLeftLabelHandler() {
         self.detailsUI?.setChartLeftLabelHandler { [weak self] in
             return self?.chartsPresenter.getLeftLabelText() ?? ""
         }
+    }
+    
+    func hookChartMiddleLabelHandler() {
         self.detailsUI?.setChartMiddleLabelHandler { [weak self] in
             return self?.chartsPresenter.getMiddleLabelText() ?? ""
         }
+    }
+    
+    func hookChartRightLabelHandler() {
         self.detailsUI?.setChartRightLabelHandler { [weak self] in
             return self?.chartsPresenter.getRightLabelText() ?? ""
         }
+    }
+    
+    func hookDayChartTapHandler() {
         self.detailsUI?.setDayChartTapHandler { [weak self] in
             guard let self = self else { return }
             self.chartsPresenter.changeState(to: .day)
             self.handleLoadingChartData()
         }
+    }
+    
+    func hookMonthChartTapHandler() {
         self.detailsUI?.setMonthChartTapHandler { [weak self] in
             guard let self = self else { return }
             self.chartsPresenter.changeState(to: .month)
             self.handleLoadingChartData()
         }
+    }
+    
+    func hookYearChartTapHandler() {
         self.detailsUI?.setYearChartTapHandler { [weak self] in
             guard let self = self else { return }
             self.chartsPresenter.changeState(to: .year)
@@ -71,9 +95,12 @@ private extension DetailsPresenter {
         self.chartsPresenter.loadChartData { [weak self] chartResult in
             guard let self = self else { return }
             switch chartResult {
-            case .failure(_):
-                let message = "Не удалось загрузить данные для графика"
-                self.navigator.errorOccured(with: message)
+            case .failure(let message):
+                if message == .limitExceeded {
+                    self.navigator.errorOccured(with: AlertMessages.limitExcessMessage)
+                } else {
+                    self.navigator.errorOccured(with: AlertMessages.noChartDataMessage)
+                }
             case .success(let dataset):
                 self.detailsUI?.setChartDataSet(dataset)
                 self.detailsUI?.reloadChartLabelsText()

@@ -78,12 +78,27 @@ final class SearchPresenter: ISearchPresenter {
 
 private extension SearchPresenter {
     func hookUI() {
+        self.hookNumberOfRowsHandler()
+        self.hookHeightForRowHandler()
+        self.hookCellWillAppearHandler()
+        self.hookTitleForHeaderHandler()
+        self.hookDidSelectRowHandler()
+        self.hookRefreshDataHandler()
+    }
+    
+    func hookNumberOfRowsHandler() {
         self.searchUI?.setNumberOfRowsHandler( { [weak self] in
             return self?.stockCellPresenter.getNumberOfRows() ?? 0
         })
+    }
+    
+    func hookHeightForRowHandler() {
         self.searchUI?.setHeightForRowHandler( { [weak self] indexPath in
             return self?.stockCellPresenter.getHeightForRow(at: indexPath) ?? 0
         })
+    }
+    
+    func hookCellWillAppearHandler() {
         self.searchUI?.setCellWillAppearHandler( { [weak self] cell, indexPath in
             self?.stockCellPresenter.cellWillAppear(cell, at: indexPath, favouriteButtonHandler: {
                 DispatchQueue.main.async {
@@ -91,9 +106,15 @@ private extension SearchPresenter {
                 }
             })
         })
+    }
+    
+    func hookTitleForHeaderHandler() {
         self.searchUI?.setTitleForHeaderHandler( { [weak self] in
             return self?.stockCellPresenter.titleForHeader() ?? ""
         })
+    }
+    
+    func hookDidSelectRowHandler() {
         self.searchUI?.setDidSelectRowHandler( { [weak self] indexPath in
             guard let self = self else { return }
             self.stockCellPresenter.didSelectRow(at: indexPath) { previewStock in
@@ -102,14 +123,16 @@ private extension SearchPresenter {
                 self.stockCellPresenter.stockPressed(stock: previewStock)
             }
         })
+    }
+    
+    func hookRefreshDataHandler() {
         self.searchUI?.setRefreshDataHandler({ [weak self] in
             self?.stockCellPresenter.refreshStocks { error in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     self.searchUI?.stopRefreshingAnimation()
                     if let error = error as? NetworkError, error == NetworkError.limitExceeded {
-                        let errorMessage = "Лимит запросов превышен. Пожалуйста, повторите ваше действие через минуту"
-                        self.navigator.errorOccured(with: errorMessage)
+                        self.navigator.errorOccured(with: AlertMessages.limitExcessMessage)
                         return
                     }
                     self.searchUI?.reloadData()
@@ -121,8 +144,7 @@ private extension SearchPresenter {
     func handleStocksLoading(using searchText: String?, animated: Bool) {
         let completion = self.createStocksLoadingCompletionHandler(animated: animated)
         if let searchText = searchText {
-            let loadingMessage = "Идет загрузка данных..."
-            self.searchUI?.showLoadingAnimation(with: loadingMessage)
+            self.searchUI?.showLoadingAnimation(with: AlertMessages.loadingDataMessage)
             self.stockCellPresenter.loadStocks(using: searchText, completion: completion)
         } else {
             self.stockCellPresenter.loadStocks(completion: completion)
@@ -135,8 +157,7 @@ private extension SearchPresenter {
             if let error = error as? NetworkError, error == NetworkError.limitExceeded {
                 DispatchQueue.main.async {
                     self.viewShouldStopLoading(animated: animated)
-                    let errorMessage = "Лимит запросов превышен. Пожалуйста, повторите ваше действие через минуту"
-                    self.navigator.errorOccured(with: errorMessage)
+                    self.navigator.errorOccured(with: AlertMessages.limitExcessMessage)
                 }
                 return
             }

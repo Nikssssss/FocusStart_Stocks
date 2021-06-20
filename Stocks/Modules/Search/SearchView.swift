@@ -12,7 +12,7 @@ class SearchView: UIView {
     private let stocksTableView = PreviewStocksTableView()
     
     func congigureView() {
-        self.backgroundColor = .white
+        self.backgroundColor = SearchConstants.viewBackgroundColor
         self.addSubviews()
         self.configureStocksTableView()
     }

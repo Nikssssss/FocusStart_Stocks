@@ -30,6 +30,9 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
         completion(nil)
     }
     
+    func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void)) {
+    }
+    
     func getStock(at row: Int) -> PreviewStockDto? {
         let retrievedStocks = self.storageManager.retrievedStocks
         guard row >= 0 && row < retrievedStocks.count else { return nil }
@@ -37,7 +40,7 @@ final class DefaultStockCellPresenterState: IStockCellPresenterState {
     }
     
     func titleForHeader() -> String {
-        return "Популярные запросы"
+        return SearchConstants.defaultStateHeaderTitle
     }
     
     func loadLogoImageData(using stock: PreviewStockDto, completion: @escaping ((Data?) -> Void)) {

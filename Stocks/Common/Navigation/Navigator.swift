@@ -81,13 +81,17 @@ private final class ModuleNavigator {
     
     func configureSearchNavigation(using moduleNavigationItem: ModuleNavigationItem) {
         let rootViewController = moduleNavigationItem.viewController
-        self.configureTab(of: rootViewController, tabTitle: "Поиск", tabImageTitle: "magnifyingglass")
+        self.configureTab(of: rootViewController,
+                          tabTitle: TabBarConstants.searchTabTitle,
+                          tabImageTitle: TabBarConstants.searchTabImageTitle)
         self.searchNavigationController.setViewControllers([rootViewController], animated: true)
     }
     
     func configureFavouritesNavigation(using moduleNavigationItem: ModuleNavigationItem) {
         let rootViewController = moduleNavigationItem.viewController
-        self.configureTab(of: rootViewController, tabTitle: "Избранное", tabImageTitle: "star")
+        self.configureTab(of: rootViewController,
+                          tabTitle: TabBarConstants.favouritesTabTitle,
+                          tabImageTitle: TabBarConstants.favouritesTabImageTitle)
         self.favouritesNavigationController.setViewControllers([rootViewController], animated: true)
     }
     

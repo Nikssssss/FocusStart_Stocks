@@ -21,7 +21,7 @@
 		F6180F9B266FDF650070E308 /* ConfigurationReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6180F9A266FDF650070E308 /* ConfigurationReader.swift */; };
 		F6180F9E266FE8C20070E308 /* StockCellPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6180F9D266FE8C20070E308 /* StockCellPresenter.swift */; };
 		F61C73B72674FDE700A4A7B6 /* SearchStockCellPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61C73B62674FDE700A4A7B6 /* SearchStockCellPresenterState.swift */; };
-		F61C73BA2674FF3300A4A7B6 /* TickerDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61C73B92674FF3300A4A7B6 /* TickerDto.swift */; };
+		F61C73BA2674FF3300A4A7B6 /* LookupDto + TickerDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61C73B92674FF3300A4A7B6 /* LookupDto + TickerDto.swift */; };
 		F6615D4926734F78005D003D /* RegisterUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D4826734F78005D003D /* RegisterUI.swift */; };
 		F6615D4C26734F92005D003D /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D4B26734F92005D003D /* RegisterView.swift */; };
 		F6615D4F26734FBA005D003D /* RegisterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6615D4E26734FBA005D003D /* RegisterPresenter.swift */; };
@@ -44,7 +44,6 @@
 		F6A301DF2674D48000358CB7 /* DefaultStockCellPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A301DE2674D48000358CB7 /* DefaultStockCellPresenterState.swift */; };
 		F6A301E32674D52000358CB7 /* RecentStockCellPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A301E22674D52000358CB7 /* RecentStockCellPresenterState.swift */; };
 		F6A513F72670BB0D000DD886 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513F62670BB0D000DD886 /* NetworkManager.swift */; };
-		F6A513FB2670BC13000DD886 /* StockDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513FA2670BC13000DD886 /* StockDto.swift */; };
 		F6A513FE2670F3F8000DD886 /* ThreadSafeArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */; };
 		F6A5689726789715003A3430 /* FavouritesUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A5689626789715003A3430 /* FavouritesUI.swift */; };
 		F6A5689A2678974B003A3430 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A568992678974B003A3430 /* FavouritesView.swift */; };
@@ -56,6 +55,24 @@
 		F6A81D9926724D5E0045800E /* Stocks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9726724D5E0045800E /* Stocks.xcdatamodeld */; };
 		F6A81D9D267257EC0045800E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9C267257EC0045800E /* StorageManager.swift */; };
 		F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A81D9F2672683E0045800E /* UserStorageDto.swift */; };
+		F6B168F3267F31EB00F05AB8 /* CompanyProfileDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B168F2267F31EB00F05AB8 /* CompanyProfileDto.swift */; };
+		F6B168F5267F323B00F05AB8 /* QuoteDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B168F4267F323B00F05AB8 /* QuoteDto.swift */; };
+		F6B168F7267F324C00F05AB8 /* DownloadedStockDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B168F6267F324C00F05AB8 /* DownloadedStockDto.swift */; };
+		F6B168F9267F326500F05AB8 /* PreviewStockDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B168F8267F326500F05AB8 /* PreviewStockDto.swift */; };
+		F6B168FB267F32A100F05AB8 /* RefreshQuoteInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B168FA267F32A100F05AB8 /* RefreshQuoteInfo.swift */; };
+		F6B168FD267F32B300F05AB8 /* ChartDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B168FC267F32B300F05AB8 /* ChartDto.swift */; };
+		F6B168FF267F367300F05AB8 /* IUserStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B168FE267F367300F05AB8 /* IUserStorage.swift */; };
+		F6B16901267F368800F05AB8 /* IStockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B16900267F368700F05AB8 /* IStockStorage.swift */; };
+		F6B16903267F47A000F05AB8 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B16902267F47A000F05AB8 /* NetworkConstants.swift */; };
+		F6B16905267F5EED00F05AB8 /* IStockCellPresenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B16904267F5EED00F05AB8 /* IStockCellPresenterState.swift */; };
+		F6B16908267F65AE00F05AB8 /* PreviewConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B16907267F65AE00F05AB8 /* PreviewConstants.swift */; };
+		F6B1690A267F701700F05AB8 /* TabBarConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B16909267F701700F05AB8 /* TabBarConstants.swift */; };
+		F6B1690C267F71F300F05AB8 /* AuthConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B1690B267F71F300F05AB8 /* AuthConstants.swift */; };
+		F6B1690E267F758B00F05AB8 /* AlertMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B1690D267F758B00F05AB8 /* AlertMessages.swift */; };
+		F6B16910267F795300F05AB8 /* RegisterConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B1690F267F795300F05AB8 /* RegisterConstants.swift */; };
+		F6B16912267FB21200F05AB8 /* SearchConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B16911267FB21200F05AB8 /* SearchConstants.swift */; };
+		F6B16914267FB40000F05AB8 /* FavouritesConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B16913267FB40000F05AB8 /* FavouritesConstants.swift */; };
+		F6B16916267FB50E00F05AB8 /* DetailsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B16915267FB50E00F05AB8 /* DetailsConstants.swift */; };
 		F6B79ACB2675E98800B19590 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B79ACA2675E98800B19590 /* NetworkError.swift */; };
 		F6B79ACF26769C8800B19590 /* SwiftSpinner in Frameworks */ = {isa = PBXBuildFile; productRef = F6B79ACE26769C8800B19590 /* SwiftSpinner */; };
 		F6C2DA1C267D1EC700CD3309 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C2DA1B267D1EC700CD3309 /* DependencyContainer.swift */; };
@@ -99,7 +116,7 @@
 		F6180F9A266FDF650070E308 /* ConfigurationReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationReader.swift; sourceTree = "<group>"; };
 		F6180F9D266FE8C20070E308 /* StockCellPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockCellPresenter.swift; sourceTree = "<group>"; };
 		F61C73B62674FDE700A4A7B6 /* SearchStockCellPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchStockCellPresenterState.swift; sourceTree = "<group>"; };
-		F61C73B92674FF3300A4A7B6 /* TickerDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerDto.swift; sourceTree = "<group>"; };
+		F61C73B92674FF3300A4A7B6 /* LookupDto + TickerDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LookupDto + TickerDto.swift"; sourceTree = "<group>"; };
 		F6615D4826734F78005D003D /* RegisterUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUI.swift; sourceTree = "<group>"; };
 		F6615D4B26734F92005D003D /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		F6615D4E26734FBA005D003D /* RegisterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPresenter.swift; sourceTree = "<group>"; };
@@ -123,7 +140,6 @@
 		F6A301DE2674D48000358CB7 /* DefaultStockCellPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStockCellPresenterState.swift; sourceTree = "<group>"; };
 		F6A301E22674D52000358CB7 /* RecentStockCellPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentStockCellPresenterState.swift; sourceTree = "<group>"; };
 		F6A513F62670BB0D000DD886 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		F6A513FA2670BC13000DD886 /* StockDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDto.swift; sourceTree = "<group>"; };
 		F6A513FD2670F3F8000DD886 /* ThreadSafeArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadSafeArray.swift; sourceTree = "<group>"; };
 		F6A5689626789715003A3430 /* FavouritesUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesUI.swift; sourceTree = "<group>"; };
 		F6A568992678974B003A3430 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
@@ -135,6 +151,24 @@
 		F6A81D9826724D5E0045800E /* Stocks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stocks.xcdatamodel; sourceTree = "<group>"; };
 		F6A81D9C267257EC0045800E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		F6A81D9F2672683E0045800E /* UserStorageDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStorageDto.swift; sourceTree = "<group>"; };
+		F6B168F2267F31EB00F05AB8 /* CompanyProfileDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyProfileDto.swift; sourceTree = "<group>"; };
+		F6B168F4267F323B00F05AB8 /* QuoteDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteDto.swift; sourceTree = "<group>"; };
+		F6B168F6267F324C00F05AB8 /* DownloadedStockDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedStockDto.swift; sourceTree = "<group>"; };
+		F6B168F8267F326500F05AB8 /* PreviewStockDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewStockDto.swift; sourceTree = "<group>"; };
+		F6B168FA267F32A100F05AB8 /* RefreshQuoteInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshQuoteInfo.swift; sourceTree = "<group>"; };
+		F6B168FC267F32B300F05AB8 /* ChartDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDto.swift; sourceTree = "<group>"; };
+		F6B168FE267F367300F05AB8 /* IUserStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IUserStorage.swift; sourceTree = "<group>"; };
+		F6B16900267F368700F05AB8 /* IStockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IStockStorage.swift; sourceTree = "<group>"; };
+		F6B16902267F47A000F05AB8 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
+		F6B16904267F5EED00F05AB8 /* IStockCellPresenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IStockCellPresenterState.swift; sourceTree = "<group>"; };
+		F6B16907267F65AE00F05AB8 /* PreviewConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewConstants.swift; sourceTree = "<group>"; };
+		F6B16909267F701700F05AB8 /* TabBarConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarConstants.swift; sourceTree = "<group>"; };
+		F6B1690B267F71F300F05AB8 /* AuthConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConstants.swift; sourceTree = "<group>"; };
+		F6B1690D267F758B00F05AB8 /* AlertMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessages.swift; sourceTree = "<group>"; };
+		F6B1690F267F795300F05AB8 /* RegisterConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterConstants.swift; sourceTree = "<group>"; };
+		F6B16911267FB21200F05AB8 /* SearchConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConstants.swift; sourceTree = "<group>"; };
+		F6B16913267FB40000F05AB8 /* FavouritesConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesConstants.swift; sourceTree = "<group>"; };
+		F6B16915267FB50E00F05AB8 /* DetailsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsConstants.swift; sourceTree = "<group>"; };
 		F6B79ACA2675E98800B19590 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		F6C2DA1B267D1EC700CD3309 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		F6D30BD72677702E0076CFC3 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
@@ -175,6 +209,7 @@
 				F6D30BD72677702E0076CFC3 /* AlertController.swift */,
 				F6D30BDA2677D3230076CFC3 /* DataCacheManager.swift */,
 				F6C2DA1B267D1EC700CD3309 /* DependencyContainer.swift */,
+				F6B1690D267F758B00F05AB8 /* AlertMessages.swift */,
 				F6615D772673D495005D003D /* Mappers */,
 				F6615D6A2673C4EC005D003D /* Security */,
 				F6A81D41267212010045800E /* Use-cases */,
@@ -217,7 +252,7 @@
 				F6180F7F266FA0630070E308 /* SearchView.swift */,
 				F6180F82266FA0A40070E308 /* SearchPresenter.swift */,
 				F6180F85266FA2860070E308 /* SearchAssembly.swift */,
-				F61C73B92674FF3300A4A7B6 /* TickerDto.swift */,
+				F6B16911267FB21200F05AB8 /* SearchConstants.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -227,6 +262,7 @@
 			children = (
 				F6180F89266FA2B60070E308 /* Navigator.swift */,
 				F6180F8F266FA4010070E308 /* ModuleNavigationItem.swift */,
+				F6B16909267F701700F05AB8 /* TabBarConstants.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -234,9 +270,10 @@
 		F6180F96266FAB160070E308 /* PreviewStocks */ = {
 			isa = PBXGroup;
 			children = (
-				F6180F97266FAB360070E308 /* StockTableViewCell.swift */,
-				F6A568A22678992E003A3430 /* PreviewStocksTableView.swift */,
+				F6B16906267F5F2000F05AB8 /* Views */,
 				F6180F9D266FE8C20070E308 /* StockCellPresenter.swift */,
+				F6B16904267F5EED00F05AB8 /* IStockCellPresenterState.swift */,
+				F6B16907267F65AE00F05AB8 /* PreviewConstants.swift */,
 			);
 			path = PreviewStocks;
 			sourceTree = "<group>";
@@ -249,6 +286,7 @@
 				F6615D4E26734FBA005D003D /* RegisterPresenter.swift */,
 				F6615D5126734FF4005D003D /* RegisterAssembly.swift */,
 				F6615D54267383D7005D003D /* UserRegisterViewModel.swift */,
+				F6B1690F267F795300F05AB8 /* RegisterConstants.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -261,6 +299,7 @@
 				F6615D5E26738A86005D003D /* AuthPresenter.swift */,
 				F6615D6126738AAB005D003D /* AuthAssembly.swift */,
 				F6615D6426738BDB005D003D /* UserAuthViewModel.swift */,
+				F6B1690B267F71F300F05AB8 /* AuthConstants.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -329,6 +368,7 @@
 			children = (
 				F6A513F62670BB0D000DD886 /* NetworkManager.swift */,
 				F6B79ACA2675E98800B19590 /* NetworkError.swift */,
+				F6B16902267F47A000F05AB8 /* NetworkConstants.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -336,8 +376,8 @@
 		F6A513F92670BBFA000DD886 /* Dto */ = {
 			isa = PBXGroup;
 			children = (
-				F6A513FA2670BC13000DD886 /* StockDto.swift */,
-				F6A81D9F2672683E0045800E /* UserStorageDto.swift */,
+				F6B168F1267F31CD00F05AB8 /* UsersDto */,
+				F6B168F0267F31B500F05AB8 /* StocksDto */,
 			);
 			path = Dto;
 			sourceTree = "<group>";
@@ -358,6 +398,7 @@
 				F6A568992678974B003A3430 /* FavouritesView.swift */,
 				F6A5689C26789776003A3430 /* FavouritesPresenter.swift */,
 				F6A5689F26789789003A3430 /* FavouritesAssembly.swift */,
+				F6B16913267FB40000F05AB8 /* FavouritesConstants.swift */,
 			);
 			path = Favourites;
 			sourceTree = "<group>";
@@ -381,9 +422,42 @@
 		F6A81D9B267257AB0045800E /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				F6B168FE267F367300F05AB8 /* IUserStorage.swift */,
+				F6B16900267F368700F05AB8 /* IStockStorage.swift */,
 				F6A81D9C267257EC0045800E /* StorageManager.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		F6B168F0267F31B500F05AB8 /* StocksDto */ = {
+			isa = PBXGroup;
+			children = (
+				F6B168F2267F31EB00F05AB8 /* CompanyProfileDto.swift */,
+				F6B168F4267F323B00F05AB8 /* QuoteDto.swift */,
+				F6B168F6267F324C00F05AB8 /* DownloadedStockDto.swift */,
+				F6B168F8267F326500F05AB8 /* PreviewStockDto.swift */,
+				F6B168FA267F32A100F05AB8 /* RefreshQuoteInfo.swift */,
+				F6B168FC267F32B300F05AB8 /* ChartDto.swift */,
+				F61C73B92674FF3300A4A7B6 /* LookupDto + TickerDto.swift */,
+			);
+			path = StocksDto;
+			sourceTree = "<group>";
+		};
+		F6B168F1267F31CD00F05AB8 /* UsersDto */ = {
+			isa = PBXGroup;
+			children = (
+				F6A81D9F2672683E0045800E /* UserStorageDto.swift */,
+			);
+			path = UsersDto;
+			sourceTree = "<group>";
+		};
+		F6B16906267F5F2000F05AB8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F6180F97266FAB360070E308 /* StockTableViewCell.swift */,
+				F6A568A22678992E003A3430 /* PreviewStocksTableView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F6D35A35267BB3920033AA6B /* Details */ = {
@@ -395,6 +469,7 @@
 				F6D35A3D267BB3F00033AA6B /* DetailsPresenter.swift */,
 				F6D35A40267BB3FF0033AA6B /* DetailsAssembly.swift */,
 				F6D35A51267BE8B50033AA6B /* ChartsPresenter.swift */,
+				F6B16915267FB50E00F05AB8 /* DetailsConstants.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -509,29 +584,37 @@
 			files = (
 				F6A81D9D267257EC0045800E /* StorageManager.swift in Sources */,
 				F6D35A41267BB3FF0033AA6B /* DetailsAssembly.swift in Sources */,
+				F6B168FD267F32B300F05AB8 /* ChartDto.swift in Sources */,
 				F6615D4C26734F92005D003D /* RegisterView.swift in Sources */,
+				F6B16916267FB50E00F05AB8 /* DetailsConstants.swift in Sources */,
 				F6180F98266FAB360070E308 /* StockTableViewCell.swift in Sources */,
 				F6D35A59267BF2F30033AA6B /* DayChartsPresenterState.swift in Sources */,
 				F6A301DF2674D48000358CB7 /* DefaultStockCellPresenterState.swift in Sources */,
 				F6615D4926734F78005D003D /* RegisterUI.swift in Sources */,
 				F6A5689A2678974B003A3430 /* FavouritesView.swift in Sources */,
 				F6A81DA02672683E0045800E /* UserStorageDto.swift in Sources */,
+				F6B168F3267F31EB00F05AB8 /* CompanyProfileDto.swift in Sources */,
 				F6D35A55267BEA5B0033AA6B /* YearChartsPresenterState.swift in Sources */,
 				F6615D6F2673C55D005D003D /* KeychainPasswordItem.swift in Sources */,
 				F6A568A82678A29A003A3430 /* FavouriteStockCellPresenterState.swift in Sources */,
+				F6B16903267F47A000F05AB8 /* NetworkConstants.swift in Sources */,
 				F6180F9B266FDF650070E308 /* ConfigurationReader.swift in Sources */,
 				F6A81D9926724D5E0045800E /* Stocks.xcdatamodeld in Sources */,
 				F6615D6C2673C533005D003D /* AuthSecurityService.swift in Sources */,
 				F6615D6526738BDB005D003D /* UserAuthViewModel.swift in Sources */,
+				F6B168F9267F326500F05AB8 /* PreviewStockDto.swift in Sources */,
 				F6C2DA1C267D1EC700CD3309 /* DependencyContainer.swift in Sources */,
 				F6615D55267383D7005D003D /* UserRegisterViewModel.swift in Sources */,
 				F6180F80266FA0630070E308 /* SearchView.swift in Sources */,
 				F6615D5226734FF4005D003D /* RegisterAssembly.swift in Sources */,
+				F6B168FB267F32A100F05AB8 /* RefreshQuoteInfo.swift in Sources */,
 				F6A513F72670BB0D000DD886 /* NetworkManager.swift in Sources */,
-				F6A513FB2670BC13000DD886 /* StockDto.swift in Sources */,
+				F6B168FF267F367300F05AB8 /* IUserStorage.swift in Sources */,
+				F6B16910267F795300F05AB8 /* RegisterConstants.swift in Sources */,
 				F6B79ACB2675E98800B19590 /* NetworkError.swift in Sources */,
 				F6615D5F26738A86005D003D /* AuthPresenter.swift in Sources */,
 				F6615D792673D4A3005D003D /* UserMapper.swift in Sources */,
+				F6B1690C267F71F300F05AB8 /* AuthConstants.swift in Sources */,
 				F6180F9E266FE8C20070E308 /* StockCellPresenter.swift in Sources */,
 				F6D35A45267BB5060033AA6B /* ChartView.swift in Sources */,
 				F6180F83266FA0A40070E308 /* SearchPresenter.swift in Sources */,
@@ -544,24 +627,33 @@
 				F6615D7C2673DB07005D003D /* StockMapper.swift in Sources */,
 				F61C73B72674FDE700A4A7B6 /* SearchStockCellPresenterState.swift in Sources */,
 				F6A5689726789715003A3430 /* FavouritesUI.swift in Sources */,
+				F6B16914267FB40000F05AB8 /* FavouritesConstants.swift in Sources */,
 				F6D35A57267BEF960033AA6B /* MonthChartsPresenterState.swift in Sources */,
 				F6D35A52267BE8B50033AA6B /* ChartsPresenter.swift in Sources */,
 				F6615D5C26738A76005D003D /* AuthView.swift in Sources */,
 				F6D35A3B267BB3D80033AA6B /* DetailsView.swift in Sources */,
+				F6B168F5267F323B00F05AB8 /* QuoteDto.swift in Sources */,
+				F6B168F7267F324C00F05AB8 /* DownloadedStockDto.swift in Sources */,
 				F6180F90266FA4010070E308 /* ModuleNavigationItem.swift in Sources */,
 				F6D30BD82677702E0076CFC3 /* AlertController.swift in Sources */,
 				F6180F86266FA2860070E308 /* SearchAssembly.swift in Sources */,
+				F6B16912267FB21200F05AB8 /* SearchConstants.swift in Sources */,
 				F6A81D43267212310045800E /* DeltaCounter.swift in Sources */,
+				F6B16908267F65AE00F05AB8 /* PreviewConstants.swift in Sources */,
 				F6A568A32678992E003A3430 /* PreviewStocksTableView.swift in Sources */,
+				F6B16901267F368800F05AB8 /* IStockStorage.swift in Sources */,
+				F6B1690A267F701700F05AB8 /* TabBarConstants.swift in Sources */,
 				F6A568A026789789003A3430 /* FavouritesAssembly.swift in Sources */,
 				F6615D6226738AAB005D003D /* AuthAssembly.swift in Sources */,
 				F6615D4F26734FBA005D003D /* RegisterPresenter.swift in Sources */,
-				F61C73BA2674FF3300A4A7B6 /* TickerDto.swift in Sources */,
+				F61C73BA2674FF3300A4A7B6 /* LookupDto + TickerDto.swift in Sources */,
 				F6180F8A266FA2B60070E308 /* Navigator.swift in Sources */,
 				F68BA1AF266F71520021CEA1 /* AppDelegate.swift in Sources */,
 				F6A513FE2670F3F8000DD886 /* ThreadSafeArray.swift in Sources */,
+				F6B1690E267F758B00F05AB8 /* AlertMessages.swift in Sources */,
 				F68BA1B1266F71520021CEA1 /* SceneDelegate.swift in Sources */,
 				F6D35A3E267BB3F00033AA6B /* DetailsPresenter.swift in Sources */,
+				F6B16905267F5EED00F05AB8 /* IStockCellPresenterState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

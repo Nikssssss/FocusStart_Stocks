@@ -37,7 +37,7 @@ final class YearChartsPresenterState: IChartsPresenterState {
         guard let yearAgoDate = Calendar.current.date(byAdding: .year,
                                                 value: -1,
                                                 to: Date())
-        else { return "" }
+        else { return String() }
         return String(Calendar.current.component(.month, from: yearAgoDate))
     }
     
@@ -45,7 +45,7 @@ final class YearChartsPresenterState: IChartsPresenterState {
         guard let yearAgoDate = Calendar.current.date(byAdding: .month,
                                                 value: -6,
                                                 to: Date())
-        else { return "" }
+        else { return String() }
         return String(Calendar.current.component(.month, from: yearAgoDate))
     }
     
@@ -67,7 +67,7 @@ final class YearChartsPresenterState: IChartsPresenterState {
             for index in 0..<chartDto.prices.count {
                 chartEntries.append(ChartDataEntry(x: week,
                                                    y: chartDto.prices[index]))
-                week += 2
+                week += DetailsConstants.yearChartWeekInterval
             }
             let chartDataset = LineChartDataSet(entries: chartEntries)
             completion(.success(chartDataset))

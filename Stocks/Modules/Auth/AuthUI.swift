@@ -74,6 +74,6 @@ private extension AuthUI {
         navigationAppearance.backgroundColor = .white
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationAppearance
         self.navigationController?.navigationBar.backgroundColor = .white
-        self.navigationItem.title = "Добро пожаловать!"
+        self.navigationItem.title = AuthConstants.navigationBarTitle
     }
 }
