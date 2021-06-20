@@ -52,6 +52,9 @@ final class FavouriteStockCellPresenterState: IStockCellPresenterState {
         completion(nil)
     }
     
+    func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void)) {
+    }
+    
     func refreshStocks(completion: @escaping ((Error?) -> Void)) {
         let tickers = self.storageManager.retrievedStocks.map({ $0.ticker })
         self.networkManager.loadQuotes(for: tickers) { quoteInfosResult in

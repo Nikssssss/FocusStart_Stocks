@@ -11,26 +11,6 @@ import CoreData
 protocol IStorageManager: IUserStorage & IStockStorage {
 }
 
-protocol IUserStorage: class {
-    func loadUser(user: UserStorageDto) -> Bool
-    func addUser(user: UserStorageDto) -> Bool
-}
-
-protocol IStockStorage: class {
-    var retrievedStocks: [PreviewStockDto] { get }
-    
-    func loadDefaultStocks()
-    func loadRecentSearchedStocks()
-    func loadFavouriteStocks()
-    func addDefaultStock(stockDto: PreviewStockDto, to user: UserStorageDto)
-    func addRecentSearchedStock(stockDto: PreviewStockDto)
-    func addFavouriteStock(stockDto: PreviewStockDto)
-    func removeStockFromFavourites(stockDto: PreviewStockDto)
-    func isFavouriteStock(stockDto: PreviewStockDto) -> Bool
-    func updateStockQuote(of ticker: String, price: Double, delta: Double)
-    func checkIfStockFavourite(ticker: String) -> Bool
-}
-
 final class StorageManager: IStorageManager {
     private let persistentContainer: NSPersistentContainer
     private let mainContext: NSManagedObjectContext
@@ -41,11 +21,7 @@ final class StorageManager: IStorageManager {
     
     init() {
         self.persistentContainer = NSPersistentContainer(name: "Stocks")
-        self.persistentContainer.loadPersistentStores { description, error in
-            if let error = error {
-                fatalError("\(description.description) \(error.localizedDescription)")
-            }
-        }
+        self.persistentContainer.loadPersistentStores { _, _ in }
         self.mainContext = self.persistentContainer.viewContext
         self.backgroundContext = self.persistentContainer.newBackgroundContext()
     }

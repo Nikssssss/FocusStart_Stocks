@@ -104,6 +104,6 @@ private extension FavouritesUI {
         navigationAppearance.backgroundColor = .white
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationAppearance
         self.navigationController?.navigationBar.backgroundColor = .white
-        self.navigationItem.title = "Избранное"
+        self.navigationItem.title = FavouritesConstants.navigationBarTitle
     }
 }

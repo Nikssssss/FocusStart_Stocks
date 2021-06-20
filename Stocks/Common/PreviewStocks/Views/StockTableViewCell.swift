@@ -22,7 +22,7 @@ protocol IStockTableCell: class {
 }
 
 class StockTableViewCell: UITableViewCell {
-    static let identifier = "StockTableViewCell"
+    static let identifier = PreviewConstants.cellIdentifier
     
     var favouriteButtonTapHandler: (() -> Void)?
     
@@ -39,13 +39,13 @@ class StockTableViewCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
-        self.contentView.layer.cornerRadius = 10
+        self.contentView.frame = contentView.frame.inset(by: PreviewConstants.cellInsets)
+        self.contentView.layer.cornerRadius = PreviewConstants.cellCornerRadius
     }
 }
 
@@ -111,7 +111,7 @@ private extension StockTableViewCell {
             make.centerY.equalToSuperview()
             make.height.width.equalTo(50)
         }
-        self.logoImageView.layer.cornerRadius = 10
+        self.logoImageView.layer.cornerRadius = PreviewConstants.cellLogoImageCornerRadius
         self.logoImageView.clipsToBounds = true
     }
     
@@ -121,8 +121,8 @@ private extension StockTableViewCell {
             make.top.equalToSuperview().offset(10)
             make.left.equalTo(self.logoImageView.snp.right).offset(10)
         }
-        self.tickerLabel.font = .systemFont(ofSize: 16, weight: .bold)
-        self.tickerLabel.textColor = .black
+        self.tickerLabel.font = PreviewConstants.cellTickerFont
+        self.tickerLabel.textColor = PreviewConstants.cellTickerTextColor
     }
     
     func configureCompanyNameLabel() {
@@ -132,8 +132,8 @@ private extension StockTableViewCell {
             make.left.equalTo(self.logoImageView.snp.right).offset(10)
             make.right.equalTo(self.deltaLabel.snp.left).offset(-5)
         }
-        self.companyNameLabel.font = .systemFont(ofSize: 13, weight: .semibold)
-        self.companyNameLabel.textColor = .black
+        self.companyNameLabel.font = PreviewConstants.cellCompanyFont
+        self.companyNameLabel.textColor = PreviewConstants.cellCompanyTextColor
     }
     
     func configurePriceLabel() {
@@ -142,8 +142,8 @@ private extension StockTableViewCell {
             make.top.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-15)
         }
-        self.priceLabel.font = .systemFont(ofSize: 16, weight: .bold)
-        self.priceLabel.textColor = .black
+        self.priceLabel.font = PreviewConstants.cellPriceFont
+        self.priceLabel.textColor = PreviewConstants.cellPriceTextColor
     }
     
     func configureDeltaLabel() {
@@ -153,7 +153,7 @@ private extension StockTableViewCell {
             make.right.equalToSuperview().offset(-15)
             make.width.equalTo(50)
         }
-        self.deltaLabel.font = .systemFont(ofSize: 13, weight: .semibold)
+        self.deltaLabel.font = PreviewConstants.cellDeltaFont
         self.deltaLabel.textAlignment = .right
     }
     

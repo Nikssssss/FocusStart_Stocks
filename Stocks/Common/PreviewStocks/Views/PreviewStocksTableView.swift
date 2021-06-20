@@ -20,7 +20,7 @@ class PreviewStocksTableView: UITableView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     func configureView() {
@@ -30,7 +30,7 @@ class PreviewStocksTableView: UITableView {
         self.dataSource = self
         self.tableFooterView = UIView()
         self.separatorStyle = .none
-        self.backgroundColor = .white
+        self.backgroundColor = PreviewConstants.tableBackgroundColor
         self.addRefreshControl()
     }
 }
@@ -60,13 +60,13 @@ extension PreviewStocksTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let headerView = view as? UITableViewHeaderFooterView else { return }
-        headerView.tintColor = .white
-        headerView.backgroundConfiguration?.backgroundColor = .white
-        headerView.textLabel?.font = .systemFont(ofSize: 13, weight: .bold)
+        headerView.tintColor = PreviewConstants.tableHeaderColor
+        headerView.backgroundConfiguration?.backgroundColor = PreviewConstants.tableHeaderColor
+        headerView.textLabel?.font = PreviewConstants.tableHeaderFont
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return PreviewConstants.tableHeaderHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

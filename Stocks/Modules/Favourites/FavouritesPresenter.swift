@@ -41,20 +41,41 @@ final class FavouritesPresenter: IFavouritesPresenter {
 
 private extension FavouritesPresenter {
     func hookUI() {
+        self.hookNumberOfRowsHandler()
+        self.hookHeightForRowHandler()
+        self.hookCellWillAppearHandler()
+        self.hookTitleForHeaderHandler()
+        self.hookDidSelectRowHandler()
+        self.hookRefreshDataHandler()
+    }
+    
+    func hookNumberOfRowsHandler() {
         self.favouritesUI?.setNumberOfRowsHandler( { [weak self] in
             return self?.stockCellPresenter.getNumberOfRows() ?? 0
         })
+    }
+    
+    func hookHeightForRowHandler() {
         self.favouritesUI?.setHeightForRowHandler( { [weak self] indexPath in
             return self?.stockCellPresenter.getHeightForRow(at: indexPath) ?? 0
         })
+    }
+    
+    func hookCellWillAppearHandler() {
         self.favouritesUI?.setCellWillAppearHandler( { [weak self] cell, indexPath in
             self?.stockCellPresenter.cellWillAppear(cell, at: indexPath, favouriteButtonHandler: {
                 self?.handleStocksLoading()
             })
         })
+    }
+    
+    func hookTitleForHeaderHandler() {
         self.favouritesUI?.setTitleForHeaderHandler( { [weak self] in
             return self?.stockCellPresenter.titleForHeader() ?? ""
         })
+    }
+    
+    func hookDidSelectRowHandler() {
         self.favouritesUI?.setDidSelectRowHandler( { [weak self] indexPath in
             guard let self = self else { return }
             self.stockCellPresenter.didSelectRow(at: indexPath) { previewStock in
@@ -62,14 +83,16 @@ private extension FavouritesPresenter {
                 self.navigator.previewStockPressed(previewStock: previewStock)
             }
         })
+    }
+    
+    func hookRefreshDataHandler() {
         self.favouritesUI?.setRefreshDataHandler({ [weak self] in
             self?.stockCellPresenter.refreshStocks { error in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     self.favouritesUI?.stopRefreshingAnimation()
                     if let error = error as? NetworkError, error == NetworkError.limitExceeded {
-                        let errorMessage = "Лимит запросов превышен. Пожалуйста, повторите ваше действие через минуту"
-                        self.navigator.errorOccured(with: errorMessage)
+                        self.navigator.errorOccured(with: AlertMessages.limitExcessMessage)
                         return
                     }
                     self.favouritesUI?.reloadData()

@@ -6,13 +6,11 @@
 //
 
 import Foundation
-import class UIKit.UIApplication
 
 final class AuthAssembly {
     static func makeModule() -> ModuleNavigationItem? {
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        guard let container = appDelegate?.container,
-              let storageManager = container.resolve(IStorageManager.self),
+        let container = DependencyContainer.shared.container
+        guard let storageManager = container.resolve(IStorageManager.self),
               let navigator = container.resolve(INavigator.self),
               let authSecurityService = container.resolve(IAuthSecurityService.self)
         else { return nil }
@@ -26,7 +24,7 @@ final class AuthAssembly {
         
         authUI.setPresenter(presenter)
         
-        let moduleNavigationItem = ModuleNavigationItem(viewController: authUI, navigationItemTag: .main)
+        let moduleNavigationItem = ModuleNavigationItem(viewController: authUI)
         return moduleNavigationItem
     }
 }

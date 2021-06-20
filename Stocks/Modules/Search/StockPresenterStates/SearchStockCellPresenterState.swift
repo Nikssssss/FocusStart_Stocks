@@ -21,7 +21,7 @@ final class SearchStockCellPresenterState: IStockCellPresenterState {
     }
     
     func titleForHeader() -> String {
-        return "Результаты поиска"
+        return SearchConstants.searchStateHeaderTitle
     }
     
     func getStock(at row: Int) -> PreviewStockDto? {
@@ -45,6 +45,9 @@ final class SearchStockCellPresenterState: IStockCellPresenterState {
         self.networkManager.loadStocksTickers(by: searchText) { tickersResult in
             self.handleFoundedTickersResult(tickersResult, completion: completion)
         }
+    }
+    
+    func loadStocks(completion: @escaping ((Error?) -> Void)) {
     }
     
     func loadLogoImageData(using stock: PreviewStockDto, completion: @escaping ((Data?) -> Void)) {

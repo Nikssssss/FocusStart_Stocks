@@ -12,7 +12,7 @@ class FavouritesView: UIView {
     private let stocksTableView = PreviewStocksTableView()
     
     func congigureView() {
-        self.backgroundColor = .white
+        self.backgroundColor = FavouritesConstants.viewBackgroundColor
         self.addSubviews()
         self.configureStocksTableView()
     }

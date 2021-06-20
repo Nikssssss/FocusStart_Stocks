@@ -17,7 +17,7 @@ class DetailsView: UIView {
     private let chartView = ChartView()
     
     func configureView() {
-        self.backgroundColor = .white
+        self.backgroundColor = DetailsConstants.viewBackgroundColor
         self.addSubviews()
         self.configureChartSegmentedControl()
         self.configureChartView()
@@ -61,9 +61,9 @@ private extension DetailsView {
                                                      at: 1, animated: true)
         self.chartTypeSegmentedControl.insertSegment(action: UIAction(handler: self.yearChartTapped(_:)),
                                                      at: 2, animated: true)
-        self.chartTypeSegmentedControl.setTitle("День (ч.)", forSegmentAt: 0)
-        self.chartTypeSegmentedControl.setTitle("Месяц (д.)", forSegmentAt: 1)
-        self.chartTypeSegmentedControl.setTitle("Год (м.)", forSegmentAt: 2)
+        self.chartTypeSegmentedControl.setTitle(DetailsConstants.chartDaySegmentTitle, forSegmentAt: 0)
+        self.chartTypeSegmentedControl.setTitle(DetailsConstants.chartMonthSegmentTitle, forSegmentAt: 1)
+        self.chartTypeSegmentedControl.setTitle(DetailsConstants.chartYearSegmentTitle, forSegmentAt: 2)
         self.chartTypeSegmentedControl.selectedSegmentIndex = 0
     }
     

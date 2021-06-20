@@ -8,13 +8,8 @@
 import Foundation
 import UIKit
 
-enum NavigationItemTag {
-    case main, search, favourites
-}
-
 protocol INavigator: class {
-    func start()
-    func getMainNavigationItem() -> ModuleNavigationItem
+    func launch() -> ModuleNavigationItem?
     func signInButtonPressed()
     func signUpButtonPressedAtAuth()
     func signUpButtonPressedAtRegister()
@@ -30,32 +25,28 @@ final class Navigator: INavigator {
         self.alertController = alertController
     }
     
-    func start() {
-        guard let authNavigationItem = AuthAssembly.makeModule() else { return }
-        self.moduleNavigator.start(with: authNavigationItem)
-    }
-    
-    func getMainNavigationItem() -> ModuleNavigationItem {
-        return self.moduleNavigator.getMainController()
+    func launch() -> ModuleNavigationItem? {
+        guard let authNavigationItem = AuthAssembly.makeModule() else { return nil }
+        return self.moduleNavigator.launch(with: authNavigationItem)
     }
     
     func signInButtonPressed() {
         guard let searchNavigationItem = SearchAssembly.makeModule(),
               let favouritesNavigationItem = FavouritesAssembly.makeModule()
         else { return }
-        self.moduleNavigator.presentTabBarController(with: [
-            searchNavigationItem,
-            favouritesNavigationItem
-        ])
+        self.moduleNavigator.configureSearchNavigation(using: searchNavigationItem)
+        self.moduleNavigator.configureFavouritesNavigation(using: favouritesNavigationItem)
+        self.moduleNavigator.presentTabs(representingBy: [searchNavigationItem,
+                                                          favouritesNavigationItem])
     }
     
     func signUpButtonPressedAtAuth() {
         guard let registerNavigationItem = RegisterAssembly.makeModule() else { return }
-        self.moduleNavigator.push(moduleNavigationItem: registerNavigationItem)
+        self.moduleNavigator.pushToMain(moduleNavigationItem: registerNavigationItem)
     }
     
     func signUpButtonPressedAtRegister() {
-        self.moduleNavigator.pop(navigationItemTag: .main)
+        self.moduleNavigator.popFromMain()
     }
     
     func errorOccured(with message: String) {
@@ -64,7 +55,7 @@ final class Navigator: INavigator {
     
     func previewStockPressed(previewStock: PreviewStockDto) {
         guard let detailsNavigationItem = DetailsAssembly.makeModule(with: previewStock) else { return }
-        self.moduleNavigator.pushOnTabBar(moduleNavigationItem: detailsNavigationItem)
+        self.moduleNavigator.pushToTabBar(moduleNavigationItem: detailsNavigationItem)
     }
 }
 
@@ -81,97 +72,60 @@ private final class ModuleNavigator {
         self.favouritesNavigationController = UINavigationController()
     }
     
-    func start(with moduleNavigationItem: ModuleNavigationItem) {
+    func launch(with moduleNavigationItem: ModuleNavigationItem) -> ModuleNavigationItem {
         let startViewController = moduleNavigationItem.viewController
         self.mainNavigationController.setViewControllers([startViewController], animated: true)
-    }
-    
-    func getMainController() -> ModuleNavigationItem {
-        let navigationItem = ModuleNavigationItem(viewController: self.mainNavigationController,
-                                                  navigationItemTag: .main)
+        let navigationItem = ModuleNavigationItem(viewController: self.mainNavigationController)
         return navigationItem
     }
     
-    func presentTabBarController(with moduleNavigationItems: [ModuleNavigationItem]) {
-        self.configureNavigationControllers(using: moduleNavigationItems)
-        self.tabBarController.setViewControllers([
-            self.searchNavigationController,
-            self.favouritesNavigationController
-        ], animated: true)
+    func configureSearchNavigation(using moduleNavigationItem: ModuleNavigationItem) {
+        let rootViewController = moduleNavigationItem.viewController
+        self.configureTab(of: rootViewController,
+                          tabTitle: TabBarConstants.searchTabTitle,
+                          tabImageTitle: TabBarConstants.searchTabImageTitle)
+        self.searchNavigationController.setViewControllers([rootViewController], animated: true)
+    }
+    
+    func configureFavouritesNavigation(using moduleNavigationItem: ModuleNavigationItem) {
+        let rootViewController = moduleNavigationItem.viewController
+        self.configureTab(of: rootViewController,
+                          tabTitle: TabBarConstants.favouritesTabTitle,
+                          tabImageTitle: TabBarConstants.favouritesTabImageTitle)
+        self.favouritesNavigationController.setViewControllers([rootViewController], animated: true)
+    }
+    
+    func presentTabs(representingBy moduleNavigationItems: [ModuleNavigationItem]) {
+        self.tabBarController.setViewControllers([self.searchNavigationController,
+                                                  self.favouritesNavigationController], animated: true)
         self.tabBarController.modalPresentationStyle = .fullScreen
         self.tabBarController.modalTransitionStyle = .crossDissolve
-        self.mainNavigationController.present(self.tabBarController, animated: true)
+        self.presentOnMain(moduleNavigationItem: ModuleNavigationItem(viewController: self.tabBarController))
     }
     
-    func push(moduleNavigationItem: ModuleNavigationItem) {
-        let navigationController = self.getNavigationController(with: moduleNavigationItem.navigationItemTag)
-        navigationController.pushViewController(moduleNavigationItem.viewController, animated: true)
+    func pushToMain(moduleNavigationItem: ModuleNavigationItem) {
+        self.mainNavigationController.pushViewController(moduleNavigationItem.viewController, animated: true)
     }
     
-    func pushOnTabBar(moduleNavigationItem: ModuleNavigationItem) {
+    func pushToTabBar(moduleNavigationItem: ModuleNavigationItem) {
         let navigationController = self.tabBarController.selectedViewController as? UINavigationController
         navigationController?.pushViewController(moduleNavigationItem.viewController, animated: true)
     }
     
-    func pop(navigationItemTag: NavigationItemTag) {
-        let navigationController = self.getNavigationController(with: navigationItemTag)
-        navigationController.popViewController(animated: true)
+    func popFromMain() {
+        self.mainNavigationController.popViewController(animated: true)
     }
     
-    func dismiss(navigationItemTag: NavigationItemTag) {
-        let navigationController = self.getNavigationController(with: navigationItemTag)
-        navigationController.dismiss(animated: true)
-    }
-    
-    func present(moduleNavigationItem: ModuleNavigationItem) {
-        let navigationController = self.getNavigationController(with: moduleNavigationItem.navigationItemTag)
+    func presentOnMain(moduleNavigationItem: ModuleNavigationItem) {
         let viewController = moduleNavigationItem.viewController
-        let presentedNavigationController = UINavigationController(rootViewController: viewController)
-        navigationController.present(presentedNavigationController, animated: true)
+        self.mainNavigationController.present(viewController, animated: true)
     }
     
-    private func configureNavigationControllers(using moduleNavigationItems: [ModuleNavigationItem]) {
-        moduleNavigationItems.forEach { moduleNavigationItem in
-            let viewController = moduleNavigationItem.viewController
-            guard let tag = moduleNavigationItem.navigationItemTag else { return }
-            switch tag {
-            case .search:
-                self.configureNavigationController(self.searchNavigationController,
-                                                   rootViewController: viewController,
-                                                   tabTitle: "Поиск",
-                                                   tabImageTitle: "magnifyingglass")
-            case .favourites:
-                self.configureNavigationController(self.favouritesNavigationController,
-                                                   rootViewController: viewController,
-                                                   tabTitle: "Избранное",
-                                                   tabImageTitle: "star")
-            default:
-                break
-            }
-        }
-    }
-    
-    private func configureNavigationController(_ navigationController: UINavigationController,
-                                       rootViewController: UIViewController,
-                                       tabTitle: String,
-                                       tabImageTitle: String) {
-        navigationController.setViewControllers([rootViewController], animated: true)
-        rootViewController.tabBarItem.title = tabTitle
-        rootViewController.tabBarItem.image = UIImage(systemName: tabImageTitle)
-    }
-    
-    private func getNavigationController(with tag: NavigationItemTag?) -> UINavigationController {
-        guard let tag = tag else {
-            return UINavigationController()
-        }
-        switch tag {
-        case .search:
-            return self.searchNavigationController
-        case .main:
-            return self.mainNavigationController
-        default:
-            return UINavigationController()
-        }
+    private func configureTab(of viewController: UIViewController,
+                              tabTitle: String,
+                              tabImageTitle: String) {
+        viewController.tabBarItem.title = tabTitle
+        viewController.tabBarItem.image = UIImage(systemName: tabImageTitle)
     }
 }
 

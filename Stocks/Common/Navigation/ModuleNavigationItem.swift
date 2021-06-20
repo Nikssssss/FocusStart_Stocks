@@ -10,5 +10,4 @@ import class UIKit.UIViewController
 
 struct ModuleNavigationItem {
     let viewController: UIViewController
-    let navigationItemTag: NavigationItemTag?
 }

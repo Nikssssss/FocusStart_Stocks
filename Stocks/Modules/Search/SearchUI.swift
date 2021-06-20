@@ -135,13 +135,13 @@ private extension SearchUI {
         navigationAppearance.backgroundColor = .white
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationAppearance
         self.navigationController?.navigationBar.backgroundColor = .white
-        self.navigationItem.title = "Поиск"
+        self.navigationItem.title = SearchConstants.navigationBarTitle
         self.configureSearchController()
     }
     
     func configureSearchController() {
         let searchController = UISearchController()
-        searchController.searchBar.placeholder = "Введите тикер или название компании"
+        searchController.searchBar.placeholder = SearchConstants.searchBarPlaceholder
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.searchBar.autocapitalizationType = .none

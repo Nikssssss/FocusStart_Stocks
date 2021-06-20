@@ -28,8 +28,11 @@ final class RecentStockCellPresenterState: IStockCellPresenterState {
         completion(nil)
     }
     
+    func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void)) {
+    }
+    
     func titleForHeader() -> String {
-        return "Недавние поиски"
+        return SearchConstants.recentStateHeaderTitle
     }
     
     func getStock(at row: Int) -> PreviewStockDto? {

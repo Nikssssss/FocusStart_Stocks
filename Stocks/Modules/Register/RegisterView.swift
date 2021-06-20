@@ -17,7 +17,7 @@ class RegisterView: UIView {
     private let signUpButton = UIButton()
     
     func configureView() {
-        self.backgroundColor = .white
+        self.backgroundColor = RegisterConstants.viewBackgroundColor
         self.addSubviews()
         self.configureCredentialsStackView()
         self.configureTextFields()
@@ -39,16 +39,19 @@ private extension RegisterView {
         }
         self.credentialsStackView.distribution = .fillEqually
         self.credentialsStackView.axis = .vertical
-        self.credentialsStackView.spacing = 20
+        self.credentialsStackView.spacing = RegisterConstants.textFieldsSpacing
     }
     
     func configureTextFields() {
         self.configureTextField(self.loginTextField,
-                                placeholder: "Логин", iconName: "person.fill")
+                                placeholder: RegisterConstants.loginPlaceholder,
+                                iconName: RegisterConstants.loginIconName)
         self.configureTextField(self.passwordTextField,
-                                placeholder: "Пароль", iconName: "lock.fill")
+                                placeholder: RegisterConstants.passwordPlaceholder,
+                                iconName: RegisterConstants.passwordIconName)
         self.configureTextField(self.confirmPasswordTextField,
-                                placeholder: "Подтвердите пароль", iconName: "lock.fill")
+                                placeholder: RegisterConstants.confirmPasswordPlaceholder,
+                                iconName: RegisterConstants.passwordIconName)
     }
     
     func configureTextField(_ textField: UITextField, placeholder: String, iconName: String) {
@@ -56,11 +59,8 @@ private extension RegisterView {
             make.height.equalTo(50)
         }
         textField.placeholder = placeholder
-        textField.backgroundColor = UIColor(red: 240.0 / 255,
-                                            green: 240.0 / 255,
-                                            blue: 240.0 / 255,
-                                            alpha: 1.0)
-        textField.layer.cornerRadius = 10
+        textField.backgroundColor = RegisterConstants.textFieldBackgroundColor
+        textField.layer.cornerRadius = RegisterConstants.textFieldCornerRadius
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         self.configureTextFieldIconView(textField, iconName: iconName)
@@ -68,10 +68,10 @@ private extension RegisterView {
     }
     
     func configureTextFieldIconView(_ textField: UITextField, iconName: String) {
-        let iconImageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 23, height: 20))
+        let iconImageView = UIImageView(frame: RegisterConstants.iconImageFrame)
         let iconImage = UIImage(systemName: iconName)
         iconImageView.image = iconImage?.withRenderingMode(.alwaysOriginal).withTintColor(.lightGray)
-        let iconContainerView = UIView(frame: CGRect(x: 20, y: 0, width: 33, height: 30))
+        let iconContainerView = UIView(frame: RegisterConstants.iconImageContainerFrame)
         iconContainerView.addSubview(iconImageView)
         textField.leftView = iconContainerView
         textField.leftViewMode = .always
@@ -84,11 +84,11 @@ private extension RegisterView {
             make.height.equalTo(50)
             make.width.equalTo(200)
         }
-        self.signUpButton.setTitle("Зарегистрироваться", for: .normal)
-        self.signUpButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-        self.signUpButton.setTitleColor(.white, for: .normal)
-        self.signUpButton.layer.cornerRadius = 10
-        self.signUpButton.backgroundColor = .black
+        self.signUpButton.setTitle(RegisterConstants.signUpButtonTitle, for: .normal)
+        self.signUpButton.titleLabel?.font = RegisterConstants.signUpButtonFont
+        self.signUpButton.setTitleColor(RegisterConstants.signUpButtonTextColor, for: .normal)
+        self.signUpButton.layer.cornerRadius = RegisterConstants.signUpButtonCornerRadius
+        self.signUpButton.backgroundColor = RegisterConstants.signUpButtonBackgroundColor
         self.signUpButton.addTarget(self,
                                     action: #selector(self.signUpButtonPressed),
                                     for: .touchUpInside)

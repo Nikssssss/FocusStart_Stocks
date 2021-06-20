@@ -8,7 +8,12 @@
 import Foundation
 import Alamofire
 
-protocol RestManager: class {
+protocol INetworkManager {
+    var downloadedStocks: [DownloadedStockDto] { get }
+    
+    func removeAllDownloadedStocks()
+    func downloadData(from url: URL, completion: @escaping ((Data?) -> Void))
+    
     func loadAllStocks(with tickers: [String],
                        completion:  @escaping ((Result<[DownloadedStockDto], NetworkError>) -> Void))
     func loadStocksTickers(by searchText: String,
@@ -24,17 +29,6 @@ protocol RestManager: class {
                           completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void))
 }
 
-protocol WebsocketManager: class {
-    
-}
-
-protocol INetworkManager: WebsocketManager & RestManager {
-    var downloadedStocks: [DownloadedStockDto] { get }
-    
-    func removeAllDownloadedStocks()
-    func downloadData(from url: URL, completion: @escaping ((Data?) -> Void))
-}
-
 final class NetworkManager: INetworkManager {
     var downloadedStocks: [DownloadedStockDto] {
         return stockInfos.toArray
@@ -44,7 +38,8 @@ final class NetworkManager: INetworkManager {
     
     func loadAllStocks(with tickers: [String],
                        completion: @escaping ((Result<[DownloadedStockDto], NetworkError>) -> Void)) {
-        let limitedSize = 15
+        //divided by 2 because each stock request consists of requests for both company profile and quote
+        let limitedSize = NetworkConstants.requestPerSecondLimit / 2
         let limitedTickers = tickers.prefix(limitedSize)
         DispatchQueue.global(qos: .userInitiated).async {
             self.loadAllStocksDto(with: limitedTickers) { error in
@@ -59,8 +54,7 @@ final class NetworkManager: INetworkManager {
     
     func loadStocksTickers(by searchText: String,
                            completion: @escaping ((Result<[TickerDto], NetworkError>) -> Void)) {
-        let urlString = String(format: "https://finnhub.io/api/v1/search?q=%@&token=c0qeg5f48v6tskkorckg",
-                               searchText)
+        let urlString = String(format: NetworkConstants.tickersUriWithSearchTextParam, searchText)
         guard let lookupUrl = URL(string: urlString) else {
             completion(.failure(.invalidUrl)); return
         }
@@ -118,32 +112,32 @@ final class NetworkManager: INetworkManager {
         AF.request(url).responseData { dataResponse in
             guard let data = dataResponse.data else { completion(nil); return }
             completion(data)
-        }
+        }.cacheResponse(using: ResponseCacher.cache)
     }
     
     func loadYearChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
                        completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void)) {
-        let endpoint = "https://finnhub.io/api/v1/stock/candle"
-        let parameters = "?symbol=\(ticker)&resolution=W&from=\(beginTime)&to=\(endTime)&token=c0qeg5f48v6tskkorckg"
-        let urlString = endpoint + parameters
+        let parameters = String(format: NetworkConstants.yearChartTickerAndBeginTimeAndEndTimeParams,
+                                ticker, beginTime, endTime)
+        let urlString = NetworkConstants.chartDataUrl + parameters
         guard let url = URL(string: urlString) else { completion(.failure(.invalidUrl)); return }
         self.loadChartData(url: url, completion: completion)
     }
     
     func loadMonthChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
                             completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void)) {
-        let endpoint = "https://finnhub.io/api/v1/stock/candle"
-        let parameters = "?symbol=\(ticker)&resolution=D&from=\(beginTime)&to=\(endTime)&token=c0qeg5f48v6tskkorckg"
-        let urlString = endpoint + parameters
+        let parameters = String(format: NetworkConstants.monthChartTickerAndBeginTimeAndEndTimeParams,
+                                ticker, beginTime, endTime)
+        let urlString = NetworkConstants.chartDataUrl + parameters
         guard let url = URL(string: urlString) else { completion(.failure(.invalidUrl)); return }
         self.loadChartData(url: url, completion: completion)
     }
     
     func loadDayChartData(for ticker: String, from beginTime: Int64, to endTime: Int64,
                           completion: @escaping ((Result<ChartDto?, NetworkError>) -> Void)) {
-        let endpoint = "https://finnhub.io/api/v1/stock/candle"
-        let parameters = "?symbol=\(ticker)&resolution=60&from=\(beginTime)&to=\(endTime)&token=c0qeg5f48v6tskkorckg"
-        let urlString = endpoint + parameters
+        let parameters = String(format: NetworkConstants.dayChartTickerAndBeginTimeAndEndTimeParams,
+                                ticker, beginTime, endTime)
+        let urlString = NetworkConstants.chartDataUrl + parameters
         guard let url = URL(string: urlString) else { completion(.failure(.invalidUrl)); return }
         self.loadChartData(url: url, completion: completion)
     }
@@ -179,8 +173,7 @@ private extension NetworkManager {
     
     func loadCompanyProfileInfo(for ticker: String,
                                 completion: @escaping ((Result<CompanyProfileDto, NetworkError>) -> Void)) {
-        let urlString = String(format: "https://finnhub.io/api/v1/stock/profile2?symbol=%@&token=c0qeg5f48v6tskkorckg",
-                               ticker)
+        let urlString = String(format: NetworkConstants.companyProfileUriWithTickerParam, ticker)
         guard let companyProfileUrl = URL(string: urlString) else {
             completion(.failure(.invalidUrl)); return
         }
@@ -189,8 +182,7 @@ private extension NetworkManager {
     
     func loadQuote(for ticker: String,
                    completion: @escaping ((Result<QuoteDto, NetworkError>) -> Void)) {
-        let urlString = String(format: "https://finnhub.io/api/v1/quote?symbol=%@&token=c0qeg5f48v6tskkorckg",
-                               ticker)
+        let urlString = String(format: NetworkConstants.quoteUriWithTickerParam, ticker)
         guard let quoteUrl = URL(string: urlString) else {
             completion(.failure(.invalidUrl)); return
         }
@@ -214,7 +206,7 @@ private extension NetworkManager {
     
     func limitExceeded(in response: AFDataResponse<Any>) -> Bool {
         if let statusCode = response.response?.statusCode,
-           statusCode == 429 {
+           statusCode == NetworkConstants.limitExcessHttpCode {
            return true
         }
         return false
@@ -233,12 +225,12 @@ private extension NetworkManager {
             }
             let tickersDto = lookupDto.result
             completion(.success(tickersDto))
-        }
+        }.cacheResponse(using: ResponseCacher.cache)
     }
     
     func handleCompanyProfileRequest(requestUrl: URL,
                                      completion: @escaping ((Result<CompanyProfileDto, NetworkError>) -> Void)) {
-        let request = self.createRequest(with: requestUrl, timeout: 5)
+        let request = self.createRequest(with: requestUrl, timeout: NetworkConstants.requestTimeout)
         request.responseJSON { dataResponse in
             guard self.limitExceeded(in: dataResponse) == false else {
                 completion(.failure(.limitExceeded)); return
@@ -249,14 +241,12 @@ private extension NetworkManager {
                 completion(.failure(.noData)); return
             }
             completion(.success(companyProfileDto))
-        }
+        }.cacheResponse(using: ResponseCacher.cache)
     }
     
     func handleQuoteRequest(requestUrl: URL,
                             completion: @escaping ((Result<QuoteDto, NetworkError>) -> Void)) {
-        let request = AF.request(requestUrl) { urlRequest in
-            urlRequest.timeoutInterval = 5
-        }
+        let request = self.createRequest(with: requestUrl, timeout: NetworkConstants.requestTimeout)
         request.responseJSON { dataResponse in
             guard self.limitExceeded(in: dataResponse) == false else {
                 completion(.failure(.limitExceeded)); return
@@ -267,7 +257,7 @@ private extension NetworkManager {
                 completion(.failure(.noData)); return
             }
             completion(.success(quoteDto))
-        }
+        }.cacheResponse(using: ResponseCacher.cache)
     }
     
     func createRequest(with url: URL, timeout: Double) -> DataRequest {
@@ -313,6 +303,6 @@ private extension NetworkManager {
             else { completion(.failure(.noData)); return }
             
             completion(.success(chartDto))
-        }
+        }.cacheResponse(using: ResponseCacher.cache)
     }
 }

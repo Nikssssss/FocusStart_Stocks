@@ -29,27 +29,6 @@ protocol IStockCellPresenter: class {
     func changeState(to state: StockCellPresenterState)
 }
 
-protocol IStockCellPresenterState: class {
-    func getNumberOfRows() -> Int
-    func loadStocks(completion: @escaping ((Error?) -> Void))
-    func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void))
-    func titleForHeader() -> String
-    func getStock(at row: Int) -> PreviewStockDto?
-    func loadLogoImageData(using stock: PreviewStockDto, completion: @escaping ((Data?) -> Void))
-    func refreshStocks(completion: @escaping ((Error?) -> Void))
-    func stockPressed(stock: PreviewStockDto)
-}
-
-extension IStockCellPresenterState {
-    func loadStocks(completion: @escaping ((Error?) -> Void)) {
-        completion(nil)
-    }
-    
-    func loadStocks(using searchText: String, completion: @escaping ((Error?) -> Void)) {
-        completion(nil)
-    }
-}
-
 final class StockCellPresenter: IStockCellPresenter {
     private var stockCellPresenterState: IStockCellPresenterState
     private let storageManager: IStorageManager
@@ -72,7 +51,7 @@ final class StockCellPresenter: IStockCellPresenter {
     }
     
     func getHeightForRow(at indexPath: IndexPath) -> CGFloat {
-        return 70
+        return PreviewConstants.cellHeight
     }
     
     func cellWillAppear(_ cell: IStockTableCell, at indexPath: IndexPath,
@@ -164,34 +143,34 @@ final class StockCellPresenter: IStockCellPresenter {
     }
     
     private func setQuoteInfo(to cell: IStockTableCell, price: Double, delta: Double) {
-        cell.setPrice("$" + String(format: "%.2f", price))
+        cell.setPrice(PreviewConstants.dollarCurrency + String(format: "%.2f", price))
         var stringDelta = String(format: "%.2f", delta)
         if delta > 0 {
-            stringDelta.insert("+", at: stringDelta.startIndex)
+            stringDelta.insert(contentsOf: PreviewConstants.positiveChange,
+                               at: stringDelta.startIndex)
         }
         cell.setDelta(stringDelta)
-        let greenDeltaColor = UIColor(red: 35 / 255.0, green: 175 / 255.0, blue: 86 / 255.0, alpha: 1.0)
-        let deltaColor = delta >= 0 ? greenDeltaColor : UIColor.red
+        let positiveDeltaColor = PreviewConstants.cellDeltaPositiveColor
+        let negativeDeltaColor = PreviewConstants.cellNegativeDeltaColor
+        let deltaColor = delta >= 0 ? positiveDeltaColor : negativeDeltaColor
         cell.setDeltaColor(deltaColor)
     }
     
     private func setFavouriteImage(to cell: IStockTableCell, isFavourite: Bool) {
-        let imageName = "star.fill"
+        let imageName = PreviewConstants.cellFavouriteImageName
         guard let image = UIImage(systemName: imageName) else { return }
-        let yellowColor = UIColor(red: 255 / 255.0, green: 202 / 255.0, blue: 28 / 255.0, alpha: 1.0)
-        let imageColor = isFavourite ? yellowColor : UIColor.lightGray
+        let isFavouriteColor = PreviewConstants.cellIsFavouriteColor
+        let isNotFavouriteColor = PreviewConstants.cellIsNotFavouriteColor
+        let imageColor = isFavourite ? isFavouriteColor : isNotFavouriteColor
         let coloredImage = image.withTintColor(imageColor, renderingMode: .alwaysOriginal)
         cell.setFavouriteButtonImage(coloredImage)
     }
     
     private func setBackgroundColor(to cell: IStockTableCell, at indexPath: IndexPath) {
         if indexPath.row % 2 == 0 {
-            cell.setBackgroundColor(UIColor(red: 240.0 / 255,
-                                            green: 240.0 / 255,
-                                            blue: 240.0 / 255,
-                                            alpha: 1.0))
+            cell.setBackgroundColor(PreviewConstants.cellEvenBackgroundColor)
         } else {
-            cell.setBackgroundColor(.white)
+            cell.setBackgroundColor(PreviewConstants.cellOddBackgroundColor)
         }
     }
     

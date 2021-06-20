@@ -37,7 +37,7 @@ final class DayChartsPresenterState: IChartsPresenterState {
         guard let dayAgoDate = Calendar.current.date(byAdding: .hour,
                                                        value: -24,
                                                        to: Date())
-        else { return "" }
+        else { return String() }
         return String(Calendar.current.component(.hour, from: dayAgoDate))
     }
     
@@ -45,7 +45,7 @@ final class DayChartsPresenterState: IChartsPresenterState {
         guard let halfDayAgoDate = Calendar.current.date(byAdding: .hour,
                                                        value: -12,
                                                        to: Date())
-        else { return "" }
+        else { return String() }
         return String(Calendar.current.component(.hour, from: halfDayAgoDate))
     }
     
@@ -63,11 +63,11 @@ final class DayChartsPresenterState: IChartsPresenterState {
                   chartDto.prices.count == chartDto.datestamps.count
             else { return }
             var chartEntries = [ChartDataEntry]()
-            var day: Double = 1
+            var hour: Double = 1
             for index in 0..<chartDto.prices.count {
-                chartEntries.append(ChartDataEntry(x: day,
+                chartEntries.append(ChartDataEntry(x: hour,
                                                    y: chartDto.prices[index]))
-                day += 2
+                hour += DetailsConstants.dayChartHourInterval
             }
             let chartDataset = LineChartDataSet(entries: chartEntries)
             completion(.success(chartDataset))

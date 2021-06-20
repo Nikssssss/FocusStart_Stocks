@@ -63,10 +63,10 @@ private extension RegisterUI {
         navigationAppearance.backgroundColor = .white
         self.navigationController?.navigationBar.scrollEdgeAppearance = navigationAppearance
         self.navigationController?.navigationBar.backgroundColor = .white
-        self.navigationItem.title = "Создать аккаунт"
+        self.navigationItem.title = RegisterConstants.navigationBarTitle
         self.navigationController?.navigationBar.tintColor = .black
         let backBarButton = UIBarButtonItem()
-        backBarButton.title = "Авторизация"
+        backBarButton.title = RegisterConstants.navigationBackButtonTitle
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backBarButton
     }
 }

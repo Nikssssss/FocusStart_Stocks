@@ -32,7 +32,7 @@ class ChartView: LineChartView {
         data.setDrawValues(false)
         self.data = data
         
-        self.animate(xAxisDuration: 1)
+        self.animate(xAxisDuration: DetailsConstants.animationDuration)
     }
     
     func reloadXLabels() {
@@ -49,28 +49,28 @@ private extension ChartView {
     
     func configureYAxis() {
         let yAxis = self.leftAxis
-        yAxis.labelFont = .boldSystemFont(ofSize: 12)
-        yAxis.labelTextColor = .gray
-        yAxis.axisLineColor = .white
+        yAxis.labelFont = DetailsConstants.chartYAxisFont
+        yAxis.labelTextColor = DetailsConstants.chartYAxisLabelColor
+        yAxis.axisLineColor = DetailsConstants.chartXAxisLineColor
         yAxis.drawLimitLinesBehindDataEnabled = false
         yAxis.removeAllLimitLines()
     }
     
     func configureCommonSettings() {
-        self.backgroundColor = .white
+        self.backgroundColor = DetailsConstants.chartViewBackgroundColor
         self.legend.enabled = false
         self.rightAxis.enabled = false
         self.isUserInteractionEnabled = false
-        self.noDataText = ""
+        self.noDataText = String()
     }
     
     func configureDataset(_ dataset: LineChartDataSet) {
         dataset.mode = .linear
         dataset.drawCirclesEnabled = false
-        dataset.lineWidth = 2
-        dataset.setColor(UIColor(red: 34 / 255.0, green: 128 / 255.0, blue: 59 / 255.0, alpha: 1.0))
-        dataset.fill = ColorFill(color: UIColor(red: 34 / 255.0, green: 128 / 255.0, blue: 59 / 255.0, alpha: 1.0))
-        dataset.fillAlpha = 0.2
+        dataset.lineWidth = DetailsConstants.chartLineWidth
+        dataset.setColor(DetailsConstants.chartLineColor)
+        dataset.fill = ColorFill(color: DetailsConstants.chartFillColor)
+        dataset.fillAlpha = DetailsConstants.chartFillAlpha
         dataset.drawFilledEnabled = true
     }
     
@@ -101,7 +101,7 @@ private extension ChartView {
     }
     
     func configureLabel(_ label: UILabel) {
-        label.font = .systemFont(ofSize: 12, weight: .regular)
-        label.textColor = .darkGray
+        label.font = DetailsConstants.chartXLabelFont
+        label.textColor = DetailsConstants.chartXLabelTextColor
     }
 }
